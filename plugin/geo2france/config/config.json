@@ -111,13 +111,24 @@
           "type": "folder",
           "children": [
             {
+              "title": "Vue aérienne des Hauts-de-France de 2017-2018",
+              "description": "Orthophotographie des Hauts-de-France de 2018 (résolution de 0,20 m)",
+              "type": "wms_layer",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+                "name": "ortho_regionale_2018_rvb",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+            {
               "title": "Vue aérienne de la Picardie 2008-2009",
               "description": "Orthophotographie aérienne composite de la Picardie de 2008-2009 (résolution de 0,25 m)",
               "type": "wms_layer",
               "params": {
                 "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
                 "name": "picardie_ortho_composite_2008_2009_vis",
-                "format": "image/jpeg",
+                "format": "image/png",
                 "srs": "epsg:2154"
               }
             },
@@ -129,7 +140,7 @@
               "params": {
                 "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
                 "name": "aisne_ortho_2009_vis",
-                "format": "image/jpeg",
+                "format": "image/png",
                 "srs": "epsg:2154"
               }
             },
@@ -153,7 +164,7 @@
               "params": {
                 "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
                 "name": "oise_ortho_2008_vis",
-                "format": "image/jpeg",
+                "format": "image/png",
                 "srs": "epsg:2154"
               }
             },
@@ -165,7 +176,7 @@
               "params": {
                 "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
                 "name": "somme_ortho_2008_vis",
-                "format": "image/jpeg",
+                "format": "image/png",
                 "srs": "epsg:2154"
               }
             }
@@ -184,7 +195,7 @@
               "params": {
                 "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
                 "name": "aisne_ortho_2009_ir",
-                "format": "image/jpeg",
+                "format": "image/png",
                 "srs": "epsg:2154"
               }
             }      
