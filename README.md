@@ -55,8 +55,8 @@ un point d'exclamation.
 Notes
 -----
 
-Version 0.0.1 :
-* plugin vide
+Version 0.9.0 :
+* portage pour QGIS 3
 
 
 Auteurs

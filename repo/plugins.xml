@@ -1,15 +1,15 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <?xml-stylesheet type="text/xsl" href="plugins.xsl" ?>
 <plugins>
-  <pyqgis_plugin name="geo2france" version="0.0.1">
+  <pyqgis_plugin name="geo2france" version="0.9.0">
     <description><![CDATA[Plugin pour QGIS 3 fournissant un accès simple aux données de Géo2France et d'autres ressources géographiques utiles en région Hauts-de-France.]]></description>
-    <version>0.0.1</version>
+    <version>0.9.0</version>
     <qgis_minimum_version>3.0.0</qgis_minimum_version>
     <qgis_maximum_version>3.99.0</qgis_maximum_version>
     <homepage>https://www.geo2france.fr</homepage>
-    <file_name>geo2france.0.0.1.zip</file_name>
+    <file_name>geo2france.0.9.0.zip</file_name>
     <author_name>Benjamin Chartier (Neogeo Technologies)</author_name>
-    <download_url>https://www.geo2france.fr/public/qgis3/plugins/geo2france/geo2france.0.0.1.zip</download_url>
+    <download_url>https://www.geo2france.fr/public/qgis3/plugins/geo2france/geo2france.0.9.0.zip</download_url>
     <uploaded_by>Benjamin chartier</uploaded_by>
     <create_date>2014-10-20</create_date>
     <update_date>2020-01-04</update_date>
