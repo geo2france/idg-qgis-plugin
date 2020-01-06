@@ -113,6 +113,7 @@
             {
               "title": "Vue aérienne des Hauts-de-France de 2017-2018",
               "description": "Orthophotographie des Hauts-de-France de 2018 (résolution de 0,20 m)",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/b78820de-0104-4369-b4c5-7ff715b1a34e",
               "type": "wms_layer",
               "params": {
                 "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
