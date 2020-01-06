@@ -68,7 +68,7 @@ div.download, div.author, div.branch{
 </head>
 <body>
 <img src="geo2france.png" width="20%"/>
-<h2>Plugins pour QGIS 2</h2>
+<h2>Plugins pour QGIS 3</h2>
 <table>
 <tr>
 
