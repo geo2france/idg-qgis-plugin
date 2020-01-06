@@ -7,5 +7,5 @@ qgisMaximumVersion=3.99
 author=Neogeo Technologies
 email=contact@neogeo.fr
 icon=images/geo2france.png
-experimental=True
+experimental=False
 deprecated=False
