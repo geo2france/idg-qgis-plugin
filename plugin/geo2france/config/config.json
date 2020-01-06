@@ -631,6 +631,7 @@
               "title": "Réserves biologiques - ONF",
               "description": "Réserves biologiques - ONF",
               "type": "wfs_feature_type",
+              "status": "warn",
               "params": {
                 "url": "http://data.geo-ide.application.developpement-durable.gouv.fr/cartes/mapserv?map=/apps/inet/DATA/geoide/ressources/REG031B/Publication/www.nature_paysages.map",
                 "version": "2.0.0",
@@ -921,7 +922,6 @@
               "title": "Vitesse du vent à 40 m en Picardie (2002)",
               "description": "Modélisation de la vitesse du vent à 40 m au-dessus du sol en Picardie",
               "type": "wms_layer",
-              "status": "warn",
               "params": {
                 "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
                 "name": "vent40m",
