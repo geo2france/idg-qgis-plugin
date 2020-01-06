@@ -1,20 +1,16 @@
 ﻿# -*- coding: utf-8 -*-
 
 from qgis.PyQt.QtWidgets import QAction, QMenu
-# TODO
-# from builtins import object
-# from qgis.PyQt.QtGui import QIcon
-# from qgis.core import QgsApplication
+from qgis.PyQt.QtCore import Qt
 
 import os.path
 
 from geo2france.utils.plugin_globals import PluginGlobals
-# TODO
-# from geo2france.gui.dock import DockWidget
+from geo2france.gui.dock import DockWidget
 from geo2france.gui.about_box import AboutBox
 from geo2france.gui.param_box import ParamBox
-from geo2france.nodes.treenodefactory import TreeNodeFactory
-from geo2france.nodes.treenodefactory import download_tree_config_file
+from geo2france.nodes.tree_node_factory import TreeNodeFactory
+from geo2france.nodes.tree_node_factory import download_tree_config_file
 
 
 class SimpleAccessPlugin:
@@ -41,7 +37,6 @@ class SimpleAccessPlugin:
         # Read the resources tree file and update the GUI
         self.ressources_tree = TreeNodeFactory(PluginGlobals.instance().config_file_path).root_node
 
-# TODO
     def need_download_tree_config_file(self):
         """
         Do we need to download a new version of the resources tree file?
@@ -63,17 +58,15 @@ class SimpleAccessPlugin:
         # Create a menu
         self.createPluginMenu()
 
-# TODO
         # Create a dockable panel with a tree of resources
-        # self.dock = GpicDockWidget()
-        # self.dock.setTreeContents(self.ressources_tree)
-        # self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock)
+        self.dock = DockWidget()
+        self.dock.set_tree_content(self.ressources_tree)
+        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock)
 
     def createPluginMenu(self):
         """
         Creates the plugin main menu
         """
-
         plugin_menu = self.iface.pluginMenu()
         self.plugin_menu = QMenu(u"Géo2France", plugin_menu)
         plugin_menu.addMenu(self.plugin_menu)
@@ -101,7 +94,6 @@ class SimpleAccessPlugin:
         """
         Shows the About box
         """
-
         dialog = AboutBox(self.iface.mainWindow())
         dialog.exec_()
 
@@ -117,44 +109,3 @@ class SimpleAccessPlugin:
         Removes the plugin menu
         """
         self.iface.pluginMenu().removeAction(self.plugin_menu.menuAction())
-
-# TODO
-    # def showTasDialog(self):
-    #     """
-    #     Affiche la boîte de dialogue de création des tableaux d'assemblage
-    #     :return:       None
-    #     """
-    #     if self.tas_dialog is None:
-    #         self.tas_dialog = tas_dlg.TasDlg(self.iface)
-    #
-    #     self.tas_dialog.setVisible(not self.tas_dialog.isVisible())
-    #
-    #     # if self.main_dialog.isVisible():
-    #     #     self.layer_manager.reset_layers()
-    #
-    # def showTacGeoPdfF5Dialog(self):
-    #     """
-    #     Affiche la boîte de dialogue de création des tableaux de coupures GeoPdf F5
-    #     :return:       None
-    #     """
-    #     if self.tac_geopdf_f5_dialog is None:
-    #         self.tac_geopdf_f5_dialog = tcp_geopdf_f5_dlg.TcpGeoPdfF5Dlg(self.iface)
-    #
-    #     self.tac_geopdf_f5_dialog.setVisible(not self.tac_geopdf_f5_dialog.isVisible())
-    #
-    #     # if self.main_dialog.isVisible():
-    #     #     self.layer_manager.reset_layers()
-    #
-    # def openTasDialogTriggered(self):
-    #     """
-    #     Evènement activé quand l'utilisateur clique sur la barre d'outil ou sur le menu
-    #     :return:       None
-    #     """
-    #     self.showTasDialog()
-    #
-    # def openTacDialogTriggered(self):
-    #     """
-    #     Evènement activé quand l'utilisateur clique sur la barre d'outil ou sur le menu
-    #     :return:       None
-    #     """
-    #     self.showTacGeoPdfF5Dialog()

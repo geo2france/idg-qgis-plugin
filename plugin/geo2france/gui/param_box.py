@@ -7,8 +7,8 @@ from qgis.core import *
 from qgis.gui import *
 
 from geo2france.utils.plugin_globals import PluginGlobals
-from geo2france.nodes.treenodefactory import TreeNodeFactory
-from geo2france.nodes.treenodefactory import download_tree_config_file
+from geo2france.nodes.tree_node_factory import TreeNodeFactory
+from geo2france.nodes.tree_node_factory import download_tree_config_file
 
 
 class ParamBox(QDialog):
@@ -180,7 +180,7 @@ class ParamBox(QDialog):
         download_tree_config_file(self.config_file_url_edit.text())
         self.ressources_tree = TreeNodeFactory(PluginGlobals.instance().config_file_path).root_node
         if self.tree_dock is not None:
-            self.tree_dock.setTreeContents(self.ressources_tree)
+            self.tree_dock.set_tree_content(self.ressources_tree)
 
     def save_settings(self):
         """
@@ -205,11 +205,11 @@ class ParamBox(QDialog):
         if self.need_update_of_tree_content:
             download_tree_config_file(PluginGlobals.instance().CONFIG_FILE_URLS[0])
             self.ressources_tree = TreeNodeFactory(PluginGlobals.instance().config_file_path).root_node
-            self.tree_dock.setTreeContents(self.ressources_tree)
+            self.tree_dock.set_tree_content(self.ressources_tree)
 
         # Update the visibility of tree items
         elif self.need_update_visibility_of_tree_items and self.tree_dock is not None:
-            self.tree_dock.updateVisibilityOfTreeItems()
+            self.tree_dock.update_visibility_of_tree_items()
 
     def apply_button_clicked(self):
         """

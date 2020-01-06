@@ -4,8 +4,6 @@ import os
 import json
 from urllib.request import Request, urlopen
 
-# TODO
-# from qgis.gui import QgsMessageBar
 from qgis.core import Qgis, QgsMessageLog
 
 from geo2france.utils.plugin_globals import PluginGlobals
