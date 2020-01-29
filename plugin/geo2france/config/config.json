@@ -20,14 +20,14 @@
             "srs": "epsg:2154"
           }
         },
-        {
-          "title": "Occupation du sol de Picardie",
-          "description": "Cartographie de l'occupation du sol de la Picardie de 1992 à 2010",
+		{
+          "title": "Scan 25 sur le Nord - Pas de Calais - IGN",
+          "description": "Scan25 (version topographique) de l'IGN du Nord-Pas de Calais",
           "type": "wms_layer",
-          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/3f7cdf36-55b9-4464-8f37-4f92ffe54cdd",
+          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:external:IGNF_SCAN25r_3-0_TOPO_ECW_LAMB93_NPDC.xml",
           "params": {
-            "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
-            "name": "mos_picardie",
+            "url": "https://www.geo2france.fr/geoserver/scan_ign/ows",
+            "name": "scan_25_topo",
             "format": "image/png",
             "srs": "epsg:2154"
           }
@@ -100,6 +100,72 @@
         }
       ]
     },
+	{
+      "title": "Occupation du sol",
+      "description": "Données concernant l'occupation et l'usage des sols",
+      "type": "folder",
+      "children": [
+        {
+          "title": "Occupation du sol Hauts-de-France 2009/2010",
+          "description": "Occupation du sol Hauts-de-France 2009/2010",
+          "type": "wms_layer",
+          "params": {
+            "url": " https://www.geo2france.fr/geoserver/hdf_common/ows",
+            "name": "ocs_hdf_2009_2010",
+			"format": "image/png",
+            "srs": "epsg:2154"
+          }
+        },
+		{
+          "title": "Occupation du sol de Picardie",
+          "description": "Cartographie de l'occupation du sol de la Picardie de 1992 à 2010",
+          "type": "wms_layer",
+          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/3f7cdf36-55b9-4464-8f37-4f92ffe54cdd",
+          "params": {
+            "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+            "name": "mos_picardie",
+            "format": "image/png",
+            "srs": "epsg:2154"
+          }
+        },
+		{
+          "title": "OCS 2D Nord - Pas de Calais 2015",
+          "description": "Occupation du sol 2 dimensions du Nord-Pas de Calais (2015)",
+          "type": "wms_layer",
+          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:8a14e95c-f759-4922-88de-e8643da739a2",
+          "params": {
+            "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+            "name": "ocs2d_15",
+            "format": "image/png",
+            "srs": "epsg:2154"
+          }
+        },
+		{
+          "title": "OCS 2D Nord - Pas de Calais 2005",
+          "description": "Occupation du sol 2 dimensions du Nord-Pas de Calais (2005)",
+          "type": "wms_layer",
+          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:0168d4a8-5864-4bba-9e66-6e4239d20c4e",
+          "params": {
+            "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+            "name": "ocs2d_05",
+            "format": "image/png",
+            "srs": "epsg:2154"
+          }
+        },
+		{
+          "title": "OCS 2D Nord - Pas de Calais Evolution 2005/2015",
+          "description": "Evolution de l'occupation du sol 2 dimensions du Nord-Pas de Calais (2005/2015)",
+          "type": "wms_layer",
+          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:19f470e7-03b8-4a4c-96f9-b8560339a389",
+          "params": {
+            "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+            "name": "ocs2d_evol_0515",
+            "format": "image/png",
+            "srs": "epsg:2154"
+          }
+        }
+      ]
+    },
     {
       "title": "Vues aériennes",
       "description": "Photographies aériennes",
@@ -158,18 +224,6 @@
               }
             },
             {
-              "title": "Vue aérienne de l'Oise 2008-2009 - visible",
-              "description": "Orthophotographie aérienne de l'Oise de 2008-2009 dans le domaine visible (résolution de 20 cm)",
-              "type": "wms_layer",
-              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/bd427799-8035-4ff8-b0fb-4c75fe9b4848",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
-                "name": "oise_ortho_2008_vis",
-                "format": "image/png",
-                "srs": "epsg:2154"
-              }
-            },
-            {
               "title": "Vue aérienne de la Somme 2008 - visible",
               "description": "Orthophotographie aérienne de la Somme de 2008 dans le domaine visible (résolution de 20 cm)",
               "type": "wms_layer",
@@ -177,6 +231,30 @@
               "params": {
                 "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
                 "name": "somme_ortho_2008_vis",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+			{
+              "title": "Vue aérienne du Nord-Pas de Calais 2009 - visible",
+              "description": "Orthophotographie aérienne du Nord-Pas de Calais 2009 dans le domaine visible (résolution de 20 cm)",
+              "type": "wms_layer",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:dc3387ee-fcbe-e211-bc22-00199985cd89",
+              "params": {
+                "url": " https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "name": "ortho_2009_rgb",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+			{
+              "title": "Vue aérienne du Nord-Pas de Calais 2015 - visible",
+              "description": "Orthophotographie aérienne du Nord-Pas de Calais 2015 dans le domaine visible (résolution de 20 cm)",
+              "type": "wms_layer",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:30059a72-4747-4b55-9830-e0fe525191d1",
+              "params": {
+                "url": " https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "name": "ortho_2015_rgb",
                 "format": "image/png",
                 "srs": "epsg:2154"
               }
@@ -189,6 +267,30 @@
           "type": "folder",
           "children": [
             {
+              "title": "Vue aérienne des Hauts-de-France 2017/2018 - infrarouge",
+              "description": "Orthophotographie aérienne des Hauts-de-France 2017/2018 dans le domaine infrarouge (résolution de 20 cm)",
+              "type": "wms_layer",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/4635b9cc-bc9a-4f25-851e-040cf647d974",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+                "name": "ortho_regionale_2018_ir",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+			{
+              "title": "Vue aérienne du Nord-Pas de Calais 2009 - infrarouge",
+              "description": "Orthophotographie aérienne du Nord-Pas de Calais de 2009 dans le domaine infrarouge (résolution de 20 cm)",
+              "type": "wms_layer",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:2e66e0ef-f6bb-e211-9ab3-00199985cd89",
+              "params": {
+                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "name": "ortho_2009_ir",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+			{
               "title": "Vue aérienne de l'Aisne 2009 - infrarouge",
               "description": "Orthophotographie aérienne de l'Aisne de 2009 dans le domaine infrarouge (résolution de 25 cm)",
               "type": "wms_layer",
@@ -199,7 +301,19 @@
                 "format": "image/png",
                 "srs": "epsg:2154"
               }
-            }      
+            },
+			{
+              "title": "Vue aérienne de la Somme 2008 - infrarouge",
+              "description": "Orthophotographie aérienne de la Somme de 2008 dans le domaine infrarouge (résolution de 20 cm)",
+              "type": "wms_layer",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/28f50d8a-fa06-48f2-b6e0-0774f9763a6b",
+              "params": {
+                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "name": "somme_ortho_2008_ir",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            }
           ]
         },
         {
@@ -219,17 +333,28 @@
                 "srs": "epsg:2154"
               }
             },
-            {
-              "title": "Vue aérienne côte normande et picarde 1947 (ROLNP)",
-              "description": "Orthophotographie aérienne de la côte normand-picarde de 1947",
+			{
+              "title": "Vue aérienne du Nord-Pas de Calais 2005 - visible",
+              "description": "Orthophotographie aérienne du Nord-Pas de Calais 2009 dans le domaine visible (résolution de 50 cm)",
               "type": "wms_layer",
-              "metadata_url": "https://maps.rolnp.fr/geoportal/catalog/search/resource/details.page?uuid=%7B5442DF2F-C02D-42A4-834A-21B450FBDA34%7D",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:cb33c74d-02bf-e211-bc22-00199985cd89",
               "params": {
-                "url": "https://maps.rolnp.fr/arcgis/services/Imagerie/Orthos_historiques_1947/MapServer/WMSServer",
-                "name": "0",
-                "format": "image/png8",
-                "srs": "epsg:2154",
-                "style": "default"
+                "url": " https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "name": "ortho_2005",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+			{
+              "title": "BD Ortho historique - Pas de Calais - niveau de gris",
+              "description": "Collection de mosaïques numériques d'anciennes orthophotographies panchromatiques (niveau de gris)",
+              "type": "wms_layer",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:24d6b0d3-432b-48d2-853e-5c7d7e8edf73",
+              "params": {
+                "url": " https://www.geo2france.fr/geoserver/ayants-droits/ows",
+                "name": "ortho_historique_62",
+                "format": "image/png",
+                "srs": "epsg:2154"
               }
             }
           ]
@@ -269,6 +394,53 @@
               }
             }
           ]
+        },
+		{
+          "title": "Relief de l'Aisne (2009)",
+          "description": "Altitude sur l'ensemble du département de l'Aisne issue de l'orthorectification des vues aériennes de 2009",
+          "type": "folder",
+          "children": [
+            {
+              "title": "Relief de l'Aisne (2009) - couleurs",
+              "description": "Altitude sur l'ensemble du département de l'Aisne issue de l'orthorectification des vues aériennes de 2009 - images en couleurs",
+              "type": "wms_layer",
+              "params": {
+                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "name": "aisne_mnt_2009_img_slope_shade_color_5m",
+                "format": "image/jpeg",
+                "srs": "epsg:2154"
+              }
+            },
+            {
+              "title": "Relief de l'Aisne (2009) - niveaux de gris",
+              "description": "Altitude sur l'ensemble du département de l'Aisne issue de l'orthorectification des vues aériennes de 2009 - images en niveaux de gris",
+              "type": "wms_layer",
+              "params": {
+                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "name": "aisne_mnt_2009_img_slope_shade_5m",
+                "format": "image/jpeg",
+                "srs": "epsg:2154"
+              }
+            }
+          ]
+        },
+		{
+          "title": "Relief du Nord-Pas de Calais (2012-2013)",
+          "description": "Ombrage de la Région Nord - Pas de Calais sous forme d'image numérique",
+          "type": "folder",
+          "children": [
+            {
+              "title": "Ombrage Nord-Pas de Calais 2012-2013 - niveaux de gris",
+              "description": "Ombrage Nord-Pas de Calais 2012-2013 - images en niveaux de gris",
+              "type": "wms_layer",
+              "params": {
+                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "name": "ombrage_2012",
+                "format": "image/jpeg",
+                "srs": "epsg:2154"
+              }
+            }
+          ]
         }
       ]
     },
@@ -278,256 +450,39 @@
       "type": "folder",
       "children": [
         {
-          "title": "Région",
-          "description": "Limites de la région",
-          "type": "folder",
-          "children": [
-            {
-              "title": "Région - GEOFLA - polygones",
-              "description": "Limites de la région basée sur la base de données GEOFLA de l'IGN (objet surfacique)",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
-                "version": "2.0.0",
-                "name": "reg22:reg_Picardie_FLA",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Région - BDTOPO - polygones",
-              "description": "Limites de la région basée sur la base de données BDTOPO de l'IGN (objet surfacique)",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
-                "version": "2.0.0",
-                "name": "reg22:Region_Pic_BdTopo",
-                "srs": "epsg:2154"
-              }
-            }
-          ]
-        },
+		  "title": "Départements - GEOFLA",
+		  "description": "Limites des départements basées sur la base de données GEOFLA de l'IGN",
+		  "type": "wfs_feature_type",
+		  "params": {
+			"url": "https://www.geopicardie.fr/geoserver/autres/ows",
+			"version": "2.0.0",
+			"name": "autres:ign_geofla_departements",
+			"srs": "epsg:2154"
+		  }
+		},
         {
-          "title": "Départements",
-          "description": "Limites des départements",
-          "type": "folder",
-          "children": [
-            {
-              "title": "Départements - GEOFLA - polygones",
-              "description": "Limites des départements basées sur la base de données GEOFLA de l'IGN (objets surfaciques)",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/autres/ows",
-                "version": "2.0.0",
-                "name": "autres:ign_geofla_departements",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Départements - GEOFLA - polylignes",
-              "description": "Limites des départements basées sur la base de données GEOFLA de l'IGN (objets linéaires)",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/autres/ows",
-                "version": "2.0.0",
-                "name": "autres:ign_geofla_limites_dept",
-                "srs": "epsg:2154"
-              }
-            }
-          ]
-        },
-        {
-          "title": "Pays de Picardie",
-          "description": "Pays de Picardie",
-          "type": "folder",
-          "children": [
-            {
-              "title": "Pays de Picardie - GEOFLA - polygones",
-              "description": "Limites des pays de Picardie basées sur la base de données GEOFLA de l'IGN (objets surfaciques)",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
-                "version": "2.0.0",
-                "name": "reg22:pays_picardie_BY_geofla",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Pays de Picardie - BDTOPO - polygones",
-              "description": "Limites des pays de Picardie basées sur la base de données BDTOPO de l'IGN (objets surfaciques)",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
-                "version": "2.0.0",
-                "name": "reg22:pays_picardie_BY_bdtopo",
-                "srs": "epsg:2154"
-              }
-            }
-          ]
-        },
-        {
-          "title": "EPCI à fiscalité propre",
-          "description": "EPCI à fiscalité propre",
-          "type": "folder",
-          "children": [
-            {
-              "title": "EPCI - GEOFLA - polygones",
-              "description": "Limites des EPCI à fiscalité propre basées sur la base de données GEOFLA de l'IGN (objets surfaciques)",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
-                "version": "2.0.0",
-                "name": "reg22:epci_reels_picardie_BY_geofla",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "EPCI - BDTOPO - polygones",
-              "description": "Limites des EPCI à fiscalité propre basées sur la base de données BDTOPO de l'IGN (objets surfaciques)",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
-                "version": "2.0.0",
-                "name": "reg22:epci_reels_picardie_BY_bdtopo",
-                "srs": "epsg:2154"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Transports",
-      "description": "Données concernant les transports",
-      "type": "folder",
-      "children": [
-        {
-          "title": "Transport Express Régional",
-          "description": "Transport Express Régional",
-          "type": "folder",
-          "children": [
-            {
-              "title": "Lignes du réseau de transport régional",
-              "description": "Lignes du réseau de transport régional",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
-                "version": "2.0.0",
-                "name": "reg22:reseau_TER_100_L93",
-                "srs": "epsg:2154"
-              },
-              "children": [
-                {
-                  "title": "Lignes routières du réseau de transport régional",
-                  "description": "Lignes routières du réseau de transport régional",
-                  "type": "wfs_feature_type_filter",
-                  "params": {
-                    "filter": "<Filter><PropertyIsEqualTo><PropertyName>AUTOCAR</PropertyName><Literal>1</Literal></PropertyIsEqualTo></Filter>"
-                  }
-                },
-                {
-                  "title": "Lignes ferroviaires du réseau de transport régional",
-                  "description": "Lignes ferroviaires du réseau de transport régional",
-                  "type": "wfs_feature_type_filter",
-                  "params": {
-                    "filter": "<Filter><PropertyIsEqualTo><PropertyName>AUTOCAR</PropertyName><Literal>0</Literal></PropertyIsEqualTo></Filter>"
-                  }
-                },
-                {
-                  "title": "Lignes ferroviaires à grande vitesse",
-                  "description": "Lignes ferroviaires à grande vitesse",
-                  "type": "wfs_feature_type_filter",
-                  "params": {
-                    "filter": "<Filter><PropertyIsEqualTo><PropertyName>AUTOCAR</PropertyName><Literal>2</Literal></PropertyIsEqualTo></Filter>"
-                  }
-                }
-              ]
-            },
-            {
-              "title": "Lignes routières du réseau de transport régional",
-              "description": "Lignes routières du réseau de transport régional",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
-                "filter": "<Filter><PropertyIsEqualTo><PropertyName>AUTOCAR</PropertyName><Literal>1</Literal></PropertyIsEqualTo></Filter>",
-                "version": "2.0.0",
-                "name": "reg22:reseau_TER_100_L93",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Gares et points d'arrêt ferroviaires",
-              "description": "Gares et points d'arrêt ferroviaires",
-              "type": "wfs_feature_type",
-              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/e8b71073-144a-44c0-9a03-2d52440b3afc",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
-                "version": "2.0.0",
-                "name": "reg22:sommet_ferrovaire4TER_gare_avril2012",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Arrêts des lignes routières régionales",
-              "description": "Points d'arrêt routiers du réseau de Transport Express Régional de Picardie",
-              "type": "wfs_feature_type",
-              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/2359ebf7-8e2f-4abb-bdeb-43caad02f99d",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
-                "version": "2.0.0",
-                "name": "reg22:points_arret_LRR",
-                "srs": "epsg:2154"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Éducation & formation",
-      "description": "Données concernant l'enseignement, la formation et l'éducation",
-      "type": "folder",
-      "children": [
-        {
-          "title": "Établissements d'enseignement secondaire",
-          "description": "Données relatives aux établissements d'enseignement secondaire",
-          "type": "folder",
-          "children": [
-            {
-              "title": "Lycées de Picardie - adresse",
-              "description": "Localisation à l'adresse des lycées publics et privés de Picardie",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
-                "version": "2.0.0",
-                "name": "reg22:lycees_adresses",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Collèges publiques de l'Aisne",
-              "description": "Localisation des collèges publiques de l'Aisne",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/dept02/ows",
-                "version": "2.0.0",
-                "name": "dept02:COLLEGES_AISNE",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Collèges publiques de l'Oise",
-              "description": "Localisation des collèges publiques de l'Oise",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/dept60/ows",
-                "version": "2.0.0",
-                "name": "dept60:Colleges_Publics_CG60",
-                "srs": "epsg:2154"
-              }
-            }
-          ]
-        }
-      ]
+		  "title": "EPCI - Admin express",
+		  "description": "Limites des EPCI à fiscalité propre basées sur la base de données Admin express de l'IGN",
+		  "type": "wfs_feature_type",
+		  "params": {
+			"url": "https://www.geo2france.fr/geoserver/cr_hdf/ows",
+			"version": "2.0.0",
+			"name": "epci",
+			"srs": "epsg:2154"
+		  }
+		},
+		{
+		  "title": "Communes - BD Topo",
+		  "description": "Limites des communes basées sur la base de données BD Topo de l'IGN",
+		  "type": "wfs_feature_type",
+		  "params": {
+			"url": "https://www.geo2france.fr/geoserver/cr_hdf/ows",
+			"version": "2.0.0",
+			"name": "communes",
+			"srs": "epsg:2154"
+		  }
+		}
+       ]
     },
     {
       "title": "Activités économiques",
@@ -535,36 +490,24 @@
       "type": "folder",
       "children": [
         {
-          "title": "Sites d'activités économiques",
-          "description": "Sites d'activités économiques",
+          "title": "Sites d'activités économiques (Hauts-de-France) 2015",
+          "description": "Sites d'activités économiques 2015",
           "type": "wfs_feature_type",
           "params": {
-            "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+            "url": "https://www.geo2france.fr/geoserver/cr_hdf/ows",
             "version": "2.0.0",
-            "name": "geopicardie:activite_eco_sites",
+            "name": "za_2015",
             "srs": "epsg:2154"
           }
         },
         {
-          "title": "Localisation des établissements",
+          "title": "Localisation des établissements (Picardie)",
           "description": "Localisation des établissements",
           "type": "wfs_feature_type",
           "params": {
             "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
             "version": "2.0.0",
             "name": "geopicardie:activite_eco_etablissements",
-            "srs": "epsg:2154"
-          }
-        },
-        {
-          "title": "Zonage des Aides à Finalités Régionales en Picardie",
-          "description": "Zonage communal et infracommunal pour les AFR (Aides à finalités régionales) en Picardie pour la période 2014-2020. Seule la commune d'Amiens est découpée en zones infracommunales.",
-          "type": "wfs_feature_type",
-          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/bc4d0c39-897c-470e-932c-7cfebaf59e91",
-          "params": {
-            "url": "https://www.geopicardie.fr/geoserver/reg22/ows",
-            "version": "2.0.0",
-            "name": "reg22:zonage_AFR_Picardie_2014_2020",
             "srs": "epsg:2154"
           }
         }
