@@ -2,13 +2,11 @@
   "title": "Géo2France",
   "description": "",
   "type": "folder",
-  "children": [
-    {
+  "children": [{
       "title": "Fonds topographiques",
       "description": "Fonds cartographique décrivant la nature du terrain",
       "type": "folder",
-      "children": [
-        {
+      "children": [{
           "title": "Scan 25 sur la Picardie - IGN",
           "description": "Scan25 (version topographique) de l'IGN de la Picardie",
           "type": "wms_layer",
@@ -20,7 +18,7 @@
             "srs": "epsg:2154"
           }
         },
-		{
+        {
           "title": "Scan 25 sur le Nord - Pas de Calais - IGN",
           "description": "Scan25 (version topographique) de l'IGN du Nord-Pas de Calais",
           "type": "wms_layer",
@@ -100,24 +98,23 @@
         }
       ]
     },
-	{
+    {
       "title": "Occupation du sol",
       "description": "Données concernant l'occupation et l'usage des sols",
       "type": "folder",
-      "children": [
-        {
+      "children": [{
           "title": "Occupation du sol Hauts-de-France 2009/2010",
           "description": "Occupation du sol Hauts-de-France 2009/2010",
           "type": "wms_layer",
           "params": {
-            "url": " https://www.geo2france.fr/geoserver/hdf_common/ows",
+            "url": "https://www.geo2france.fr/geoserver/hdf_common/ows",
             "name": "ocs_hdf_2009_2010",
-			"format": "image/png",
+            "format": "image/png",
             "srs": "epsg:2154"
           }
         },
-		{
-          "title": "Occupation du sol de Picardie",
+        {
+          "title": "Occupation du sol de Picardie - 1992/2002/2010",
           "description": "Cartographie de l'occupation du sol de la Picardie de 1992 à 2010",
           "type": "wms_layer",
           "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/3f7cdf36-55b9-4464-8f37-4f92ffe54cdd",
@@ -128,7 +125,7 @@
             "srs": "epsg:2154"
           }
         },
-		{
+        {
           "title": "OCS 2D Nord - Pas de Calais 2015",
           "description": "Occupation du sol 2 dimensions du Nord-Pas de Calais (2015)",
           "type": "wms_layer",
@@ -140,7 +137,7 @@
             "srs": "epsg:2154"
           }
         },
-		{
+        {
           "title": "OCS 2D Nord - Pas de Calais 2005",
           "description": "Occupation du sol 2 dimensions du Nord-Pas de Calais (2005)",
           "type": "wms_layer",
@@ -152,7 +149,7 @@
             "srs": "epsg:2154"
           }
         },
-		{
+        {
           "title": "OCS 2D Nord - Pas de Calais Evolution 2005/2015",
           "description": "Evolution de l'occupation du sol 2 dimensions du Nord-Pas de Calais (2005/2015)",
           "type": "wms_layer",
@@ -170,13 +167,11 @@
       "title": "Vues aériennes",
       "description": "Photographies aériennes",
       "type": "folder",
-      "children": [
-        {
+      "children": [{
           "title": "Vues aériennes récentes - domaine visible",
           "description": "Photographies aériennes prises dans le domaine visible depuis 2007",
           "type": "folder",
-          "children": [
-            {
+          "children": [{
               "title": "Vue aérienne des Hauts-de-France de 2017-2018",
               "description": "Orthophotographie des Hauts-de-France de 2018 (résolution de 0,20 m)",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/b78820de-0104-4369-b4c5-7ff715b1a34e",
@@ -235,25 +230,25 @@
                 "srs": "epsg:2154"
               }
             },
-			{
+            {
               "title": "Vue aérienne du Nord-Pas de Calais 2009 - visible",
               "description": "Orthophotographie aérienne du Nord-Pas de Calais 2009 dans le domaine visible (résolution de 20 cm)",
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:dc3387ee-fcbe-e211-bc22-00199985cd89",
               "params": {
-                "url": " https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
                 "name": "ortho_2009_rgb",
                 "format": "image/png",
                 "srs": "epsg:2154"
               }
             },
-			{
+            {
               "title": "Vue aérienne du Nord-Pas de Calais 2015 - visible",
               "description": "Orthophotographie aérienne du Nord-Pas de Calais 2015 dans le domaine visible (résolution de 20 cm)",
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:30059a72-4747-4b55-9830-e0fe525191d1",
               "params": {
-                "url": " https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
                 "name": "ortho_2015_rgb",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -265,8 +260,7 @@
           "title": "Vues aériennes récentes - domaine infrarouge",
           "description": "Photographies aériennes prises dans le domaine infrarouge depuis 2007",
           "type": "folder",
-          "children": [
-            {
+          "children": [{
               "title": "Vue aérienne des Hauts-de-France 2017/2018 - infrarouge",
               "description": "Orthophotographie aérienne des Hauts-de-France 2017/2018 dans le domaine infrarouge (résolution de 20 cm)",
               "type": "wms_layer",
@@ -278,7 +272,7 @@
                 "srs": "epsg:2154"
               }
             },
-			{
+            {
               "title": "Vue aérienne du Nord-Pas de Calais 2009 - infrarouge",
               "description": "Orthophotographie aérienne du Nord-Pas de Calais de 2009 dans le domaine infrarouge (résolution de 20 cm)",
               "type": "wms_layer",
@@ -290,7 +284,7 @@
                 "srs": "epsg:2154"
               }
             },
-			{
+            {
               "title": "Vue aérienne de l'Aisne 2009 - infrarouge",
               "description": "Orthophotographie aérienne de l'Aisne de 2009 dans le domaine infrarouge (résolution de 25 cm)",
               "type": "wms_layer",
@@ -302,7 +296,7 @@
                 "srs": "epsg:2154"
               }
             },
-			{
+            {
               "title": "Vue aérienne de la Somme 2008 - infrarouge",
               "description": "Orthophotographie aérienne de la Somme de 2008 dans le domaine infrarouge (résolution de 20 cm)",
               "type": "wms_layer",
@@ -320,8 +314,7 @@
           "title": "Vues aériennes anciennes",
           "description": "Photographies aériennes anciennes",
           "type": "folder",
-          "children": [
-            {
+          "children": [{
               "title": "Vue aérienne de Picardie 2001-2002",
               "description": "Orthophotographie aérienne de la Picardie de 2001-2002 (résolution de 1,25 m)",
               "type": "wms_layer",
@@ -333,25 +326,25 @@
                 "srs": "epsg:2154"
               }
             },
-			{
+            {
               "title": "Vue aérienne du Nord-Pas de Calais 2005 - visible",
               "description": "Orthophotographie aérienne du Nord-Pas de Calais 2009 dans le domaine visible (résolution de 50 cm)",
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:cb33c74d-02bf-e211-bc22-00199985cd89",
               "params": {
-                "url": " https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
                 "name": "ortho_2005",
                 "format": "image/png",
                 "srs": "epsg:2154"
               }
             },
-			{
+            {
               "title": "BD Ortho historique - Pas de Calais - niveau de gris",
               "description": "Collection de mosaïques numériques d'anciennes orthophotographies panchromatiques (niveau de gris)",
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:24d6b0d3-432b-48d2-853e-5c7d7e8edf73",
               "params": {
-                "url": " https://www.geo2france.fr/geoserver/ayants-droits/ows",
+                "url": "https://www.geo2france.fr/geoserver/ayants-droits/ows",
                 "name": "ortho_historique_62",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -365,13 +358,11 @@
       "title": "Relief",
       "description": "Données altimétriques",
       "type": "folder",
-      "children": [
-        {
+      "children": [{
           "title": "Relief de la Somme (2008)",
           "description": "Altitude sur l'ensemble du département de la Somme issue de l'orthorectification des vues aériennes de 2008",
           "type": "folder",
-          "children": [
-            {
+          "children": [{
               "title": "Relief de la Somme (2008) - couleurs",
               "description": "Altitude sur l'ensemble du département de la Somme issue de l'orthorectification des vues aériennes de 2008 - images en couleurs",
               "type": "wms_layer",
@@ -395,12 +386,11 @@
             }
           ]
         },
-		{
+        {
           "title": "Relief de l'Aisne (2009)",
           "description": "Altitude sur l'ensemble du département de l'Aisne issue de l'orthorectification des vues aériennes de 2009",
           "type": "folder",
-          "children": [
-            {
+          "children": [{
               "title": "Relief de l'Aisne (2009) - couleurs",
               "description": "Altitude sur l'ensemble du département de l'Aisne issue de l'orthorectification des vues aériennes de 2009 - images en couleurs",
               "type": "wms_layer",
@@ -424,23 +414,21 @@
             }
           ]
         },
-		{
+        {
           "title": "Relief du Nord-Pas de Calais (2012-2013)",
           "description": "Ombrage de la Région Nord - Pas de Calais sous forme d'image numérique",
           "type": "folder",
-          "children": [
-            {
-              "title": "Ombrage Nord-Pas de Calais 2012-2013 - niveaux de gris",
-              "description": "Ombrage Nord-Pas de Calais 2012-2013 - images en niveaux de gris",
-              "type": "wms_layer",
-              "params": {
-                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
-                "name": "ombrage_2012",
-                "format": "image/jpeg",
-                "srs": "epsg:2154"
-              }
+          "children": [{
+            "title": "Ombrage Nord-Pas de Calais 2012-2013 - niveaux de gris",
+            "description": "Ombrage Nord-Pas de Calais 2012-2013 - images en niveaux de gris",
+            "type": "wms_layer",
+            "params": {
+              "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+              "name": "ombrage_2012",
+              "format": "image/jpeg",
+              "srs": "epsg:2154"
             }
-          ]
+          }]
         }
       ]
     },
@@ -448,48 +436,46 @@
       "title": "Limites administratives",
       "description": "Données concernant les limites administratives",
       "type": "folder",
-      "children": [
+      "children": [{
+          "title": "Départements - GEOFLA",
+          "description": "Limites des départements basées sur la base de données GEOFLA de l'IGN",
+          "type": "wfs_feature_type",
+          "params": {
+            "url": "https://www.geopicardie.fr/geoserver/autres/ows",
+            "version": "2.0.0",
+            "name": "autres:ign_geofla_departements",
+            "srs": "epsg:2154"
+          }
+        },
         {
-		  "title": "Départements - GEOFLA",
-		  "description": "Limites des départements basées sur la base de données GEOFLA de l'IGN",
-		  "type": "wfs_feature_type",
-		  "params": {
-			"url": "https://www.geopicardie.fr/geoserver/autres/ows",
-			"version": "2.0.0",
-			"name": "autres:ign_geofla_departements",
-			"srs": "epsg:2154"
-		  }
-		},
+          "title": "EPCI - Admin express",
+          "description": "Limites des EPCI à fiscalité propre basées sur la base de données Admin express de l'IGN",
+          "type": "wfs_feature_type",
+          "params": {
+            "url": "https://www.geo2france.fr/geoserver/cr_hdf/ows",
+            "version": "2.0.0",
+            "name": "cr_hdf:epci",
+            "srs": "epsg:2154"
+          }
+        },
         {
-		  "title": "EPCI - Admin express",
-		  "description": "Limites des EPCI à fiscalité propre basées sur la base de données Admin express de l'IGN",
-		  "type": "wfs_feature_type",
-		  "params": {
-			"url": "https://www.geo2france.fr/geoserver/cr_hdf/ows",
-			"version": "2.0.0",
-			"name": "epci",
-			"srs": "epsg:2154"
-		  }
-		},
-		{
-		  "title": "Communes - BD Topo",
-		  "description": "Limites des communes basées sur la base de données BD Topo de l'IGN",
-		  "type": "wfs_feature_type",
-		  "params": {
-			"url": "https://www.geo2france.fr/geoserver/cr_hdf/ows",
-			"version": "2.0.0",
-			"name": "communes",
-			"srs": "epsg:2154"
-		  }
-		}
-       ]
+          "title": "Communes - BD Topo",
+          "description": "Limites des communes basées sur la base de données BD Topo de l'IGN",
+          "type": "wfs_feature_type",
+          "params": {
+            "url": "https://www.geo2france.fr/geoserver/cr_hdf/ows",
+            "version": "2.0.0",
+            "name": "cr_hdf:communes",
+            "srs": "epsg:2154"
+          }
+        }
+      ]
     },
     {
       "title": "Activités économiques",
       "description": "Données concernant les activités économiques",
       "type": "folder",
-      "children": [
-        {
+      "children": [{
           "title": "Sites d'activités économiques (Hauts-de-France) 2015",
           "description": "Sites d'activités économiques 2015",
           "type": "wfs_feature_type",
@@ -517,13 +503,11 @@
       "title": "Environnement",
       "description": "Données concernant l'environnement : faune, flore et paysages",
       "type": "folder",
-      "children": [
-        {
+      "children": [{
           "title": "Espaces naturels protégés",
           "description": "Espaces naturels protégés",
           "type": "folder",
-          "children": [
-            {
+          "children": [{
               "title": "Aire de protection de Biotope des Hauts-de-France",
               "description": "Arrêté préfectoral de protection biotope",
               "type": "wfs_feature_type",
@@ -624,8 +608,7 @@
           "title": "Inventaires nature-biodiversité",
           "description": "Inventaires nature-biodiversité",
           "type": "folder",
-          "children": [
-            {
+          "children": [{
               "title": "ZICO en Hauts-de-France",
               "description": "Zone d'Importance pour la conservation des Oiseaux (ZICO) dans les Hauts de France",
               "type": "wfs_feature_type",
@@ -647,18 +630,6 @@
                 "version": "2.0.0",
                 "name": "ms:n_znieff1_zinf_s_r32",
                 "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "ZNIEFF 1 en Hauts-de-France - milieu maritime",
-              "description": "Zones naturelles d'intérêt écologique floristique ou faunistique de type I en mer (ZNIEFFI en mer) des Hauts-de-France",
-              "type": "wfs_feature_type",
-              "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-e246f754-daa2-4ea2-b164-d4770bf33a45",
-              "params": {
-                "url": "http://data.geo-ide.application.developpement-durable.gouv.fr/cartes/mapserv?map=/apps/inet/DATA/geoide/ressources/REG031B/Publication/www.nature_paysages.map",
-                "version": "2.0.0",
-                "name": "layer30",
-                "srs": "epsg:3857"
               }
             },
             {
@@ -727,8 +698,7 @@
           "title": "Paysages",
           "description": "Paysages",
           "type": "folder",
-          "children": [
-            {
+          "children": [{
               "title": "Opérations grands sites - Hauts-de-France",
               "description": "Opérations grands sites en Hauts-de-France",
               "type": "wfs_feature_type",
@@ -783,126 +753,122 @@
       "title": "Climat, air et énergie",
       "description": "Données concernant le climat, la qualité de l'air et l'énergie",
       "type": "folder",
-      "children": [
-        {
-          "title": "Énergie éolienne",
-          "description": "Données relatives à l'énergie éolienne",
-          "type": "folder",
-          "children": [
-            {
-              "title": "Parcs éoliens - Hauts-de-France",
-              "description": "Parc éolien des Hauts de France",
-              "type": "wfs_feature_type",
-              "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-fdcf841d-0b1a-4acc-9494-52f3cedb4220",
-              "params": {
-                "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/bbd9a09f-60ee-4d1e-b75b-03e18070ddd7.internet.map",
-                "version": "2.0.0",
-                "name": "ms:n_parc_eolien_s_r32",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Mats éoliens construits ou en projet - Hauts-de-France",
-              "description": "Mats éoliens construits ou en projet en Hauts de France",
-              "type": "wfs_feature_type",
-              "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-f20f8125-877e-46dc-8cf8-2a8a372045eb",
-              "params": {
-                "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/aab5f309-86ca-4e8b-8411-c8a02963b673.internet.map",
-                "version": "2.0.0",
-                "name": "ms:n_mat_eolien_p_r32",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Mats éoliens abandonnés - Hauts-de-France",
-              "description": "Mâts éoliens abandonnés en Hauts de France",
-              "type": "wfs_feature_type",
-              "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-e092eb50-a84a-4155-b1be-a7d5577d18a9",
-              "params": {
-                "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/5d84f279-f55c-46f9-b8b1-00384a7428de.internet.map",
-                "version": "2.0.0",
-                "name": "ms:n_mat_eolien_p_r32_etat_eolie_ab",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Mats éoliens refusés - Hauts-de-France",
-              "description": "Mâts éoliens refusés en Hauts de France",
-              "type": "wfs_feature_type",
-              "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-6725602c-997d-4875-a206-057b36aa68a7",
-              "params": {
-                "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/6b8854f9-6f49-41ef-bc1b-ecbc465708be.internet.map",
-                "version": "2.0.0",
-                "name": "ms:n_mat_eolien_p_r32_etat_eolie_re",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Mats éoliens en cours d'intruction - Hauts-de-France",
-              "description": "Mâts éoliens en cours d'intruction en Hauts de France",
-              "type": "wfs_feature_type",
-              "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-7be23a97-cf60-4ebe-9312-f6af7f4741a9",
-              "params": {
-                "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/120179a5-bb86-454b-b28d-5c8eda5e25d5.internet.map",
-                "version": "2.0.0",
-                "name": "ms:n_mat_eolien_p_r32_etat_eolie_ins",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Mats éoliens en travaux - Hauts-de-France",
-              "description": "Mâts éoliens en travaux en Hauts de France",
-              "type": "wfs_feature_type",
-              "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-1be1ea3d-57e9-443a-91cd-72d991d014cf",
-              "params": {
-                "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/2f6d04e6-aaca-4e2d-8902-e866eaf34aed.internet.map",
-                "version": "2.0.0",
-                "name": "ms:n_mat_eolien_p_r32_etat_eolie_tra",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Mats éoliens réalisés - Hauts-de-France",
-              "description": "Mâts éoliens réalisés en Hauts de France",
-              "type": "wfs_feature_type",
-              "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-9f5dc716-0a4c-43be-bd15-9897d84c760b",
-              "params": {
-                "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/cac35f5b-fa24-442f-8297-9e9495f06f36.internet.map",
-                "version": "2.0.0",
-                "name": "ms:n_mat_eolien_p_r32_etat_eolie_rea",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Vitesse du vent à 40 m en Picardie (2002)",
-              "description": "Modélisation de la vitesse du vent à 40 m au-dessus du sol en Picardie",
-              "type": "wms_layer",
-              "params": {
-                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
-                "name": "vent40m",
-                "format": "image/png",
-                "srs": "epsg:2154"
-              },
-              "children": [
-                {
-                  "title": "Dégradé du bleu vers le rouge",
-                  "type": "wms_layer_style",
-                  "params": {
-                    "name": "vent_couleurs_rouge_bleu"
-                  }
-                },
-                {
-                  "title": "Dégradé de gris et de transparence",
-                  "type": "wms_layer_style",
-                  "params": {
-                    "name": "vent_niveaux_gris_et_transparence"
-                  }
-                }
-              ]
+      "children": [{
+        "title": "Énergie éolienne",
+        "description": "Données relatives à l'énergie éolienne",
+        "type": "folder",
+        "children": [{
+            "title": "Parcs éoliens - Hauts-de-France",
+            "description": "Parc éolien des Hauts de France",
+            "type": "wfs_feature_type",
+            "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-fdcf841d-0b1a-4acc-9494-52f3cedb4220",
+            "params": {
+              "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/bbd9a09f-60ee-4d1e-b75b-03e18070ddd7.internet.map",
+              "version": "2.0.0",
+              "name": "ms:n_parc_eolien_s_r32",
+              "srs": "epsg:2154"
             }
-          ]
-        }
-      ]
+          },
+          {
+            "title": "Mats éoliens construits ou en projet - Hauts-de-France",
+            "description": "Mats éoliens construits ou en projet en Hauts de France",
+            "type": "wfs_feature_type",
+            "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-f20f8125-877e-46dc-8cf8-2a8a372045eb",
+            "params": {
+              "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/aab5f309-86ca-4e8b-8411-c8a02963b673.internet.map",
+              "version": "2.0.0",
+              "name": "ms:n_mat_eolien_p_r32",
+              "srs": "epsg:2154"
+            }
+          },
+          {
+            "title": "Mats éoliens abandonnés - Hauts-de-France",
+            "description": "Mâts éoliens abandonnés en Hauts de France",
+            "type": "wfs_feature_type",
+            "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-e092eb50-a84a-4155-b1be-a7d5577d18a9",
+            "params": {
+              "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/5d84f279-f55c-46f9-b8b1-00384a7428de.internet.map",
+              "version": "2.0.0",
+              "name": "ms:n_mat_eolien_p_r32_etat_eolie_ab",
+              "srs": "epsg:2154"
+            }
+          },
+          {
+            "title": "Mats éoliens refusés - Hauts-de-France",
+            "description": "Mâts éoliens refusés en Hauts de France",
+            "type": "wfs_feature_type",
+            "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-6725602c-997d-4875-a206-057b36aa68a7",
+            "params": {
+              "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/6b8854f9-6f49-41ef-bc1b-ecbc465708be.internet.map",
+              "version": "2.0.0",
+              "name": "ms:n_mat_eolien_p_r32_etat_eolie_re",
+              "srs": "epsg:2154"
+            }
+          },
+          {
+            "title": "Mats éoliens en cours d'intruction - Hauts-de-France",
+            "description": "Mâts éoliens en cours d'intruction en Hauts de France",
+            "type": "wfs_feature_type",
+            "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-7be23a97-cf60-4ebe-9312-f6af7f4741a9",
+            "params": {
+              "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/120179a5-bb86-454b-b28d-5c8eda5e25d5.internet.map",
+              "version": "2.0.0",
+              "name": "ms:n_mat_eolien_p_r32_etat_eolie_ins",
+              "srs": "epsg:2154"
+            }
+          },
+          {
+            "title": "Mats éoliens en travaux - Hauts-de-France",
+            "description": "Mâts éoliens en travaux en Hauts de France",
+            "type": "wfs_feature_type",
+            "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-1be1ea3d-57e9-443a-91cd-72d991d014cf",
+            "params": {
+              "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/2f6d04e6-aaca-4e2d-8902-e866eaf34aed.internet.map",
+              "version": "2.0.0",
+              "name": "ms:n_mat_eolien_p_r32_etat_eolie_tra",
+              "srs": "epsg:2154"
+            }
+          },
+          {
+            "title": "Mats éoliens réalisés - Hauts-de-France",
+            "description": "Mâts éoliens réalisés en Hauts de France",
+            "type": "wfs_feature_type",
+            "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-9f5dc716-0a4c-43be-bd15-9897d84c760b",
+            "params": {
+              "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/cac35f5b-fa24-442f-8297-9e9495f06f36.internet.map",
+              "version": "2.0.0",
+              "name": "ms:n_mat_eolien_p_r32_etat_eolie_rea",
+              "srs": "epsg:2154"
+            }
+          },
+          {
+            "title": "Vitesse du vent à 40 m en Picardie (2002)",
+            "description": "Modélisation de la vitesse du vent à 40 m au-dessus du sol en Picardie",
+            "type": "wms_layer",
+            "params": {
+              "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+              "name": "vent40m",
+              "format": "image/png",
+              "srs": "epsg:2154"
+            },
+            "children": [{
+                "title": "Dégradé du bleu vers le rouge",
+                "type": "wms_layer_style",
+                "params": {
+                  "name": "vent_couleurs_rouge_bleu"
+                }
+              },
+              {
+                "title": "Dégradé de gris et de transparence",
+                "type": "wms_layer_style",
+                "params": {
+                  "name": "vent_niveaux_gris_et_transparence"
+                }
+              }
+            ]
+          }
+        ]
+      }]
     }
   ]
 }
