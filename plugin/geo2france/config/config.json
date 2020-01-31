@@ -482,7 +482,7 @@
           "params": {
             "url": "https://www.geo2france.fr/geoserver/cr_hdf/ows",
             "version": "2.0.0",
-            "name": "za_2015",
+            "name": "cr_hdf:za_2015",
             "srs": "epsg:2154"
           }
         },
