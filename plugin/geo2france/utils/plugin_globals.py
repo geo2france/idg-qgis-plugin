@@ -16,8 +16,8 @@ class PluginGlobals:
 
     # Plugin infos
     PLUGIN_TAG = u"Géo2France"
-    PLUGIN_VERSION = u"0.9.0"
-    PLUGIN_SOURCE_REPOSITORY = u"https://github.com/geopicardie/geo2france-qgis3-plugin"
+    PLUGIN_VERSION = u"0.9.1"
+    PLUGIN_SOURCE_REPOSITORY = u"https://github.com/geo2france/geo2france-qgis3-plugin"
 
     # Tree nodes types
     NODE_TYPE_FOLDER = "folder"

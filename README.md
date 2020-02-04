@@ -55,6 +55,9 @@ un point d'exclamation.
 Notes
 -----
 
+Version 0.9.1 :
+* changement de nom de repository github : geopicardie -> geo2france
+
 Version 0.9.0 :
 * portage pour QGIS 3
 
