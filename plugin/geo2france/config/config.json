@@ -163,6 +163,56 @@
         }
       ]
     },
+	{
+      "title": "Cadastre",
+      "description": "Données concernant le cadastre",
+      "type": "folder",
+      "children": [{
+          "title": "Communes",
+          "description": "Communes du PCI-vecteur 2018",
+          "type": "wms_layer",
+          "params": {
+            "url": "https://www.geo2france.fr/geoserver/pci/ows",
+            "name": "geo_commune_2018",
+            "format": "image/png",
+            "srs": "epsg:2154"
+          }
+        },
+        {
+          "title": "Sections",
+          "description": "Section du PCI vecteur 2018",
+          "type": "wms_layer",
+          "params": {
+            "url": "https://www.geo2france.fr/geoserver/pci/ows",
+            "name": "geo_section_2018",
+            "format": "image/png",
+            "srs": "epsg:2154"
+          }
+        },
+        {
+          "title": "Parcelle",
+          "description": "Parcelles du PCI vecteur 2018",
+          "type": "wms_layer",
+          "params": {
+          "url": "https://www.geo2france.fr/geoserver/pci/ows",
+          "name": "geo_parcelle_2018",
+          "format": "image/png",
+          "srs": "epsg:2154"
+          }
+        },
+        {
+          "title": "Bâti",
+          "description": "Bâti du PCI vecteur 2018",
+          "type": "wms_layer",
+          "params": {
+          "url": "https://www.geo2france.fr/geoserver/pci/ows",
+          "name": "geo_batiment_2018",
+          "format": "image/png",
+          "srs": "epsg:2154"
+          }
+        }
+      ]
+    },
     {
       "title": "Vues aériennes",
       "description": "Photographies aériennes",
@@ -512,7 +562,6 @@
               "description": "Arrêté préfectoral de protection biotope",
               "type": "wfs_feature_type",
               "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-b687eb0a-f6d2-41a5-9451-d8f8be370005",
-              "status": "warn",
               "params": {
                 "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/d42130e6-5a13-4b67-bc21-165d801ac003.internet.map",
                 "version": "2.0.0",
@@ -673,7 +722,6 @@
               "description": "Zones Spéciales de Conservation (ZSC) Natura 2000 en Hauts-de-France",
               "type": "wfs_feature_type",
               "metadata_url": "http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/fre/catalog.search#/metadata/fr-120066022-jdd-0c726950-e0ef-495b-a981-efbc49be276d",
-              "status": "warn",
               "params": {
                 "url": "http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38148/9d4929c3-9425-43d8-85f3-51caa3a05170.internet.map",
                 "version": "2.0.0",
