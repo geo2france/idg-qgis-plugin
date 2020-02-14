@@ -1,4 +1,4 @@
-geo2france-qgis2-plugin
+geo2france-qgis3-plugin
 =======================
 
 Plugin pour QGIS 3 fournissant un accès simple aux données de Géo2France et d'autres ressources géographiques utiles en région Hauts-de-France.
