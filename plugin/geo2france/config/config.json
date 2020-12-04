@@ -30,6 +30,18 @@
             "srs": "epsg:2154"
           }
         },
+	{
+          "title": "Scan 25 sur les Hauts-de-France - IGN",
+          "description": "Scan25 (version topographique) de l'IGN des Hauts-de-France",
+          "type": "wms_layer",
+          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/e26d0de2-07bd-49a7-9b46-637b3624272a",
+          "params": {
+            "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+            "name": "scan25",
+            "format": "image/png",
+            "srs": "epsg:2154"
+          }
+        },
         {
           "title": "OpenStreetMap - apparence Géo2France - contrasté",
           "description": "Apparence d'OpenStreetMap élaborée par Géo2France - version contrastée",
