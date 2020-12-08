@@ -6,30 +6,7 @@
       "title": "Fonds topographiques",
       "description": "Fonds cartographique décrivant la nature du terrain",
       "type": "folder",
-      "children": [{
-          "title": "Scan 25 sur la Picardie - IGN",
-          "description": "Scan25 (version topographique) de l'IGN de la Picardie",
-          "type": "wms_layer",
-          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/f3b9e304-c760-47af-ac87-b0a219d77eba",
-          "params": {
-            "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
-            "name": "picardie_scan25",
-            "format": "image/png",
-            "srs": "epsg:2154"
-          }
-        },
-        {
-          "title": "Scan 25 sur le Nord - Pas de Calais - IGN",
-          "description": "Scan25 (version topographique) de l'IGN du Nord-Pas de Calais",
-          "type": "wms_layer",
-          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:external:IGNF_SCAN25r_3-0_TOPO_ECW_LAMB93_NPDC.xml",
-          "params": {
-            "url": "https://www.geo2france.fr/geoserver/scan_ign/ows",
-            "name": "scan_25_topo",
-            "format": "image/png",
-            "srs": "epsg:2154"
-          }
-        },
+      "children": [
 	{
           "title": "Scan 25 sur les Hauts-de-France - IGN",
           "description": "Scan25 (version topographique) de l'IGN des Hauts-de-France",
@@ -46,6 +23,7 @@
           "title": "OpenStreetMap - apparence Géo2France - contrasté",
           "description": "Apparence d'OpenStreetMap élaborée par Géo2France - version contrastée",
           "type": "wms_layer",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/3314f28f-2091-47c1-aca1-3cf551169977",
           "params": {
             "url": "https://osm.geo2france.fr/mapproxy/service",
             "name": "bright",
@@ -56,6 +34,7 @@
         {
           "title": "OpenStreetMap - apparence Géo2France - demi-teintes",
           "description": "Apparence d'OpenStreetMap élaborée par Géo2France - version en demi-teintes",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/3314f28f-2091-47c1-aca1-3cf551169977",
           "type": "wms_layer",
           "params": {
             "url": "https://osm.geo2france.fr/mapproxy/service",
@@ -68,6 +47,7 @@
           "title": "OpenStreetMap - apparence Géo2France - niveaux de gris",
           "description": "Apparence d'OpenStreetMap élaborée par Géo2France - version en niveaux de gris",
           "type": "wms_layer",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/3314f28f-2091-47c1-aca1-3cf551169977",
           "params": {
             "url": "https://osm.geo2france.fr/mapproxy/service",
             "name": "grey",
@@ -79,6 +59,7 @@
           "title": "OpenStreetMap - apparence Géo2France - naturaliste",
           "description": "Apparence d'OpenStreetMap élaborée par Géo2France - avec des ajouts pour naturalistes",
           "type": "wms_layer",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/3314f28f-2091-47c1-aca1-3cf551169977",
           "params": {
             "url": "https://osm.geo2france.fr/mapproxy/service",
             "name": "naturaliste",
@@ -90,6 +71,7 @@
           "title": "OpenStreetMap - apparence Géo2France - surcouche",
           "description": "Apparence d'OpenStreetMap élaborée par Géo2France - surcouche contenant les réseaux et les toponymes",
           "type": "wms_layer",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/3314f28f-2091-47c1-aca1-3cf551169977",
           "params": {
             "url": "https://osm.geo2france.fr/mapproxy/service",
             "name": "overlay",
@@ -101,6 +83,7 @@
           "title": "OpenStreetMap - apparence Géo2France - sans toponymes",
           "description": "Apparence d'OpenStreetMap élaborée par Géo2France - sans toponymes",
           "type": "wms_layer",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/3314f28f-2091-47c1-aca1-3cf551169977",
           "params": {
             "url": "https://osm.geo2france.fr/mapproxy/service",
             "name": "pure",
@@ -118,6 +101,7 @@
           "title": "Occupation du sol Hauts-de-France 2009/2010",
           "description": "Occupation du sol Hauts-de-France 2009/2010",
           "type": "wms_layer",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/7fac6bc0-9db8-4247-993c-ba2404387bbf",
           "params": {
             "url": "https://www.geo2france.fr/geoserver/hdf_common/ows",
             "name": "ocs_hdf_2009_2010",
@@ -146,6 +130,7 @@
             "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
             "name": "ocs2d_15",
             "format": "image/png",
+			"style": "ocs15_cs_niv3",
             "srs": "epsg:2154"
           }
         },
@@ -157,6 +142,7 @@
           "params": {
             "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
             "name": "ocs2d_05",
+			"style": "ocs05_cs_niv3",
             "format": "image/png",
             "srs": "epsg:2154"
           }
@@ -182,6 +168,7 @@
       "children": [{
           "title": "Communes",
           "description": "Communes du PCI-vecteur 2018",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/85981e02-e82a-4b71-961f-29bdddcc85a1",
           "type": "wms_layer",
           "params": {
             "url": "https://www.geo2france.fr/geoserver/pci/ows",
@@ -194,6 +181,7 @@
           "title": "Sections",
           "description": "Section du PCI vecteur 2018",
           "type": "wms_layer",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/85981e02-e82a-4b71-961f-29bdddcc85a1",
           "params": {
             "url": "https://www.geo2france.fr/geoserver/pci/ows",
             "name": "geo_section_2018",
@@ -205,6 +193,7 @@
           "title": "Parcelle",
           "description": "Parcelles du PCI vecteur 2018",
           "type": "wms_layer",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/85981e02-e82a-4b71-961f-29bdddcc85a1",
           "params": {
           "url": "https://www.geo2france.fr/geoserver/pci/ows",
           "name": "geo_parcelle_2018",
@@ -216,6 +205,7 @@
           "title": "Bâti",
           "description": "Bâti du PCI vecteur 2018",
           "type": "wms_layer",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/85981e02-e82a-4b71-961f-29bdddcc85a1",
           "params": {
           "url": "https://www.geo2france.fr/geoserver/pci/ows",
           "name": "geo_batiment_2018",
@@ -249,6 +239,7 @@
               "title": "Vue aérienne de la Picardie 2008-2009",
               "description": "Orthophotographie aérienne composite de la Picardie de 2008-2009 (résolution de 0,25 m)",
               "type": "wms_layer",
+			  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/9f8252f3-0c2c-4917-8b44-60fa287f5881",
               "params": {
                 "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
                 "name": "picardie_ortho_composite_2008_2009_vis",
@@ -304,6 +295,18 @@
                 "srs": "epsg:2154"
               }
             },
+			{
+              "title": "Vue aérienne du Nord-Pas de Calais 2012 - visible",
+              "description": "Orthophotographie aérienne du Nord-Pas de Calais 2012 dans le domaine visible (résolution de 20 cm)",
+              "type": "wms_layer",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:c61df107-a242-4c99-966e-4a59fc0f1809",
+              "params": {
+                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "name": "ortho_2012_rgb",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
             {
               "title": "Vue aérienne du Nord-Pas de Calais 2015 - visible",
               "description": "Orthophotographie aérienne du Nord-Pas de Calais 2015 dans le domaine visible (résolution de 20 cm)",
@@ -330,6 +333,18 @@
               "params": {
                 "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "ortho_regionale_2018_ir",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+			{
+              "title": "Vue aérienne du Nord-Pas de Calais 2015 - infrarouge",
+              "description": "Orthophotographie aérienne du Nord-Pas de Calais de 2015 dans le domaine infrarouge (résolution de 20 cm)",
+              "type": "wms_layer",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:30059a72-4747-4b55-9830-e0fe525191d1",
+              "params": {
+                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "name": "ortho_2015_ir",
                 "format": "image/png",
                 "srs": "epsg:2154"
               }
@@ -428,6 +443,7 @@
               "title": "Relief de la Somme (2008) - couleurs",
               "description": "Altitude sur l'ensemble du département de la Somme issue de l'orthorectification des vues aériennes de 2008 - images en couleurs",
               "type": "wms_layer",
+			  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/e025b6ed-6f01-43d5-91c6-33d0598ccf38",
               "params": {
                 "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
                 "name": "somme_mnt_2008_img_slope_shade_color_5m",
@@ -439,6 +455,7 @@
               "title": "Relief de la Somme (2008) - niveaux de gris",
               "description": "Altitude sur l'ensemble du département de la Somme issue de l'orthorectification des vues aériennes de 2008 - images en niveaux de gris",
               "type": "wms_layer",
+			  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/e025b6ed-6f01-43d5-91c6-33d0598ccf38",
               "params": {
                 "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
                 "name": "somme_mnt_2008_img_slope_shade_5m",
@@ -467,6 +484,7 @@
               "title": "Relief de l'Aisne (2009) - niveaux de gris",
               "description": "Altitude sur l'ensemble du département de l'Aisne issue de l'orthorectification des vues aériennes de 2009 - images en niveaux de gris",
               "type": "wms_layer",
+			  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/a3d03541-eeb6-4eba-b772-3a3e67081e08",
               "params": {
                 "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
                 "name": "aisne_mnt_2009_img_slope_shade_5m",
@@ -484,6 +502,7 @@
             "title": "Ombrage Nord-Pas de Calais 2012-2013 - niveaux de gris",
             "description": "Ombrage Nord-Pas de Calais 2012-2013 - images en niveaux de gris",
             "type": "wms_layer",
+			"metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:c2981f20-1957-4293-8c75-3621b13fa79a",
             "params": {
               "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
               "name": "ombrage_2012",
@@ -500,12 +519,13 @@
       "type": "folder",
       "children": [{
           "title": "Départements - GEOFLA",
-          "description": "Limites des départements basées sur la base de données GEOFLA de l'IGN",
+          "description": "Limites des départements basées sur la base de données Admin Express de l'IGN",
           "type": "wfs_feature_type",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/a8591404-c2f7-4080-87c4-266e9582a26f",
           "params": {
-            "url": "https://www.geopicardie.fr/geoserver/autres/ows",
+            "url": "https://www.geo2france.fr/geoserver/spld/ows",
             "version": "2.0.0",
-            "name": "autres:ign_geofla_departements",
+            "name": "spld:DEPARTEMENT",
             "srs": "epsg:2154"
           }
         },
@@ -513,6 +533,7 @@
           "title": "EPCI - Admin express",
           "description": "Limites des EPCI à fiscalité propre basées sur la base de données Admin express de l'IGN",
           "type": "wfs_feature_type",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/71e77f59-b64c-4849-9791-b36b13083991",
           "params": {
             "url": "https://www.geo2france.fr/geoserver/cr_hdf/ows",
             "version": "2.0.0",
@@ -524,10 +545,11 @@
           "title": "Communes - BD Topo",
           "description": "Limites des communes basées sur la base de données BD Topo de l'IGN",
           "type": "wfs_feature_type",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/d5671425-c750-4ac8-9fe7-d49ff35e2be4",
           "params": {
-            "url": "https://www.geo2france.fr/geoserver/cr_hdf/ows",
+            "url": "https://qgisserver.hautsdefrance.fr/cgi-bin/qgis_mapserv.fcgi?MAP=/var/www/data/qgis/applications/limites_admin.qgz",
             "version": "2.0.0",
-            "name": "cr_hdf:communes",
+            "name": "communes",
             "srs": "epsg:2154"
           }
         }
@@ -537,9 +559,11 @@
       "title": "Activités économiques",
       "description": "Données concernant les activités économiques",
       "type": "folder",
-      "children": [{
+      "children": [
+		{
           "title": "Sites d'activités économiques (Hauts-de-France) 2015",
           "description": "Sites d'activités économiques 2015",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/53ce7e52-4de8-4737-9e66-98b712746ae0",
           "type": "wfs_feature_type",
           "params": {
             "url": "https://www.geo2france.fr/geoserver/cr_hdf/ows",
@@ -552,6 +576,7 @@
           "title": "Localisation des établissements (Picardie)",
           "description": "Localisation des établissements",
           "type": "wfs_feature_type",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/f9b87da8-a21c-4fb9-8434-7aaafdac7ae6",
           "params": {
             "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
             "version": "2.0.0",
@@ -562,10 +587,11 @@
       ]
     },
     {
-      "title": "Environnement",
+      "title": "Patrimoine bâti, paysager et naturel",
       "description": "Données concernant l'environnement : faune, flore et paysages",
       "type": "folder",
-      "children": [{
+      "children": [
+	    {
           "title": "Espaces naturels protégés",
           "description": "Espaces naturels protégés",
           "type": "folder",
@@ -620,6 +646,7 @@
               "title": "Espaces naturels sensibles de l'Oise",
               "description": "Périmètres des ENS de l'Oise",
               "type": "wfs_feature_type",
+			  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/314a7202-53a8-4ad4-b3d9-4eed58d693c4",
               "params": {
                 "url": "https://www.geopicardie.fr/geoserver/dept60/ows",
                 "version": "2.0.0",
@@ -663,6 +690,115 @@
                 "srs": "epsg:2154"
               }
             }
+          ]
+        },
+		{
+          "title": "BD TOPAGE",
+          "description": "BD Topage",
+          "type": "folder",
+          "children": [
+		    {
+			  "title": "Cours d'eau",
+			  "description": "Cours d'eau - Métropole 2019 - BD Topage",
+			  "type": "wms_layer",
+			  "metadata_url": "http://www.sandre.eaufrance.fr/atlas/srv/fre/catalog.search#/metadata/3b3d3c56-d9b6-4625-a57e-ba054e798274",
+			  "params": {
+				"url": "https://services.sandre.eaufrance.fr/geo/topage?",
+				"name": "CoursEau_FXX",
+				"format": "image/png",
+				"srs": "epsg:2154"
+			  }
+            },
+            {
+			  "title": "Tronçons hydrographiques",
+			  "description": "Tronçons hydrographiques - Métropole 2019 - BD Topage",
+			  "type": "wms_layer",
+			  "metadata_url": "http://www.sandre.eaufrance.fr/atlas/srv/fre/catalog.search#/metadata/a535c474-eca0-4295-880e-a95c8e633a51",
+			  "params": {
+				"url": "https://services.sandre.eaufrance.fr/geo/topage?",
+				"name": "TronconHydrographique_FXX",
+				"format": "image/png",
+				"srs": "epsg:2154"
+			  }
+            },
+			{
+			  "title": "Plans d'eau",
+			  "description": "Plans d'eau - Métropole 2019 - BD Topage",
+			  "type": "wms_layer",
+			  "metadata_url": "http://www.sandre.eaufrance.fr/atlas/srv/fre/catalog.search#/metadata/1badb229-d364-4991-9c48-42a272d0eb9b",
+			  "params": {
+				"url": "https://services.sandre.eaufrance.fr/geo/topage?",
+				"name": "PlanEau_FXX",
+				"format": "image/png",
+				"srs": "epsg:2154"
+			  }
+            },
+			{
+			  "title": "Bassins versant topographiques",
+			  "description": "Bassins versant topographiques - Métropole 2019 - BD Topage",
+			  "type": "wms_layer",
+			  "metadata_url": "http://www.sandre.eaufrance.fr/atlas/srv/fre/catalog.search#/metadata/6571f89a-0608-49a2-9ab5-f005d842e81f",
+			  "params": {
+				"url": "https://services.sandre.eaufrance.fr/geo/topage?",
+				"name": "BassinVersantTopographique_FXX",
+				"format": "image/png",
+				"srs": "epsg:2154"
+			  }
+            },
+			{
+			  "title": "Limites terre-mer",
+			  "description": "Limites terre-mer - Métropole 2019 - BD Topage",
+			  "type": "wms_layer",
+			  "metadata_url": "http://www.sandre.eaufrance.fr/atlas/srv/fre/catalog.search#/metadata/81d6c79e-92e9-46e3-aa8b-1001f91c20dc",
+			  "params": {
+				"url": "https://services.sandre.eaufrance.fr/geo/topage?",
+				"name": "LimiteTerreMer_FXX",
+				"format": "image/png",
+				"srs": "epsg:2154"
+			  }
+            },
+			{
+			  "title": "Nœuds hydrographiques",
+			  "description": "Nœuds hydrographiques - Métropole 2019 - BD Topage",
+			  "type": "wms_layer",
+			  "metadata_url": "http://www.sandre.eaufrance.fr/atlas/srv/fre/catalog.search#/metadata/1fcad63b-23f3-4d16-b5de-e25745f66880",
+			  "params": {
+				"url": "https://services.sandre.eaufrance.fr/geo/topage?",
+				"name": "NoeudHydrographique_FXX",
+				"format": "image/png",
+				"srs": "epsg:2154"
+			  }
+            }			
+          ]
+        },
+		{
+          "title": "Bassin minier - UNESCO",
+          "description": "Zonages UNESCO du bassin minier",
+          "type": "folder",
+          "children": [
+		    {
+              "title": "Biens inscrits",
+              "description": "Bassin Minier UNESCO - Biens inscrits",
+              "type": "wfs_feature_type",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:c6a55f03-3d51-466e-ba8b-2455f3027923",
+              "params": {
+                "url": "https://www.ppige-npdc.fr/geoserver/opendata/unesco_bassin_minier_bien_inscrit/ows",
+                "version": "2.0.0",
+                "name": "opendata:unesco_bassin_minier_bien_inscrit",
+                "srs": "epsg:2154"
+              }
+            },
+            {
+              "title": "Zones tampon",
+              "description": "Bassin Minier UNESCO - Biens inscrits",
+              "type": "wfs_feature_type",
+              "params": {
+                "url": "https://www.ppige-npdc.fr/geoserver/opendata/unesco_bassin_minier_zone_tampon/ows",
+                "version": "2.0.0",
+                "name": "opendata:unesco_bassin_minier_zone_tampon",
+                "srs": "epsg:2154"
+              }
+            }						
           ]
         },
         {
@@ -905,6 +1041,7 @@
             "title": "Vitesse du vent à 40 m en Picardie (2002)",
             "description": "Modélisation de la vitesse du vent à 40 m au-dessus du sol en Picardie",
             "type": "wms_layer",
+			"metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/95073ac5-8d9b-49dd-8319-2dbedb5836dd",
             "params": {
               "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
               "name": "vent40m",
