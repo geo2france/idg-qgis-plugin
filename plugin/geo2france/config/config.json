@@ -37,7 +37,7 @@
 		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/3314f28f-2091-47c1-aca1-3cf551169977",
           "type": "wms_layer",
           "params": {
-            "url": "https://osm.geo2france.fr/mapproxy/service",
+            "url": "https://osm.geo2france.fr:443/mapcache/",
             "name": "faded",
             "format": "image/jpeg",
             "srs": "epsg:2154"
