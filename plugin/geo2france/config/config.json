@@ -421,7 +421,7 @@
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:24d6b0d3-432b-48d2-853e-5c7d7e8edf73",
               "params": {
-                "url": "https://www.geo2france.fr/geoserver/ayants-droits/ows",
+                "url": "https://www.geo2france.fr/geoserver/ign/ows",
                 "name": "ortho_historique_62",
                 "format": "image/png",
                 "srs": "epsg:2154"
