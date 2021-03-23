@@ -530,14 +530,14 @@
           }
         },
         {
-          "title": "EPCI - Admin express",
-          "description": "Limites des EPCI à fiscalité propre basées sur la base de données Admin express de l'IGN",
+          "title": "EPCI - BD Topo",
+          "description": "Limites des EPCI à fiscalité propre basées sur la base de données BD TOPO de l'IGN",
           "type": "wfs_feature_type",
-		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/71e77f59-b64c-4849-9791-b36b13083991",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/791b9687-7b77-4db1-a78e-61a517668c3b",
           "params": {
-            "url": "https://www.geo2france.fr/geoserver/cr_hdf/ows",
+            "url": "https://www.geo2france.fr/geoserver/spld/ows",
             "version": "2.0.0",
-            "name": "cr_hdf:epci",
+            "name": "spld:epci",
             "srs": "epsg:2154"
           }
         },
@@ -545,9 +545,9 @@
           "title": "Communes - BD Topo",
           "description": "Limites des communes basées sur la base de données BD Topo de l'IGN",
           "type": "wfs_feature_type",
-		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/d5671425-c750-4ac8-9fe7-d49ff35e2be4",
+		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/278fd502-b096-4491-a529-e617b71a1c8f",
           "params": {
-            "url": "https://qgisserver.hautsdefrance.fr/cgi-bin/qgis_mapserv.fcgi?MAP=/var/www/data/qgis/applications/limites_admin.qgz",
+            "url": "https://www.geo2france.fr/geoserver/spld/ows",
             "version": "2.0.0",
             "name": "communes",
             "srs": "epsg:2154"
