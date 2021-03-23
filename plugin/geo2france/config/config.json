@@ -549,7 +549,7 @@
           "params": {
             "url": "https://www.geo2france.fr/geoserver/spld/ows",
             "version": "2.0.0",
-            "name": "communes",
+            "name": "spld:communes",
             "srs": "epsg:2154"
           }
         }
