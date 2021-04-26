@@ -115,7 +115,7 @@
           "type": "wms_layer",
           "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/3f7cdf36-55b9-4464-8f37-4f92ffe54cdd",
           "params": {
-            "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+            "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
             "name": "mos_picardie",
             "format": "image/png",
             "srs": "epsg:2154"
@@ -127,7 +127,7 @@
           "type": "wms_layer",
           "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:8a14e95c-f759-4922-88de-e8643da739a2",
           "params": {
-            "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+            "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
             "name": "ocs2d_15",
             "format": "image/png",
 			"style": "ocs15_cs_niv3",
@@ -140,7 +140,7 @@
           "type": "wms_layer",
           "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:0168d4a8-5864-4bba-9e66-6e4239d20c4e",
           "params": {
-            "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+            "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
             "name": "ocs2d_05",
 			"style": "ocs05_cs_niv3",
             "format": "image/png",
@@ -153,7 +153,7 @@
           "type": "wms_layer",
           "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:19f470e7-03b8-4a4c-96f9-b8560339a389",
           "params": {
-            "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+            "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
             "name": "ocs2d_evol_0515",
             "format": "image/png",
             "srs": "epsg:2154"
@@ -241,7 +241,7 @@
               "type": "wms_layer",
 			  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/9f8252f3-0c2c-4917-8b44-60fa287f5881",
               "params": {
-                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "picardie_ortho_composite_2008_2009_vis",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -253,7 +253,7 @@
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/1e49ac01-abec-4ba6-8309-d5705f14b5dc",
               "params": {
-                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "aisne_ortho_2009_vis",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -265,7 +265,7 @@
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/49c5b5df-e767-4c61-9d43-4ae85b3ed39a",
               "params": {
-                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "oise_ortho_2013_vis",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -277,7 +277,7 @@
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/80ccc6c8-6e93-42fb-b99e-6d7491f48f5b",
               "params": {
-                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "somme_ortho_2008_vis",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -289,7 +289,7 @@
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:dc3387ee-fcbe-e211-bc22-00199985cd89",
               "params": {
-                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "ortho_2009_rgb",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -301,7 +301,7 @@
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:c61df107-a242-4c99-966e-4a59fc0f1809",
               "params": {
-                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "ortho_2012_rgb",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -313,7 +313,7 @@
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:30059a72-4747-4b55-9830-e0fe525191d1",
               "params": {
-                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "ortho_2015_rgb",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -343,7 +343,7 @@
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:30059a72-4747-4b55-9830-e0fe525191d1",
               "params": {
-                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "ortho_2015_ir",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -355,7 +355,7 @@
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:2e66e0ef-f6bb-e211-9ab3-00199985cd89",
               "params": {
-                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "ortho_2009_ir",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -367,7 +367,7 @@
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/4635b9cc-bc9a-4f25-851e-040cf647d974",
               "params": {
-                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "aisne_ortho_2009_ir",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -379,7 +379,7 @@
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/28f50d8a-fa06-48f2-b6e0-0774f9763a6b",
               "params": {
-                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "somme_ortho_2008_ir",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -397,7 +397,7 @@
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/e5ae91ad-e49c-4878-b3ed-6f483f864169",
               "params": {
-                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "picardie_ortho_2002",
                 "format": "image/jpeg",
                 "srs": "epsg:2154"
@@ -409,7 +409,7 @@
               "type": "wms_layer",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:cb33c74d-02bf-e211-bc22-00199985cd89",
               "params": {
-                "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "ortho_2005",
                 "format": "image/png",
                 "srs": "epsg:2154"
@@ -445,7 +445,7 @@
               "type": "wms_layer",
 			  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/e025b6ed-6f01-43d5-91c6-33d0598ccf38",
               "params": {
-                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "somme_mnt_2008_img_slope_shade_color_5m",
                 "format": "image/jpeg",
                 "srs": "epsg:2154"
@@ -457,7 +457,7 @@
               "type": "wms_layer",
 			  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/e025b6ed-6f01-43d5-91c6-33d0598ccf38",
               "params": {
-                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "somme_mnt_2008_img_slope_shade_5m",
                 "format": "image/jpeg",
                 "srs": "epsg:2154"
@@ -474,7 +474,7 @@
               "description": "Altitude sur l'ensemble du département de l'Aisne issue de l'orthorectification des vues aériennes de 2009 - images en couleurs",
               "type": "wms_layer",
               "params": {
-                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "aisne_mnt_2009_img_slope_shade_color_5m",
                 "format": "image/jpeg",
                 "srs": "epsg:2154"
@@ -486,7 +486,7 @@
               "type": "wms_layer",
 			  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/a3d03541-eeb6-4eba-b772-3a3e67081e08",
               "params": {
-                "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
                 "name": "aisne_mnt_2009_img_slope_shade_5m",
                 "format": "image/jpeg",
                 "srs": "epsg:2154"
@@ -504,7 +504,7 @@
             "type": "wms_layer",
 			"metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:c2981f20-1957-4293-8c75-3621b13fa79a",
             "params": {
-              "url": "https://www.ppige-npdc.fr/geoserver/opendata/ows",
+              "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
               "name": "ombrage_2012",
               "format": "image/jpeg",
               "srs": "epsg:2154"
@@ -578,9 +578,9 @@
           "type": "wfs_feature_type",
 		  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/f9b87da8-a21c-4fb9-8434-7aaafdac7ae6",
           "params": {
-            "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+            "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
             "version": "2.0.0",
-            "name": "geopicardie:activite_eco_etablissements",
+            "name": "geo2france:activite_eco_etablissements",
             "srs": "epsg:2154"
           }
         }
@@ -636,7 +636,7 @@
               "description": "Périmètres des ENS de l'Aisne",
               "type": "wfs_feature_type",
               "params": {
-                "url": "https://www.geopicardie.fr/geoserver/dept02/ows",
+                "url": "https://www.geo2france.fr/geoserver/dept02/ows",
                 "version": "2.0.0",
                 "name": "dept02:ENS_CG02",
                 "srs": "epsg:2154"
@@ -648,7 +648,7 @@
               "type": "wfs_feature_type",
 			  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/314a7202-53a8-4ad4-b3d9-4eed58d693c4",
               "params": {
-                "url": "https://www.geopicardie.fr/geoserver/dept60/ows",
+                "url": "https://www.geo2france.fr/geoserver/dept60/ows",
                 "version": "2.0.0",
                 "name": "dept60:ENS_CG60",
                 "srs": "epsg:2154"
@@ -782,9 +782,9 @@
               "type": "wfs_feature_type",
               "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:c6a55f03-3d51-466e-ba8b-2455f3027923",
               "params": {
-                "url": "https://www.ppige-npdc.fr/geoserver/opendata/unesco_bassin_minier_bien_inscrit/ows",
+                "url": "https://www.geo2france.fr/geoserver/unesco/ows",
                 "version": "2.0.0",
-                "name": "opendata:unesco_bassin_minier_bien_inscrit",
+                "name": "unesco:unesco_bassin_minier_bien_inscrit",
                 "srs": "epsg:2154"
               }
             },
@@ -793,9 +793,9 @@
               "description": "Bassin Minier UNESCO - Biens inscrits",
               "type": "wfs_feature_type",
               "params": {
-                "url": "https://www.ppige-npdc.fr/geoserver/opendata/unesco_bassin_minier_zone_tampon/ows",
+                "url": "https://www.geo2france.fr/geoserver/unesco/ows",
                 "version": "2.0.0",
-                "name": "opendata:unesco_bassin_minier_zone_tampon",
+                "name": "unesco:unesco_bassin_minier_zone_tampon",
                 "srs": "epsg:2154"
               }
             }						
@@ -1043,7 +1043,7 @@
             "type": "wms_layer",
 			"metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/95073ac5-8d9b-49dd-8319-2dbedb5836dd",
             "params": {
-              "url": "https://www.geopicardie.fr/geoserver/geopicardie/ows",
+              "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
               "name": "vent40m",
               "format": "image/png",
               "srs": "epsg:2154"
