@@ -2,6 +2,7 @@
 
 import os
 import json
+import traceback
 from urllib.request import Request, urlopen
 
 from qgis.core import Qgis, QgsMessageLog
@@ -57,7 +58,7 @@ class TreeNodeFactory:
             # QgsMessageLog.logMessage("Config file path: {}".format(self.file_path,
             #                                                        tag=PluginGlobals.instance().PLUGIN_TAG,
             #                                                        level=Qgis.Info))
-            with open(self.file_path) as f:
+            with open(self.file_path, encoding='utf-8', errors='replace') as f:
                 config_string = "".join(f.readlines())
                 config_struct = json.loads(config_string)
                 self.root_node = self.build_tree(config_struct)
@@ -69,6 +70,12 @@ class TreeNodeFactory:
 
             long_message = u"{0}\n{1}\n{2}".format(short_message, e.__doc__, e)
             QgsMessageLog.logMessage(long_message, tag=PluginGlobals.instance().PLUGIN_TAG, level=Qgis.Critical)
+            QgsMessageLog.logMessage(
+                "".join(traceback.format_exc()), tag=PluginGlobals.instance().PLUGIN_TAG, level=Qgis.Critical
+            )
+            QgsMessageLog.logMessage(
+                "".join(traceback.format_stack()), tag=PluginGlobals.instance().PLUGIN_TAG, level=Qgis.Critical
+            )
 
     def build_tree(self, tree_config, parent_node=None):
         """
