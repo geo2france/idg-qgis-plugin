@@ -55,6 +55,9 @@ un point d'exclamation.
 Notes
 -----
 
+Version 0.9.2 :
+* correction d'une erreur de lecture du fichier de config sous MacOs avec QGIS 3.16.8 (cf. #2)
+
 Version 0.9.1 :
 * changement de nom de repository github : geopicardie -> geo2france
 

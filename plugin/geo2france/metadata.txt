@@ -1,11 +1,11 @@
 [general]
 name=Géo2France
 description=Plugin pour QGIS 3 fournissant un accès simple aux données de Géo2France et d'autres ressources géographiques utiles en région Hauts-de-France.
-version=0.9.1
+version=0.9.2
 qgisMinimumVersion=3.00
 qgisMaximumVersion=3.99
 author=Neogeo Technologies
-email=contact@neogeo.fr
+email=contact@bchartier.net
 icon=images/geo2france.png
 experimental=False
 deprecated=False
