@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QWidget, QDockWidget, QVBoxLayout
+from qgis.PyQt.QtWidgets import QWidget, QVBoxLayout
+from qgis.gui import QgsDockWidget
 
 from geo2france.gui.tree_widget import TreeWidget
 
 
-class DockWidget(QDockWidget):
+class DockWidget(QgsDockWidget):
     """
     The dock widget containing the tree view displaying the Géo2France resources
     """
