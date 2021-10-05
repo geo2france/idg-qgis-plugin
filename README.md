@@ -56,6 +56,10 @@ Notes
 -----
 
 Version 0.9.2 :
+* remplacement de QDockWidget par QgsDockWidget pour que la position du panneau soit sauvegardée
+par QGIS d'une session à une autre (cf. #5)
+
+Version 0.9.2 :
 * correction d'une erreur de lecture du fichier de config sous MacOs avec QGIS 3.16.8 (cf. #2)
 
 Version 0.9.1 :
