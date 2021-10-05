@@ -11,17 +11,15 @@ class DockWidget(QDockWidget):
     The dock widget containing the tree view displaying the Géo2France resources
     """
 
-    def __init__(self, parent = None):
-        """
-        """
+    def __init__(self, parent=None):
+        """ """
         super(DockWidget, self).__init__()
-        objectName = 'SimpleAccessDock'
+        self.setObjectName("SimpleAccessDock")
         self.init_gui()
 
     def init_gui(self):
-        """
-        """
-        self.setWindowTitle(u'Géo2France')
+        """ """
+        self.setWindowTitle("Géo2France")
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
 
         self.treeWidget = TreeWidget()
@@ -51,8 +49,7 @@ class DockWidget(QDockWidget):
         self.treeWidget.update_visibility_of_tree_items()
 
     def dockStateChanged(self, floating):
-        """
-        """
+        """ """
         if floating:
             self.resize(300, 450)
         else:
