@@ -435,7 +435,28 @@
       "title": "Relief",
       "description": "Données altimétriques",
       "type": "folder",
-      "children": [{
+      "children": [
+	 {
+          "title": "Relief des Hauts-de-France (2021)",
+          "description": "Altitude sur l'ensemble de la région Hauts-de-France, issue du RGE Alti 1m de l'IGN",
+          "type": "folder",
+          "children": 
+		  [
+            {
+              "title": "Relief des Hauts-de-France (2021) - ombrage transparent",
+              "description": "Ombrage calculé à partir du RGE Alti 1m de l'IGN",
+              "type": "wms_layer",
+			  "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/fefac6d3-37b6-4eeb-93cc-becc30a59185",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+                "name": "RGEALTI_hillshade_regular_semitransparent_1M_LAMB93_HdF_cog_bilinear",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            }
+           ]
+        },
+	  {
           "title": "Relief de la Somme (2008)",
           "description": "Altitude sur l'ensemble du département de la Somme issue de l'orthorectification des vues aériennes de 2008",
           "type": "folder",
