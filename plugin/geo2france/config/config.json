@@ -801,36 +801,6 @@
             }			
           ]
         },
-		{
-          "title": "Bassin minier - UNESCO",
-          "description": "Zonages UNESCO du bassin minier",
-          "type": "folder",
-          "children": [
-		    {
-              "title": "Biens inscrits",
-              "description": "Bassin Minier UNESCO - Biens inscrits",
-              "type": "wfs_feature_type",
-              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:c6a55f03-3d51-466e-ba8b-2455f3027923",
-              "params": {
-                "url": "https://www.geo2france.fr/geoserver/unesco/ows",
-                "version": "2.0.0",
-                "name": "unesco:unesco_bassin_minier_bien_inscrit",
-                "srs": "epsg:2154"
-              }
-            },
-            {
-              "title": "Zones tampon",
-              "description": "Bassin Minier UNESCO - Biens inscrits",
-              "type": "wfs_feature_type",
-              "params": {
-                "url": "https://www.geo2france.fr/geoserver/unesco/ows",
-                "version": "2.0.0",
-                "name": "unesco:unesco_bassin_minier_zone_tampon",
-                "srs": "epsg:2154"
-              }
-            }						
-          ]
-        },
         {
           "title": "Inventaires nature-biodiversité",
           "description": "Inventaires nature-biodiversité",
