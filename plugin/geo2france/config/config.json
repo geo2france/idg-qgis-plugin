@@ -97,7 +97,8 @@
       "title": "Occupation du sol",
       "description": "Données concernant l'occupation et l'usage des sols",
       "type": "folder",
-      "children": [{
+      "children": [
+        {
           "title": "Occupation du sol Hauts-de-France 2009/2010",
           "description": "Occupation du sol Hauts-de-France 2009/2010",
           "type": "wms_layer",
@@ -110,54 +111,61 @@
           }
         },
         {
-          "title": "Occupation du sol de Picardie - 1992/2002/2010",
-          "description": "Cartographie de l'occupation du sol de la Picardie de 1992 à 2010",
-          "type": "wms_layer",
-          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/3f7cdf36-55b9-4464-8f37-4f92ffe54cdd",
-          "params": {
-            "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
-            "name": "mos_picardie",
-            "format": "image/png",
-            "srs": "epsg:2154"
-          }
-        },
-        {
-          "title": "OCS 2D Nord - Pas de Calais 2015",
-          "description": "Occupation du sol 2 dimensions du Nord-Pas de Calais (2015)",
-          "type": "wms_layer",
-          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:8a14e95c-f759-4922-88de-e8643da739a2",
-          "params": {
-            "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
-            "name": "ocs2d_15",
-            "format": "image/png",
-			"style": "ocs15_cs_niv3",
-            "srs": "epsg:2154"
-          }
-        },
-        {
-          "title": "OCS 2D Nord - Pas de Calais 2005",
-          "description": "Occupation du sol 2 dimensions du Nord-Pas de Calais (2005)",
-          "type": "wms_layer",
-          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:0168d4a8-5864-4bba-9e66-6e4239d20c4e",
-          "params": {
-            "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
-            "name": "ocs2d_05",
-			"style": "ocs05_cs_niv3",
-            "format": "image/png",
-            "srs": "epsg:2154"
-          }
-        },
-        {
-          "title": "OCS 2D Nord - Pas de Calais Evolution 2005/2015",
-          "description": "Evolution de l'occupation du sol 2 dimensions du Nord-Pas de Calais (2005/2015)",
-          "type": "wms_layer",
-          "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:19f470e7-03b8-4a4c-96f9-b8560339a389",
-          "params": {
-            "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
-            "name": "ocs2d_evol_0515",
-            "format": "image/png",
-            "srs": "epsg:2154"
-          }
+          "title": "Occupation du sol anciennes",
+          "type": "folder",
+          "children": [
+            {
+              "title": "Occupation du sol de Picardie - 1992/2002/2010",
+              "description": "Cartographie de l'occupation du sol de la Picardie de 1992 à 2010",
+              "type": "wms_layer",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/3f7cdf36-55b9-4464-8f37-4f92ffe54cdd",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+                "name": "mos_picardie",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+            {
+              "title": "OCS 2D Nord - Pas de Calais 2015",
+              "description": "Occupation du sol 2 dimensions du Nord-Pas de Calais (2015)",
+              "type": "wms_layer",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:8a14e95c-f759-4922-88de-e8643da739a2",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+                "name": "ocs2d_15",
+                "format": "image/png",
+                "style": "ocs15_cs_niv3",
+                "srs": "epsg:2154"
+              }
+            },
+            {
+              "title": "OCS 2D Nord - Pas de Calais 2005",
+              "description": "Occupation du sol 2 dimensions du Nord-Pas de Calais (2005)",
+              "type": "wms_layer",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:0168d4a8-5864-4bba-9e66-6e4239d20c4e",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+                "name": "ocs2d_05",
+                "style": "ocs05_cs_niv3",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+            {
+              "title": "OCS 2D Nord - Pas de Calais Evolution 2005/2015",
+              "description": "Evolution de l'occupation du sol 2 dimensions du Nord-Pas de Calais (2005/2015)",
+              "type": "wms_layer",
+              "metadata_url": "https://www.geo2france.fr/geonetwork/srv/fre/catalog.search#/metadata/urn:isogeo:metadata:uuid:19f470e7-03b8-4a4c-96f9-b8560339a389",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+                "name": "ocs2d_evol_0515",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            }
+
+          ]
         }
       ]
     },
