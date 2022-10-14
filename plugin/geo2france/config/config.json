@@ -622,8 +622,8 @@
       "type": "folder",
       "children": [
 	    {
-          "title": "Espaces naturels protégés",
-          "description": "Espaces naturels protégés",
+          "title": "Espaces naturels",
+          "description": "Espaces naturels du référentiel du MNHN",
           "type": "folder",
           "children": [
              {
