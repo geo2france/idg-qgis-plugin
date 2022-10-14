@@ -449,7 +449,7 @@
           "title": "Relief des Hauts-de-France (2021)",
           "description": "Altitude sur l'ensemble de la région Hauts-de-France, issue du RGE Alti 1m de l'IGN",
           "type": "folder",
-          "children": 
+          "children":
 		  [
             {
               "title": "Relief des Hauts-de-France (2021) - ombrage transparent",
@@ -618,10 +618,15 @@
     },
     {
       "title": "Patrimoine bâti, paysager et naturel",
-      "description": "Espaces naturels",
+      "description": "Données concernant l'environnement : faune, flore et paysages",
       "type": "folder",
       "children": [
-            {
+	    {
+          "title": "Espaces naturels protégés",
+          "description": "Espaces naturels protégés",
+          "type": "folder",
+          "children": [
+             {
               "title": "Espaces naturels protégés",
               "type": "wfs_feature_type",
               "metadata_url": "https://www.geo2france.fr/datahub/dataset/8e4e8181-85f5-4bb4-8047-4399dd924c34",
@@ -732,7 +737,7 @@
 				"format": "image/png",
 				"srs": "epsg:2154"
 			  }
-            }			
+            }
           ]
         },
         {
