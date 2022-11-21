@@ -3,9 +3,10 @@
 import os
 import json
 import traceback
+from urllib.parse import parse_qs, urlsplit, urlencode
 from urllib.request import Request, urlopen
 
-from qgis.core import Qgis, QgsMessageLog
+from qgis.core import Qgis, QgsMessageLog, QgsProject
 
 from idg.toolbelt import PluginGlobals
 from .nodes import WmsLayerTreeNode, WmsStyleLayerTreeNode, WmtsLayerTreeNode, WfsFeatureTypeTreeNode
@@ -55,14 +56,19 @@ class TreeNodeFactory:
             return
 
         try:
-            # Read the config file
-            # QgsMessageLog.logMessage("Config file path: {}".format(self.file_path,
-            #                                                        tag=PluginGlobals.instance().PLUGIN_TAG,
-            #                                                        level=Qgis.Info))
-            with open(self.file_path, encoding='utf-8', errors='replace') as f:
-                config_string = "".join(f.readlines())
-                config_struct = json.loads(config_string)
-                self.root_node = self.build_tree(config_struct)
+        # Read the config file
+        # QgsMessageLog.logMessage("Config file path: {}".format(self.file_path,
+        #                                                        tag=PluginGlobals.instance().PLUGIN_TAG,
+        #                                                        level=Qgis.Info))
+            if PluginGlobals.instance().CONFIG_FILE_URLS[0].endswith('json'): # TODO parser proprement l'url
+                with open(self.file_path, encoding='utf-8', errors='replace') as f:
+                    config_string = "".join(f.readlines())
+                    config_struct = json.loads(config_string)
+                    self.root_node = self.build_tree(config_struct)
+            else : # assume qgs/qgz file
+                project = QgsProject()
+                project.read(self.file_path)
+                self.root_node = self.build_tree_from_project_file(project)
 
         except Exception as e:
             short_message = u"La lecture du fichier de configuration du plugin {0} a produit des erreurs.".format(
@@ -77,6 +83,7 @@ class TreeNodeFactory:
             QgsMessageLog.logMessage(
                 "".join(traceback.format_stack()), tag=PluginGlobals.instance().PLUGIN_TAG, level=Qgis.Critical
             )
+            raise Exception #dev
 
     def build_tree(self, tree_config, parent_node=None):
         """
@@ -132,3 +139,26 @@ class TreeNodeFactory:
 
         else:
             return None
+
+    def build_tree_from_project_file(self, project):
+        node = FolderTreeNode(title='Project title')
+        for element in project.layerTreeRoot().children():
+            if hasattr(element,'layer'):
+                layer = element.layer()
+                params=dict(url=layer.source()) # Sortir de l'URL les paramètres nécessaire (url, version, name, srs)
+                node.children.append(WfsFeatureTypeTreeNode(title=layer.name(), node_type='wfs_feature_type', description=layer.metadata().abstract(),
+                                              status=None, metadata_url=next(iter(layer.metadata().links()),''), params=params, parent_node=node))
+        return node
+
+    def extract_params_from_url(self, url):
+        p = parse_qs(urlsplit(url).query)
+        base_url = list(parse_qs(url).keys())[0]
+        other_parmas = p.copy()
+        for k in ['TYPENAME','SRSNAME','VERSION']:
+            other_parmas.pop(k, None)
+        return dict(
+            name=p.get('TYPENAME'),
+            srs=p.get('SRSNAME'),
+            version=p.get('VERSION'),
+            url=base_url+urlencode(other_parmas)
+        )
