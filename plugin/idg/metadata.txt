@@ -1,0 +1,25 @@
+[general]
+name=IDG
+about=Plugin fournissant un accès simple aux données de différentes Infrastuctures de Données Géographiques
+category=Web
+hasProcessingProvider=no
+description=Plugin fournissant un accès simple aux données de différentes Infrastuctures de Données Géographiques
+icon=resources/images/default_icon.png
+tags=opendata,region
+
+# credits and contact
+author=Firstname LASTNAME
+email=qgis@company.com
+homepage=https://github.com/geo2france/idg-qgis-plugin
+repository=https://github.com/geo2france/idg-qgis-plugin
+tracker=https://github.com/geo2france/idg-qgis-plugin/issues
+
+# experimental flag
+deprecated=False
+experimental=True
+qgisMinimumVersion=3.00
+qgisMaximumVersion=3.99
+
+# versionnement
+version=0.1.0
+changelog=

@@ -6,9 +6,8 @@ from qgis.PyQt.QtCore import Qt
 from qgis.core import *
 from qgis.gui import *
 
-from geo2france.utils.plugin_globals import PluginGlobals
-from geo2france.nodes.tree_node_factory import TreeNodeFactory
-from geo2france.nodes.tree_node_factory import download_tree_config_file
+from idg.toolbelt import PluginGlobals
+from idg.toolbelt.tree_node_factory import TreeNodeFactory, download_tree_config_file
 
 
 class ParamBox(QDialog):

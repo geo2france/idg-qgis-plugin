@@ -7,7 +7,7 @@ from urllib.request import Request, urlopen
 
 from qgis.core import Qgis, QgsMessageLog
 
-from geo2france.utils.plugin_globals import PluginGlobals
+from idg.toolbelt import PluginGlobals
 from .nodes import WmsLayerTreeNode, WmsStyleLayerTreeNode, WmtsLayerTreeNode, WfsFeatureTypeTreeNode
 from .nodes import WfsFeatureTypeFilterTreeNode, GdalWmsConfigFileTreeNode, FolderTreeNode
 
@@ -21,6 +21,7 @@ def download_tree_config_file(file_url):
         #                                                       tag=PluginGlobals.instance().PLUGIN_TAG,
         #                                                       level=Qgis.Info))
         # Download the config file
+        PluginGlobals.instance().iface.messageBar().pushMessage("Info", file_url)
         http_req = Request(file_url)
         http_req.add_header("Cache-Control", "no-cache")
 

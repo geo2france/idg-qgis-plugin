@@ -6,8 +6,8 @@ from qgis.PyQt.QtWidgets import QStyle
 from qgis.core import QgsApplication
 import os
 
-from geo2france.utils.plugin_globals import PluginGlobals
-from geo2france.utils.singleton import Singleton
+from .plugin_globals import PluginGlobals
+from .singleton import Singleton
 
 
 @Singleton

@@ -2,8 +2,8 @@
 
 import os
 
-from geo2france.utils.plugin_globals import PluginGlobals
-from geo2france.utils.plugin_icons import PluginIcons
+from idg.toolbelt import PluginGlobals
+from idg.toolbelt import PluginIcons
 
 
 class FavoritesTreeNode:

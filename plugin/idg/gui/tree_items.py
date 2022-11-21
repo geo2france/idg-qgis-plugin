@@ -3,7 +3,7 @@
 from qgis.PyQt.QtWidgets import QTreeWidgetItem, QMenu
 from qgis.PyQt.QtCore import Qt
 
-from geo2france.utils.plugin_globals import PluginGlobals
+from idg.toolbelt import PluginGlobals
 
 
 def expand_item_and_subitems(item):

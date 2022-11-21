@@ -4,7 +4,7 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QWidget, QVBoxLayout
 from qgis.gui import QgsDockWidget
 
-from geo2france.gui.tree_widget import TreeWidget
+from idg.gui.tree_widget import TreeWidget
 
 
 class DockWidget(QgsDockWidget):

@@ -4,8 +4,8 @@ from qgis.PyQt.QtWidgets import QTreeWidget, QAbstractItemView
 from qgis.PyQt.QtCore import Qt, QByteArray, QDataStream, QIODevice
 from qgis.core import Qgis, QgsMessageLog
 
-from geo2france.gui.tree_items import TreeWidgetItem
-from geo2france.utils.plugin_globals import PluginGlobals
+from .tree_items import TreeWidgetItem
+from idg.toolbelt import PluginGlobals
 
 
 class TreeWidget(QTreeWidget):

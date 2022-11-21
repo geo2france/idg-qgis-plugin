@@ -2,7 +2,7 @@
 
 import sys
 import os
-from geo2france.utils.singleton import Singleton
+from .singleton import Singleton
 from qgis.PyQt.QtCore import QSettings
 
 
