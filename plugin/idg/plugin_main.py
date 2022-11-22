@@ -135,6 +135,8 @@ class IdgPlugin:
         Removes the plugin menu
         """
         self.iface.pluginMenu().removeAction(self.plugin_menu.menuAction())
+        self.iface.removeDockWidget(self.dock)
+        del self.dock
         
         
     def createPluginMenu(self):
