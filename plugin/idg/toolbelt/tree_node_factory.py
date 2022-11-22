@@ -3,7 +3,7 @@
 import os
 import json
 import traceback
-from urllib.parse import parse_qs, urlsplit, urlencode
+from urllib.parse import parse_qs, urlsplit, urlencode, urlparse
 from urllib.request import Request, urlopen
 
 from qgis.core import Qgis, QgsMessageLog, QgsProject
@@ -83,7 +83,7 @@ class TreeNodeFactory:
             QgsMessageLog.logMessage(
                 "".join(traceback.format_stack()), tag=PluginGlobals.instance().PLUGIN_TAG, level=Qgis.Critical
             )
-            raise Exception #dev
+            raise #dev
 
     def build_tree(self, tree_config, parent_node=None):
         """
@@ -99,34 +99,8 @@ class TreeNodeFactory:
         node_params = tree_config.get('params', None)
 
         if node_title:
-            # Creation of the node
-            if node_type == PluginGlobals.instance().NODE_TYPE_WMS_LAYER:
-                node = WmsLayerTreeNode(node_title, node_type, node_description,
+            node = self.auto_node_type(node_title, node_type, node_description,
                                         node_status, node_metadata_url, node_params, parent_node)
-
-            elif node_type == PluginGlobals.instance().NODE_TYPE_WMS_LAYER_STYLE:
-                node = WmsStyleLayerTreeNode(node_title, node_type, node_description,
-                                             node_status, node_metadata_url, node_params, parent_node)
-
-            elif node_type == PluginGlobals.instance().NODE_TYPE_WMTS_LAYER:
-                node = WmtsLayerTreeNode(node_title, node_type, node_description,
-                                         node_status, node_metadata_url, node_params, parent_node)
-
-            elif node_type == PluginGlobals.instance().NODE_TYPE_WFS_FEATURE_TYPE:
-                node = WfsFeatureTypeTreeNode(node_title, node_type, node_description,
-                                              node_status, node_metadata_url, node_params, parent_node)
-
-            elif node_type == PluginGlobals.instance().NODE_TYPE_WFS_FEATURE_TYPE_FILTER:
-                node = WfsFeatureTypeFilterTreeNode(node_title, node_type, node_description,
-                                                    node_status, node_metadata_url, node_params, parent_node)
-
-            elif node_type == PluginGlobals.instance().NODE_TYPE_GDAL_WMS_CONFIG_FILE:
-                node = GdalWmsConfigFileTreeNode(node_title, node_type, node_description,
-                                                 node_status, node_metadata_url, node_params, parent_node)
-
-            else:
-                node = FolderTreeNode(node_title, node_type, node_description,
-                                      node_status, node_metadata_url, node_params, parent_node)
 
             # Creation of the node children
             node_children = tree_config.get('children', [])
@@ -140,25 +114,68 @@ class TreeNodeFactory:
         else:
             return None
 
+    def auto_node_type(self, node_title, node_type, node_description,
+                                        node_status, node_metadata_url, node_params, parent_node):
+        # Creation of the node
+        if node_type == PluginGlobals.instance().NODE_TYPE_WMS_LAYER:
+            node = WmsLayerTreeNode(node_title, node_type, node_description,
+                                    node_status, node_metadata_url, node_params, parent_node)
+
+        elif node_type == PluginGlobals.instance().NODE_TYPE_WMS_LAYER_STYLE:
+            node = WmsStyleLayerTreeNode(node_title, node_type, node_description,
+                                         node_status, node_metadata_url, node_params, parent_node)
+
+        elif node_type == PluginGlobals.instance().NODE_TYPE_WMTS_LAYER:
+            node = WmtsLayerTreeNode(node_title, node_type, node_description,
+                                     node_status, node_metadata_url, node_params, parent_node)
+
+        elif node_type == PluginGlobals.instance().NODE_TYPE_WFS_FEATURE_TYPE:
+            node = WfsFeatureTypeTreeNode(node_title, node_type, node_description,
+                                          node_status, node_metadata_url, node_params, parent_node)
+
+        elif node_type == PluginGlobals.instance().NODE_TYPE_WFS_FEATURE_TYPE_FILTER:
+            node = WfsFeatureTypeFilterTreeNode(node_title, node_type, node_description,
+                                                node_status, node_metadata_url, node_params, parent_node)
+
+        elif node_type == PluginGlobals.instance().NODE_TYPE_GDAL_WMS_CONFIG_FILE:
+            node = GdalWmsConfigFileTreeNode(node_title, node_type, node_description,
+                                             node_status, node_metadata_url, node_params, parent_node)
+
+        else:
+            node = FolderTreeNode(node_title, node_type, node_description,
+                                  node_status, node_metadata_url, node_params, parent_node)
+        return node
     def build_tree_from_project_file(self, project):
         node = FolderTreeNode(title='Project title')
         for element in project.layerTreeRoot().children():
             if hasattr(element,'layer'):
                 layer = element.layer()
-                params=dict(url=layer.source()) # Sortir de l'URL les paramètres nécessaire (url, version, name, srs)
-                node.children.append(WfsFeatureTypeTreeNode(title=layer.name(), node_type='wfs_feature_type', description=layer.metadata().abstract(),
-                                              status=None, metadata_url=next(iter(layer.metadata().links()),''), params=params, parent_node=node))
+                params=self.extract_params_from_layer(layer) # Sortir de l'URL les paramètres nécessaire (url, version, name, srs)
+                node_type=self.provider_to_node_type(layer.dataProvider().name())
+                node.children.append(self.auto_node_type(node_title=layer.name(), node_type=node_type, node_description=layer.metadata().abstract(),
+                                              node_status=None, node_metadata_url=next(iter(layer.metadata().links()),''), node_params=params, parent_node=node))
         return node
 
-    def extract_params_from_url(self, url):
-        p = parse_qs(urlsplit(url).query)
-        base_url = list(parse_qs(url).keys())[0]
-        other_parmas = p.copy()
-        for k in ['TYPENAME','SRSNAME','VERSION']:
-            other_parmas.pop(k, None)
-        return dict(
-            name=p.get('TYPENAME'),
-            srs=p.get('SRSNAME'),
-            version=p.get('VERSION'),
-            url=base_url+urlencode(other_parmas)
-        )
+    def extract_params_from_layer(self, layer):
+        out=dict()
+        out['srs'] = layer.crs().authid()
+        if layer.dataProvider().name().lower() == 'wms':
+            parsed_url = urlparse('http://0.0.0.0?' + layer.source()) #Ajout d'un host fictif pour parser l'url car la source wms n'en contient pas
+            out['url'] = layer.source() #certains parametre sont doublés (layers, srs, etc..) mais pas gênant
+            out['name'] = parse_qs(parsed_url.query)['layers'][0]
+            out['format'] = parse_qs(parsed_url.query)['format'][0]
+            out['version'] = layer.dataProvider().htmlMetadata().split('<tr><td>WMS Version</td><td>')[1][:5]
+            return out
+        elif layer.dataProvider().name().lower() == 'wfs':
+            parsed_url = urlparse(layer.source())
+            out['url'] = layer.source()
+            out['name'] = parse_qs(parsed_url.query)['TYPENAME'][0]
+            out['version'] = parse_qs(parsed_url.query)['VERSION'][0]
+            return out
+
+    def provider_to_node_type(self, provider_key):
+        """
+        Convert qgis provider key to node_type
+        """
+        mapping = {'wfs':'wfs_feature_type', 'wms':'wms_layer','wmts': 'wmts_layer'}
+        return mapping[provider_key.lower()]
