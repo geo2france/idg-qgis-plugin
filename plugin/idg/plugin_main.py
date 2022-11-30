@@ -19,7 +19,7 @@ from idg.gui.dlg_settings import PlgOptionsFactory
 from idg.toolbelt import PlgLogger, PlgTranslator, PluginGlobals
 
 
-from idg.toolbelt import PluginGlobals
+from idg.toolbelt import PluginGlobals, IdgProvider
 from idg.gui.dock import DockWidget
 from idg.gui.about_box import AboutBox
 from idg.gui.param_box import ParamBox
@@ -115,7 +115,10 @@ class IdgPlugin:
         self.dock.set_tree_content(self.ressources_tree)
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock)
 
-    
+    # Add browser provider
+        self.registry = QgsApplication.dataItemProviderRegistry()       
+        self.provider = IdgProvider()
+        self.registry.addProvider(self.provider)
 
     def unload(self):
         """Cleans up when plugin is disabled/uninstalled."""
@@ -137,6 +140,9 @@ class IdgPlugin:
         self.iface.pluginMenu().removeAction(self.plugin_menu.menuAction())
         self.iface.removeDockWidget(self.dock)
         del self.dock
+        
+        #Clean-up browser
+        self.registry.removeProvider(self.provider)
         
         
     def createPluginMenu(self):

@@ -5,3 +5,4 @@ from .translator import PlgTranslator  # noqa: F401
 from .plugin_globals import PluginGlobals
 from .plugin_icons import PluginIcons
 from .singleton import Singleton
+from .browser import IdgProvider
