@@ -3,10 +3,17 @@
 import os
 import json
 import traceback
-from urllib.parse import parse_qs, urlsplit, urlencode, urlparse
-from urllib.request import Request, urlopen
+from urllib.parse import parse_qs, urlparse
 
-from qgis.core import Qgis, QgsMessageLog, QgsProject
+from qgis.core import (
+    Qgis,
+    QgsMessageLog,
+    QgsProject,
+    QgsNetworkAccessManager,
+    QgsNetworkReplyContent,
+)
+from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
+from qgis.PyQt.QtCore import QUrl
 
 from idg.toolbelt import PluginGlobals
 from .nodes import WmsLayerTreeNode, WmsStyleLayerTreeNode, WmtsLayerTreeNode, WfsFeatureTypeTreeNode
@@ -18,25 +25,37 @@ def download_tree_config_file(file_url):
     Download the resources tree file
     """
     try:
-        # QgsMessageLog.logMessage("Config file URL: {}".format(file_url,
-        #                                                       tag=PluginGlobals.instance().PLUGIN_TAG,
-        #                                                       level=Qgis.Info))
-        # Download the config file
-        PluginGlobals.instance().iface.messageBar().pushMessage("Info", file_url)
-        http_req = Request(file_url)
-        http_req.add_header("Cache-Control", "no-cache")
+        # replace content of local config file by content of online config file
+        with open(PluginGlobals.instance().config_file_path, "w") as local_config_file:
 
-        with urlopen(http_req) as response, open(PluginGlobals.instance().config_file_path, 'wb') as local_config_file:
-            data = response.read()
-            local_config_file.write(data)
+            request = QNetworkRequest(QUrl(file_url))
+            manager = QgsNetworkAccessManager.instance()
+            response: QgsNetworkReplyContent = manager.blockingGet(
+                request, forceRefresh=True
+            )
+
+            if response.error() != QNetworkReply.NoError:
+                raise Exception(f"{response.error()} - {response.errorString()}")
+
+            data_raw_string = bytes(response.content()).decode("utf-8")
+            data = json.loads(data_raw_string)
+
+            json.dump(data, local_config_file, ensure_ascii=False, indent=2)
 
     except Exception as e:
-        short_message = u"Le téléchargement du fichier de configuration du plugin {0} a échoué.".format(
-            PluginGlobals.instance().PLUGIN_TAG)
-        PluginGlobals.instance().iface.messageBar().pushMessage("Erreur", short_message, level=Qgis.Critical)
+        short_message = "Le téléchargement du fichier de configuration du plugin {0} a échoué.".format(
+            PluginGlobals.instance().PLUGIN_TAG
+        )
+        PluginGlobals.instance().iface.messageBar().pushMessage(
+            "Erreur", short_message, level=Qgis.Critical
+        )
 
-        long_message = u"{0}\nUrl du fichier : {1}\n{2}\n{3}".format(short_message, file_url, e.__doc__, e)
-        QgsMessageLog.logMessage(long_message, tag=PluginGlobals.instance().PLUGIN_TAG, level=Qgis.Critical)
+        long_message = "{0}\nUrl du fichier : {1}\n{2}\n{3}".format(
+            short_message, file_url, e.__doc__, e
+        )
+        QgsMessageLog.logMessage(
+            long_message, tag=PluginGlobals.instance().PLUGIN_TAG, level=Qgis.Critical
+        )
 
 
 class TreeNodeFactory:
