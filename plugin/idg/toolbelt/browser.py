@@ -1,7 +1,9 @@
 from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataProvider
 from qgis.PyQt.QtGui import QIcon
-from idg.toolbelt import PluginGlobals 
+from idg.toolbelt import PluginGlobals, PlgOptionsManager
 from qgis.PyQt.QtWidgets import QAction, QMenu
+
+import json
 
 class IdgProvider(QgsDataItemProvider):
     def __init__(self):
@@ -41,5 +43,21 @@ class RootCollection(QgsDataCollectionItem):
         return [menu]
         
     def createChildren(self):
-        # TODO ajouter ici les DataCollectionItem des différentes plateformes
+        children = []
+        for pf in json.loads(PlgOptionsManager.get_plg_settings().platforms):
+            pf_collection = PlatformCollection(name=pf['name'].lower(), label=pf['name'], url=pf['url'])
+            children.append(pf_collection)
+        return children
+
+
+class PlatformCollection(QgsDataCollectionItem):
+    def __init__(self, name, url, label=None, icon=None, parent=None):
+        self.url = url
+        QgsDataCollectionItem.__init__(self, parent, label, "/IDG/"+name)
+        self.setToolTip(url)
+        if icon:  # QIcon
+            self.setIcon(icon)
+
+    def createChildren(self):
+        # TODO add layer/folder for each platform
         return []
