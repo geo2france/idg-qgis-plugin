@@ -19,13 +19,14 @@ from idg.gui.dlg_settings import PlgOptionsFactory
 from idg.toolbelt import PlgLogger, PlgTranslator, PluginGlobals
 
 
-from idg.toolbelt import PluginGlobals, IdgProvider
+from idg.toolbelt import PluginGlobals, PlgOptionsManager, IdgProvider
 from idg.gui.dock import DockWidget
 from idg.gui.about_box import AboutBox
 from idg.gui.param_box import ParamBox
 from idg.toolbelt.tree_node_factory import TreeNodeFactory, download_tree_config_file
 
 import os
+import json
 # ############################################################################
 # ########## Classes ###############
 # ##################################
@@ -63,6 +64,13 @@ class IdgPlugin:
         
         # Read the resources tree file and update the GUI
         self.ressources_tree = TreeNodeFactory(PluginGlobals.instance().config_file_path).root_node
+
+        # Apply default config
+        parameters = [
+            {'name': 'Geo2France', 'url': 'http://127.0.0.1:8000/projet_idg.qgs'},
+            {'name': 'DataGrandEst', 'url': 'http://127.0.0.1:8000/projet_idg.qgz'}
+            ]
+        PlgOptionsManager().set_value_from_key('platforms', json.dumps(parameters))
         
     def need_download_tree_config_file(self):
         """
