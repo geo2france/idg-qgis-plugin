@@ -1,11 +1,14 @@
 [general]
 name=IDG
-about=Plugin fournissant un accès simple aux données de différentes Infrastuctures de Données Géographiques
+about=Plugin providing easy access to data from different Spatial Data Infrastructures
+about[fr]=Plugin fournissant un accès simple aux données de différentes Infrastructures de Données Géographiques
 category=Web
 hasProcessingProvider=no
-description=Plugin fournissant un accès simple aux données de différentes Infrastuctures de Données Géographiques
+description=Plugin providing easy access to data from different Spatial Data Infrastructures
+description[fr]=Plugin fournissant un accès simple aux données de différentes Infrastructures de Données Géographiques
 icon=resources/images/default_icon.png
-tags=opendata,region
+tags=opendata,sdi
+tags[fr]=opendata,idg
 
 # credits and contact
 author=Firstname LASTNAME
@@ -20,6 +23,6 @@ experimental=True
 qgisMinimumVersion=3.00
 qgisMaximumVersion=3.99
 
-# versionnement
+# versioning
 version=0.1.0
 changelog=
