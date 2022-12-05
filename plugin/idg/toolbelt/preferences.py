@@ -27,6 +27,7 @@ class PlgSettingsStructure:
     debug_mode: bool = False
     version: str = __version__
     platforms: str = ''
+    configs_folder: str = ''
 
 class PlgOptionsManager:
     @staticmethod

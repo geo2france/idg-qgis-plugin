@@ -71,7 +71,8 @@ class IdgPlugin:
             {'name': 'DataGrandEst', 'url': 'http://127.0.0.1:8000/projet_idg.qgz'}
             ]
         PlgOptionsManager().set_value_from_key('platforms', json.dumps(parameters))
-        
+        PlgOptionsManager().set_value_from_key('configs_folder', os.path.join(PluginGlobals.instance().plugin_path,
+                                                                               PluginGlobals.instance().CONFIG_DIR_NAME))
     def need_download_tree_config_file(self):
         """
         Do we need to download a new version of the resources tree file?
