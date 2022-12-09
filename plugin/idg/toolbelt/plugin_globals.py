@@ -46,8 +46,8 @@ class PluginGlobals:
     # Config files dir
     CONFIG_FILES_DOWNLOAD_AT_STARTUP = PlgOptionsManager().get_value_from_key('config_files_download_at_startup')
     CONFIG_DIR_NAME = "config"
-    CONFIG_FILE_NAMES = ["config.json"]
-    CONFIG_FILE_URLS = ["https://www.geo2france.fr/public/qgis3/plugins/geo2france/config.json"]
+    CONFIG_FILE_NAMES = ["projet_idg.qgs"]
+    CONFIG_FILE_URLS = ["http://127.0.0.1:8000/projet_idg.qgs"]
 
     # Hide resources with status = warn
     HIDE_RESOURCES_WITH_WARN_STATUS = PlgOptionsManager().get_value_from_key('hide_resources_with_warn_status')
