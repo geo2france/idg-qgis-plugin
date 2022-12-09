@@ -25,23 +25,22 @@ def download_tree_config_file(file_url):
     Download the resources tree file
     """
     try:
+        request = QNetworkRequest(QUrl(file_url))
+        manager = QgsNetworkAccessManager.instance()
+        response: QgsNetworkReplyContent = manager.blockingGet(
+            request, forceRefresh=True
+        )
+        if response.error() != QNetworkReply.NoError:
+            raise Exception(f"{response.error()} - {response.errorString()}")
         # replace content of local config file by content of online config file
-        with open(PluginGlobals.instance().config_file_path, "w") as local_config_file:
-
-            request = QNetworkRequest(QUrl(file_url))
-            manager = QgsNetworkAccessManager.instance()
-            response: QgsNetworkReplyContent = manager.blockingGet(
-                request, forceRefresh=True
-            )
-
-            if response.error() != QNetworkReply.NoError:
-                raise Exception(f"{response.error()} - {response.errorString()}")
-
-            data_raw_string = bytes(response.content()).decode("utf-8")
-            data = json.loads(data_raw_string)
-
-            json.dump(data, local_config_file, ensure_ascii=False, indent=2)
-
+        if file_url.endswith('.json'):  # utiliser plutôt le MIME ?
+            with open(PluginGlobals.instance().config_file_path, "w") as local_config_file:
+                data_raw_string = bytes(response.content()).decode("utf-8")
+                data = json.loads(data_raw_string)
+                json.dump(data, local_config_file, ensure_ascii=False, indent=2)  # Ecrit dans le fichier
+        else:  # Assuming qgs/qgz
+            with open(PluginGlobals.instance().config_file_path, "wb") as local_config_file:
+                local_config_file.write(response.content())
     except Exception as e:
         short_message = "Le téléchargement du fichier de configuration du plugin {0} a échoué.".format(
             PluginGlobals.instance().PLUGIN_TAG
@@ -64,6 +63,7 @@ class TreeNodeFactory:
     """
 
     def __init__(self, file_path):
+        print(file_path)
         self.file_path = file_path
         self.root_node = None
 
