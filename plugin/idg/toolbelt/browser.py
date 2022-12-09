@@ -44,7 +44,7 @@ class RootCollection(QgsDataCollectionItem):
         
     def createChildren(self):
         children = []
-        for pf in json.loads(PlgOptionsManager.get_plg_settings().platforms):
+        for pf in json.loads(PlgOptionsManager().get_value_from_key(key='platforms')):
             pf_collection = PlatformCollection(name=pf['name'].lower(), label=pf['name'], url=pf['url'])
             children.append(pf_collection)
         return children
