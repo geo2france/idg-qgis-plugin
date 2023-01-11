@@ -175,48 +175,48 @@
       "type": "folder",
       "children": [{
           "title": "Communes",
-          "description": "Communes du PCI-vecteur 2020",
+          "description": "Communes du PCI-vecteur 2022",
 		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/85981e02-e82a-4b71-961f-29bdddcc85a1",
           "type": "wms_layer",
           "params": {
             "url": "https://www.geo2france.fr/geoserver/pci/ows",
-            "name": "geo_commune_2020",
+            "name": "geo_commune_2022",
             "format": "image/png",
             "srs": "epsg:2154"
           }
         },
         {
           "title": "Sections",
-          "description": "Section du PCI vecteur 2020",
+          "description": "Section du PCI vecteur 2022",
           "type": "wms_layer",
 		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/85981e02-e82a-4b71-961f-29bdddcc85a1",
           "params": {
             "url": "https://www.geo2france.fr/geoserver/pci/ows",
-            "name": "geo_section_2020",
+            "name": "geo_section_2022",
             "format": "image/png",
             "srs": "epsg:2154"
           }
         },
         {
           "title": "Parcelle",
-          "description": "Parcelles du PCI vecteur 2020",
+          "description": "Parcelles du PCI vecteur 2022",
           "type": "wms_layer",
 		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/85981e02-e82a-4b71-961f-29bdddcc85a1",
           "params": {
           "url": "https://www.geo2france.fr/geoserver/pci/ows",
-          "name": "geo_parcelle_2020",
+          "name": "geo_parcelle_2022",
           "format": "image/png",
           "srs": "epsg:2154"
           }
         },
         {
           "title": "Bâti",
-          "description": "Bâti du PCI vecteur 2020",
+          "description": "Bâti du PCI vecteur 2022",
           "type": "wms_layer",
 		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/85981e02-e82a-4b71-961f-29bdddcc85a1",
           "params": {
           "url": "https://www.geo2france.fr/geoserver/pci/ows",
-          "name": "geo_batiment_2020",
+          "name": "geo_batiment_2022",
           "format": "image/png",
           "srs": "epsg:2154"
           }
