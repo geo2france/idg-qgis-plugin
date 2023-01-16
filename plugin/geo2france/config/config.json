@@ -508,7 +508,8 @@
       "type": "folder",
       "children": [
       {
-        "Title": "Courbes de niveau",
+        "title": "Courbes de niveau",
+        "description": "Données altimétriques",
         "type": "folder",
         "children": [
              {
