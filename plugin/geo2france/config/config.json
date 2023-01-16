@@ -232,6 +232,18 @@
           "format": "image/png",
           "srs": "epsg:2154"
           }
+        },
+        {
+          "title": "Parcelles des personnes morales",
+          "description": "Fichiers majic des personnes morales, publiés par la DGFiP",
+          "type": "wms_layer",
+		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/7706daf8-9080-4000-b7b2-19613db453ed",
+          "params": {
+          "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+          "name": "parcellaire_majic_personnes_morales_2020_publi",
+          "format": "image/png",
+          "srs": "epsg:2154"
+          }
         }
       ]
     },
