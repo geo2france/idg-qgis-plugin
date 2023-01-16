@@ -231,8 +231,21 @@
           "title": "Vues aériennes récentes - domaine visible",
           "description": "Photographies aériennes prises dans le domaine visible depuis 2018",
           "type": "folder",
-          "children": [{
-              "title": "Vue aérienne des Hauts-de-France de 2017-2018",
+          "children": [
+            {
+              "title": "Vue aérienne des Hauts-de-France de 2021 - visible",
+              "description": "Orthophotographie des Hauts-de-France de 2021 (résolution de 0,20 m)",
+              "metadata_url": "https://www.geo2france.fr/datahub/dataset/b78820de-0104-4369-b4c5-7ff715b1a34e",
+              "type": "wms_layer",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/ign/ows",
+                "name": "2021_R32_Ortho_0m20_RVB_COG",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+            {
+              "title": "Vue aérienne des Hauts-de-France de 2017-2018 - visible",
               "description": "Orthophotographie des Hauts-de-France de 2018 (résolution de 0,20 m)",
               "metadata_url": "https://www.geo2france.fr/datahub/dataset/b78820de-0104-4369-b4c5-7ff715b1a34e",
               "type": "wms_layer",
@@ -249,7 +262,20 @@
           "title": "Vues aériennes récentes - domaine infrarouge",
           "description": "Photographies aériennes prises dans le domaine infrarouge depuis 2018",
           "type": "folder",
-          "children": [{
+          "children": [
+              {
+              "title": "Vue aérienne des Hauts-de-France de 2021 - infrarouge",
+              "description": "Orthophotographie des Hauts-de-France de 2021 (résolution de 0,20 m)",
+              "metadata_url": "https://www.geo2france.fr/datahub/dataset/b78820de-0104-4369-b4c5-7ff715b1a34e",
+              "type": "wms_layer",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/ign/ows",
+                "name": "2021_R32_Ortho_0m20_IRC_COG",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+            {
               "title": "Vue aérienne des Hauts-de-France 2017/2018 - infrarouge",
               "description": "Orthophotographie aérienne des Hauts-de-France 2017/2018 dans le domaine infrarouge (résolution de 20 cm)",
               "type": "wms_layer",
