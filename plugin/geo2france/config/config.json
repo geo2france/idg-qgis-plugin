@@ -90,6 +90,18 @@
             "format": "image/jpeg",
             "srs": "EPSG:2154"
           }
+        },
+        {
+          "title": "Plan IGN",
+          "description": "Fond cartographique pensé pour un usage écran",
+          "type": "wms_layer",
+		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/09079ac3-5590-4008-b71e-6a9ee8df164f",
+          "params": {
+            "url": "https://wxs.ign.fr/cartes/geoportail/r/wms/",
+            "name": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
+            "format": "image/png",
+            "srs": "EPSG:2154"
+          }
         }
       ]
     },
