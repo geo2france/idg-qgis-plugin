@@ -507,6 +507,24 @@
       "description": "Données altimétriques",
       "type": "folder",
       "children": [
+      {
+        "Title": "Courbes de niveau",
+        "type": "folder",
+        "children": [
+             {
+              "title": "Courbes de niveau France",
+              "description": "Thématique Altimétrie de l'IGN",
+              "type": "wms_layer",
+			  "metadata_url": "",
+              "params": {
+                "url": "https://wxs.ign.fr/altimetrie/geoportail/r/wms",
+                "name": "ELEVATION.CONTOUR.LINE",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            }
+        ]
+      },
 	 {
           "title": "Relief des Hauts-de-France (2021)",
           "description": "Altitude sur l'ensemble de la région Hauts-de-France, issue du RGE Alti 1m de l'IGN",
