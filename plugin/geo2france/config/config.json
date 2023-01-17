@@ -629,14 +629,14 @@
       "description": "Données concernant les limites administratives",
       "type": "folder",
       "children": [{
-          "title": "Départements - GEOFLA",
-          "description": "Limites des départements basées sur la base de données Admin Express de l'IGN",
+          "title": "Départements - BD TOPO",
+          "description": "Limites des départements basées sur la base de données BD TOPO de l'IGN",
           "type": "wfs_feature_type",
 		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/a8591404-c2f7-4080-87c4-266e9582a26f",
           "params": {
-            "url": "https://www.geo2france.fr/geoserver/spld/ows",
+            "url": "https://wxs.ign.fr/topographie/geoportail/wfs",
             "version": "2.0.0",
-            "name": "spld:DEPARTEMENT",
+            "name": "BDTOPO_V3:departement",
             "srs": "epsg:2154"
           }
         },
