@@ -986,7 +986,19 @@
             ]
           }
         ]
-      }]
+      },
+        {
+        "title": "PCAET ",
+        "description": "Plans Climat-Air-Energie Territoriaux dans les Hauts-de-France",
+        "type": "wms_layer",
+        "metadata_url": "https://www.geo2france.fr/datahub/dataset/63f43846-b120-4744-a92d-973b2ce02ba9",
+        "params": {
+          "url": "https://qgisserver.hautsdefrance.fr/cgi-bin/qgis_mapserv.fcgi?MAP=/var/www/data/qgis/applications/limites_admin.qgz",
+          "name": "pcaet",
+          "format": "image/png",
+          "srs": "epsg:2154"
+        }
+    }]
     }
   ]
 }
