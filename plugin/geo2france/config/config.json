@@ -102,18 +102,6 @@
             "format": "image/png",
             "srs": "EPSG:2154"
           }
-        },
-        {
-          "title": "Parcelles forestières de l'ONF",
-          "description": "Découpage parcellaire des forêts gérées par l'Office National des Forêts",
-          "type": "wms_layer",
-		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/74e8d357-5f4f-40aa-97e8-e6c11ea8bb67",
-          "params": {
-            "url": "https://www.geo2france.fr/geoserver/sinp/ows/",
-            "name": "parcelle_forestiere",
-            "format": "image/png",
-            "srs": "EPSG:2154"
-          }
         }
       ]
     },
@@ -739,7 +727,19 @@
                 "name": "sinp:zonage_natura2000",
                 "srs": "epsg:2154"
               }
-            }
+            },
+          {
+          "title": "Parcelles forestières de l'ONF",
+          "description": "Découpage parcellaire des forêts gérées par l'Office National des Forêts",
+          "type": "wms_layer",
+		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/74e8d357-5f4f-40aa-97e8-e6c11ea8bb67",
+          "params": {
+            "url": "https://www.geo2france.fr/geoserver/sinp/ows/",
+            "name": "parcelle_forestiere",
+            "format": "image/png",
+            "srs": "EPSG:2154"
+          }
+        }
           ]
         },
 		{
