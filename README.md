@@ -53,7 +53,11 @@ un point d'exclamation.
 
 ### Contributeurs
 
-[TODO]
+<a href="https://github.com/geo2france/idg-qgis-plugin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=geo2france/idg-qgis-plugin" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
 
 ### Autres remerciements
 
