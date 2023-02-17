@@ -1,8 +1,10 @@
-from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataProvider
+from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataItem, QgsDataProvider, QgsProject, \
+    QgsLayerTreeLayer, QgsLayerTreeGroup, QgsMimeDataUtils
 from qgis.PyQt.QtGui import QIcon
 from idg.toolbelt import PluginGlobals, PlgOptionsManager
 from qgis.PyQt.QtWidgets import QAction, QMenu
 
+from os import path
 import json
 
 class IdgProvider(QgsDataItemProvider):
@@ -52,12 +54,43 @@ class RootCollection(QgsDataCollectionItem):
 
 class PlatformCollection(QgsDataCollectionItem):
     def __init__(self, name, url, label=None, icon=None, parent=None):
-        self.url = url
+        self.url = PluginGlobals.instance().config_file_path # TODO prevoir pour plusieurs fichier de conf
         QgsDataCollectionItem.__init__(self, parent, label, "/IDG/"+name)
-        self.setToolTip(url)
+        self.setToolTip(self.url)
+        self.project = QgsProject()
+        self.project.read(self.url)
         if icon:  # QIcon
             self.setIcon(icon)
 
     def createChildren(self):
         # TODO add layer/folder for each platform
-        return []
+        children = []
+        for element in self.project.layerTreeRoot().children():
+            if isinstance(element, QgsLayerTreeLayer):
+                children.append(LayerItem(parent=self, name=element.layer().name(), layer=element.layer()))
+        return children
+
+
+class LayerItem(QgsDataItem):
+    def __init__(self, parent, name, layer):
+        self.layer = layer
+        QgsDataItem.__init__(self, QgsDataItem.Layer,
+                             parent, name, "/idg/" + layer.id())
+        self.setState(QgsDataItem.Populated)  # no children
+
+    def mimeUri(self):
+        return QgsMimeDataUtils.Uri(self.layer)
+
+    def mimeUris(self):
+        return [QgsMimeDataUtils.Uri(self.layer)]
+
+    def hasDragEnabled(self):
+        #TODO ajouter une couche via le drag fait perdre le style, car ouvre directement la couche sans passer par le projet
+        return True
+
+    def handleDoubleClick(self):
+        QgsProject.instance().addMapLayer(self.layer)
+        return True
+
+    def hasChildren(self):
+        return False
