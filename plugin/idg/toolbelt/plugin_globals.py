@@ -127,9 +127,9 @@ class PluginGlobals:
         s.setValue(u"{0}/hide_resources_with_warn_status".format(self.PLUGIN_TAG), u"1")
         s.setValue(u"{0}/hide_empty_groups".format(self.PLUGIN_TAG), u"1")
         s.setValue(u"{0}/config_files_download_at_startup".format(self.PLUGIN_TAG), u"0")
-        s.setValue(u"{0}/config_file_names".format(self.PLUGIN_TAG), ["config.json"])
+        s.setValue(u"{0}/config_file_names".format(self.PLUGIN_TAG), self.CONFIG_FILE_NAMES)
         s.setValue(u"{0}/config_file_urls".format(self.PLUGIN_TAG),
-                   ["https://www.geo2france.fr/public/qgis3/plugins/geo2france/config.json"])
+                   self.CONFIG_FILE_URLS)
 
     def get_qgis_setting_default_value(self, setting):
         """

@@ -2,6 +2,11 @@
 
 Plugin pour QGIS 3 fournissant un accès simple aux données de l'ensemble des Infrastructure de Données Géographiques (IDG) et d'autres ressources nationales géographiques utiles.
 
+## Notes de dev
+
+En cas d'erreur : supprimer la configuration du plugin Geo2france (préférences -> avancé)
+Rétablir la configuration par défaut (préférences -> IDG)
+
 ## Installation
 
 Pré-requis :
