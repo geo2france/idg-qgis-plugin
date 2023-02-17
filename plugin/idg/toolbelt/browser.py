@@ -1,7 +1,7 @@
 from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataItem, QgsDataProvider, QgsProject, \
     QgsLayerTreeLayer, QgsLayerTreeGroup, QgsMimeDataUtils
 from qgis.PyQt.QtGui import QIcon
-from idg.toolbelt import PluginGlobals, PlgOptionsManager
+from idg.toolbelt import PluginGlobals, PlgOptionsManager, PluginIcons
 from qgis.PyQt.QtWidgets import QAction, QMenu
 
 import os.path
@@ -69,8 +69,27 @@ class PlatformCollection(QgsDataCollectionItem):
         for element in self.project.layerTreeRoot().children():
             if isinstance(element, QgsLayerTreeLayer):
                 children.append(LayerItem(parent=self, name=element.layer().name(), layer=element.layer()))
+            elif isinstance(element, QgsLayerTreeGroup):
+                children.append(GroupItem(parent=self, name=element.name(), group=element))
         return children
 
+
+class GroupItem(QgsDataCollectionItem):
+    def __init__(self, parent, name, group):
+        self.path = os.path.join(parent.path, group.name())
+        self.group = group
+        QgsDataCollectionItem.__init__(self, parent, name, self.path)
+        self.setIcon(PluginIcons.instance().folder_icon)
+
+
+    def createChildren(self):
+        children = []
+        for element in self.group.children():
+            if isinstance(element, QgsLayerTreeLayer):
+                children.append(LayerItem(parent=self, name=element.layer().name(), layer=element.layer()))
+            elif isinstance(element, QgsLayerTreeGroup):
+                children.append(GroupItem(parent=self, name=element.name(), group=element))
+        return children
 
 class LayerItem(QgsDataItem):
     def __init__(self, parent, name, layer):
