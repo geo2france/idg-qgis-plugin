@@ -1,11 +1,22 @@
 from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataItem, QgsDataProvider, QgsProject, \
-    QgsLayerTreeLayer, QgsLayerTreeGroup, QgsMimeDataUtils
+    QgsLayerTreeLayer, QgsLayerTreeGroup, QgsMimeDataUtils, QgsAbstractMetadataBase
+from qgis.gui import QgisInterface
 from qgis.PyQt.QtGui import QIcon
 from idg.toolbelt import PluginGlobals, PlgOptionsManager, PluginIcons
 from qgis.PyQt.QtWidgets import QAction, QMenu
 
 import os.path
 import json
+import webbrowser
+
+
+def find_catalog_url(metadata: QgsAbstractMetadataBase):
+    """Find and return catalog url from layer metadatabase"""
+    for l in metadata.links():
+        if l.name.strip().lower() in ['metadata', 'métadonnées', 'métadonnée']:
+            return l.url
+    return None
+
 
 class IdgProvider(QgsDataItemProvider):
     def __init__(self):
@@ -81,7 +92,6 @@ class GroupItem(QgsDataCollectionItem):
         QgsDataCollectionItem.__init__(self, parent, name, self.path)
         self.setIcon(PluginIcons.instance().folder_icon)
 
-
     def createChildren(self):
         children = []
         for element in self.group.children():
@@ -91,14 +101,16 @@ class GroupItem(QgsDataCollectionItem):
                 children.append(GroupItem(parent=self, name=element.name(), group=element))
         return children
 
+
 class LayerItem(QgsDataItem):
     def __init__(self, parent, name, layer):
         self.layer = layer
+        self.catalog_url = find_catalog_url(layer.metadata())
         self.path = os.path.join(parent.path, layer.id())
         QgsDataItem.__init__(self, QgsDataItem.Custom,
                              parent, name, self.path )
         self.setState(QgsDataItem.Populated)  # no children
-        print(self.path)
+        self.setToolTip(self.layer.metadata().abstract())
 
     def mimeUri(self):
         # Définir le mime est nécessaire pour le drag&drop
@@ -118,9 +130,17 @@ class LayerItem(QgsDataItem):
     def hasChildren(self):
         return False
 
+    def openUrl(self):
+        webbrowser.open_new_tab(self.catalog_url)
+
     def actions(self, parent):
+        ac_open_meta = QAction('Voir les métadonnées', parent)
+        if self.catalog_url is not None:
+            ac_open_meta.triggered.connect(self.openUrl)
+        else:
+            ac_open_meta.setEnabled(False)
         actions = [
             QAction('Afficher la couche', parent),
-            QAction('Voir les métadonnées', parent),
+            ac_open_meta,
         ]
         return actions
