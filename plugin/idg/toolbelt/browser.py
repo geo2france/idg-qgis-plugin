@@ -4,7 +4,7 @@ from qgis.PyQt.QtGui import QIcon
 from idg.toolbelt import PluginGlobals, PlgOptionsManager
 from qgis.PyQt.QtWidgets import QAction, QMenu
 
-from os import path
+import os.path
 import json
 
 class IdgProvider(QgsDataItemProvider):
@@ -55,7 +55,8 @@ class RootCollection(QgsDataCollectionItem):
 class PlatformCollection(QgsDataCollectionItem):
     def __init__(self, name, url, label=None, icon=None, parent=None):
         self.url = PluginGlobals.instance().config_file_path # TODO prevoir pour plusieurs fichier de conf
-        QgsDataCollectionItem.__init__(self, parent, label, "/IDG/"+name)
+        self.path = "/IDG/"+name
+        QgsDataCollectionItem.__init__(self, parent, label, self.path )
         self.setToolTip(self.url)
         self.project = QgsProject()
         self.project.read(self.url)
@@ -74,11 +75,14 @@ class PlatformCollection(QgsDataCollectionItem):
 class LayerItem(QgsDataItem):
     def __init__(self, parent, name, layer):
         self.layer = layer
-        QgsDataItem.__init__(self, QgsDataItem.Layer,
-                             parent, name, "/idg/" + layer.id())
+        self.path = os.path.join(parent.path, layer.id())
+        QgsDataItem.__init__(self, QgsDataItem.Custom,
+                             parent, name, self.path )
         self.setState(QgsDataItem.Populated)  # no children
+        print(self.path)
 
     def mimeUri(self):
+        # Définir le mime est nécessaire pour le drag&drop
         return QgsMimeDataUtils.Uri(self.layer)
 
     def mimeUris(self):
@@ -86,7 +90,7 @@ class LayerItem(QgsDataItem):
 
     def hasDragEnabled(self):
         #TODO ajouter une couche via le drag fait perdre le style, car ouvre directement la couche sans passer par le projet
-        return True
+        return False
 
     def handleDoubleClick(self):
         QgsProject.instance().addMapLayer(self.layer)
@@ -94,3 +98,10 @@ class LayerItem(QgsDataItem):
 
     def hasChildren(self):
         return False
+
+    def actions(self, parent):
+        actions = [
+            QAction('Afficher la couche', parent),
+            QAction('Voir les métadonnées', parent),
+        ]
+        return actions
