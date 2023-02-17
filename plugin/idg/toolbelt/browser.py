@@ -71,6 +71,7 @@ class PlatformCollection(QgsDataCollectionItem):
         self.setToolTip(self.url)
         self.project = QgsProject()
         self.project.read(self.url)
+        self.setName(self.project.metadata().title())
         if icon:  # QIcon
             self.setIcon(icon)
 
@@ -83,6 +84,19 @@ class PlatformCollection(QgsDataCollectionItem):
             elif isinstance(element, QgsLayerTreeGroup):
                 children.append(GroupItem(parent=self, name=element.name(), group=element))
         return children
+
+    def actions(self, parent):
+        #parent.setToolTipsVisible(True)
+        def set_action_url(link):
+            a = QAction(link.name, parent)
+            a.triggered.connect(lambda: webbrowser.open_new_tab(link.url))
+            #a.setToolTip(link.description)
+            return a
+
+        actions = []
+        for link in self.project.metadata().links():
+            actions.append(set_action_url(link))
+        return actions
 
 
 class GroupItem(QgsDataCollectionItem):
