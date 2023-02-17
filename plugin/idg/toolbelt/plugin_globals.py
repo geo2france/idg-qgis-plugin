@@ -37,7 +37,7 @@ class PluginGlobals:
     IMAGES_DIR_NAME = "images"
     LOGO_FILE_NAME = "logo_geo2france.png"
 
-    ICON_WARN_FILE_NAME = "Icon_Simple_Warn.png"
+    ICON_WARN_FILE_NAME = "mIconWarning.svg"
     ICON_WMS_LAYER_FILE_NAME = "mIconWms.svg"
     ICON_WMS_STYLE_FILE_NAME = "mIconWmsStyle.svg"
     ICON_WFS_LAYER_FILE_NAME = "mIconWfs.svg"
