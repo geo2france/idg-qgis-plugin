@@ -257,6 +257,18 @@
           "type": "folder",
           "children": [
             {
+              "title": "PCRS Raster Régional - Orthophoto 5 cm",
+              "description": "Orthophotographie numérique couleur du territoire de la Région Hauts-de-France en 2021, 2022 et 2023, pixel 5 cm.",
+              "metadata_url": "https://www.geo2france.fr/datahub/dataset/94a69703-572f-463a-9cfc-6bca075384b8",
+              "type": "wms_layer",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+                "name": "assemblage_pcrs_raster_regional_hauts_de_france",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+            {
               "title": "Vue aérienne des Hauts-de-France de 2021 - visible",
               "description": "Orthophotographie des Hauts-de-France de 2021 (résolution de 0,20 m)",
               "metadata_url": "https://www.geo2france.fr/datahub/dataset/b78820de-0104-4369-b4c5-7ff715b1a34e",
