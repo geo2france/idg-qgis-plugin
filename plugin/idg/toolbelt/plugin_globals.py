@@ -16,7 +16,7 @@ class PluginGlobals:
     plugin_path = None
 
     # Plugin infos
-    PLUGIN_TAG = u"Géo2France"
+    PLUGIN_TAG = u"IDG"
     PLUGIN_VERSION = u"0.9.1"
     PLUGIN_SOURCE_REPOSITORY = u"https://github.com/geo2france/geo2france-qgis3-plugin"
 

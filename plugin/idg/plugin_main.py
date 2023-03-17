@@ -105,8 +105,7 @@ class IdgPlugin:
         )
 
         # -- Menu
-        self.iface.addPluginToMenu(__title__, self.action_settings)
-        self.iface.addPluginToMenu(__title__, self.action_help)
+
 
     # Create a menu
         self.createPluginMenu()
@@ -151,7 +150,7 @@ class IdgPlugin:
         Creates the plugin main menu
         """
         plugin_menu = self.iface.pluginMenu()
-        self.plugin_menu = QMenu(u"Géo2France", plugin_menu)
+        self.plugin_menu = QMenu(__title__, plugin_menu)
         plugin_menu.addMenu(self.plugin_menu)
 
         show_panel_action = QAction(u'Afficher le panneau latéral', self.iface.mainWindow())
@@ -165,6 +164,10 @@ class IdgPlugin:
         about_action = QAction(u'À propos…', self.iface.mainWindow())
         about_action.triggered.connect(self.aboutMenuTriggered)
         self.plugin_menu.addAction(about_action)
+
+        self.plugin_menu.addAction(self.action_settings)
+        self.plugin_menu.addAction(self.action_help)
+
 
     def showPanelMenuTriggered(self):
         """
