@@ -28,18 +28,11 @@ class PlgSettingsStructure:
     # global
     debug_mode: bool = False
     version: str = __version__
-    platforms: str = json.dumps(
-                        [
-                            {'name': 'Geo2France',
-                             'url': 'http://127.0.0.1:8000/projet_idg.qgs'},
-                            {'name': 'DataGrandEst',
-                             'url': 'http://127.0.0.1:8000/projet_idg.qgz'}
-                        ]
-                    )
     configs_folder: str = ''
     config_files_download_at_startup: bool = False
     hide_empty_groups: bool = True
     hide_resources_with_warn_status: bool = True
+    idgs: str = 'https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/dev/projects/projet_idg_demo.qgs'
 
 
 class PlgOptionsManager:

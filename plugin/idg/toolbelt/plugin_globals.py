@@ -49,7 +49,7 @@ class PluginGlobals:
     CONFIG_FILE_NAMES = ["projet_idg.qgs"]
     CONFIG_FILE_URLS = ["http://127.0.0.1:8000/projet_idg.qgs"]
 
-    IDGS = ['https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/dev/projects/projet_idg_demo.qgs']
+    IDGS = PlgOptionsManager().get_value_from_key('idgs').split(',')
 
     # Hide resources with status = warn
     HIDE_RESOURCES_WITH_WARN_STATUS = PlgOptionsManager().get_value_from_key('hide_resources_with_warn_status')
