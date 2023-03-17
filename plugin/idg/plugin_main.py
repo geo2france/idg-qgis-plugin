@@ -23,7 +23,7 @@ from idg.toolbelt import PluginGlobals, PlgOptionsManager, IdgProvider
 from idg.gui.dock import DockWidget
 from idg.gui.about_box import AboutBox
 from idg.gui.param_box import ParamBox
-from idg.toolbelt.tree_node_factory import TreeNodeFactory, download_tree_config_file
+from idg.toolbelt.tree_node_factory import TreeNodeFactory, download_tree_config_file, download_all_config_files
 
 import os
 import json
@@ -59,11 +59,13 @@ class IdgPlugin:
         config_string = ""
         
         # Download the config if needed
-        if self.need_download_tree_config_file():
-            download_tree_config_file(PluginGlobals.instance().CONFIG_FILE_URLS[0])
+        #if self.need_download_tree_config_file():
+        #    download_tree_config_file(PluginGlobals.instance().CONFIG_FILE_URLS[0])
         
         # Read the resources tree file and update the GUI
         self.ressources_tree = TreeNodeFactory(PluginGlobals.instance().config_file_path).root_node
+
+        download_all_config_files(PluginGlobals.instance().IDGS)
 
     def need_download_tree_config_file(self):
         """

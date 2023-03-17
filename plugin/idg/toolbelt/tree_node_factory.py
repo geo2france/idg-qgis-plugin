@@ -20,6 +20,29 @@ from .nodes import WmsLayerTreeNode, WmsStyleLayerTreeNode, WmtsLayerTreeNode, W
 from .nodes import WfsFeatureTypeFilterTreeNode, GdalWmsConfigFileTreeNode, FolderTreeNode
 
 
+def download_all_config_files(idgs):
+    """Download all config file in dict
+        key = IDG_id, value = url
+        rename local file
+    """
+    for idg_id, url in idgs.items():
+        request = QNetworkRequest(QUrl(url))
+        manager = QgsNetworkAccessManager.instance()
+        response: QgsNetworkReplyContent = manager.blockingGet(
+            request, forceRefresh=True
+        )
+        suffix = os.path.splitext(os.path.basename(url))[-1]
+        local_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix)
+        print(response.errorString())
+        if response.error() == QNetworkReply.NoError:
+            with open(local_file_name, "wb") as local_config_file:
+                local_config_file.write(response.content())
+        else :
+            short_message = "Le téléchargement du fichier projet {0} a échoué.".format(idg_id)
+            PluginGlobals.instance().iface.messageBar().pushMessage(
+                "Erreur", short_message, level=Qgis.Warning
+            )
+
 def download_tree_config_file(file_url):
     """
     Download the resources tree file

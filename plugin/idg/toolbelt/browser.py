@@ -57,21 +57,26 @@ class RootCollection(QgsDataCollectionItem):
         
     def createChildren(self):
         children = []
-        for pf in json.loads(PlgOptionsManager().get_value_from_key(key='platforms')):
-            pf_collection = PlatformCollection(name=pf['name'].lower(), label=pf['name'], url=pf['url'])
+        for idg_id, url in PluginGlobals.instance().IDGS.items():
+            suffix = os.path.splitext(os.path.basename(url))[-1]
+            local_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix)
+            pf_collection = PlatformCollection(name=idg_id.lower(), label=idg_id, url=local_file_name)
             children.append(pf_collection)
         return children
 
 
 class PlatformCollection(QgsDataCollectionItem):
     def __init__(self, name, url, label=None, icon=None, parent=None):
-        self.url = PluginGlobals.instance().config_file_path # TODO prevoir pour plusieurs fichier de conf
+        self.url = url # TODO prevoir pour plusieurs fichier de conf
         self.path = "/IDG/"+name
         QgsDataCollectionItem.__init__(self, parent, label, self.path )
         self.setToolTip(self.url)
         self.project = QgsProject()
-        self.project.read(self.url)
-        self.setName(self.project.metadata().title())
+        if self.project.read(self.url) is not True:
+            print('error')
+            self.setIcon(PluginIcons.instance().warn_icon)
+        if (self.project.metadata().title() or '') != '':
+            self.setName(self.project.metadata().title())
         if icon:  # QIcon
             self.setIcon(icon)
 
@@ -84,6 +89,7 @@ class PlatformCollection(QgsDataCollectionItem):
             elif isinstance(element, QgsLayerTreeGroup):
                 children.append(GroupItem(parent=self, name=element.name(), group=element))
         return children
+
 
     def actions(self, parent):
         #parent.setToolTipsVisible(True)

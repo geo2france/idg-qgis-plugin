@@ -37,7 +37,7 @@ class PluginGlobals:
     IMAGES_DIR_NAME = "images"
     LOGO_FILE_NAME = "logo_geo2france.png"
 
-    ICON_WARN_FILE_NAME = "Icon_Simple_Warn.png"
+    ICON_WARN_FILE_NAME = "mIconWarning.svg"
     ICON_WMS_LAYER_FILE_NAME = "mIconWms.svg"
     ICON_WMS_STYLE_FILE_NAME = "mIconWmsStyle.svg"
     ICON_WFS_LAYER_FILE_NAME = "mIconWfs.svg"
@@ -48,6 +48,9 @@ class PluginGlobals:
     CONFIG_DIR_NAME = "config"
     CONFIG_FILE_NAMES = ["projet_idg.qgs"]
     CONFIG_FILE_URLS = ["http://127.0.0.1:8000/projet_idg.qgs"]
+
+    IDGS = {'geo2france': 'http://127.0.0.1:8000/projet_idg.qgs',
+            'geo2francebis': 'http://127.0.0.1:8000/projet_dfdsfdsfdsidg.qgs'}
 
     # Hide resources with status = warn
     HIDE_RESOURCES_WITH_WARN_STATUS = PlgOptionsManager().get_value_from_key('hide_resources_with_warn_status')

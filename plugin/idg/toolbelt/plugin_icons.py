@@ -24,9 +24,7 @@ class PluginIcons():
         style = QgsApplication.style()
         self.folder_icon = style.standardIcon(QStyle.SP_DirClosedIcon)
 
-        warn_icon_path = os.path.join(PluginGlobals.instance().images_dir_path,
-                                      PluginGlobals.instance().ICON_WARN_FILE_NAME)
-        self.warn_icon = QIcon(warn_icon_path)
+        self.warn_icon = style.standardIcon(QStyle.SP_MessageBoxCritical)
 
         wms_layer_icon_path = os.path.join(PluginGlobals.instance().images_dir_path,
                                            PluginGlobals.instance().ICON_WMS_LAYER_FILE_NAME)
