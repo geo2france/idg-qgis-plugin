@@ -4,6 +4,7 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QWidget, QVBoxLayout
 from qgis.gui import QgsDockWidget
 
+from idg.__about__ import __title__
 from idg.gui.tree_widget import TreeWidget
 
 
@@ -20,7 +21,7 @@ class DockWidget(QgsDockWidget):
 
     def init_gui(self):
         """ """
-        self.setWindowTitle("Géo2France_dev")
+        self.setWindowTitle(__title__)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
 
         self.treeWidget = TreeWidget()
