@@ -25,7 +25,8 @@ def download_all_config_files(idgs):
         key = IDG_id, value = url
         rename local file
     """
-    for idg_id, url in idgs.items():
+    for idg_id, url in enumerate(idgs):
+        idg_id = str(idg_id)
         request = QNetworkRequest(QUrl(url))
         manager = QgsNetworkAccessManager.instance()
         response: QgsNetworkReplyContent = manager.blockingGet(

@@ -57,7 +57,8 @@ class RootCollection(QgsDataCollectionItem):
         
     def createChildren(self):
         children = []
-        for idg_id, url in PluginGlobals.instance().IDGS.items():
+        for idg_id, url in enumerate(PluginGlobals.instance().IDGS):
+            idg_id = str(idg_id)
             suffix = os.path.splitext(os.path.basename(url))[-1]
             local_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix)
             pf_collection = PlatformCollection(name=idg_id.lower(), label=idg_id, url=local_file_name)
