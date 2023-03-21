@@ -2,10 +2,6 @@
 
 Plugin pour QGIS 3 fournissant un accès simple aux données de l'ensemble des Infrastructure de Données Géographiques (IDG) et d'autres ressources nationales géographiques utiles.
 
-## Notes de dev
-
-En cas d'erreur : supprimer la configuration du plugin Geo2france (préférences -> avancé)
-Rétablir la configuration par défaut (préférences -> IDG)
 
 ## Installation
 
@@ -20,31 +16,37 @@ Installation depuis le dépôt officiel (via le gestionnaire d'extensions de QGI
 
 ## Utilisation
 
-[UPDATE] [TODO]
+### Administrateur
 
-Affichage des ressources mises à disposition des utilisateurs via l'extension :
+Créer un nouveau projet et y ajouter les couches que vous souhaitez diffuser.
+> **Warning**
+> Les couches doivent pouvoir être accessible depuis n'importe où (fichiers distants ou flux WMS/WFS, etc.), il ne doit **pas** s'agir de fichiers locaux.
 
-* Dans le menu de QGIS : Internet > IDG > Afficher le panneau IDG
 
-Un nouveau panneau latéral apparaît alors. Il contient une vue arborescente des ressources utiles aux utilisateurs·rices
-des plateformes de données géographiques régionales.
-Cet arbre contient pour l'instant (version 0.5.0 du plugin) :
+Il est recommandé d'[organiser les couches en groupes et sous-groupes](https://docs.qgis.org/3.22/fr/docs/user_manual/introduction/general_tools.html#group-layers-interact).
 
-* des couches et des styles issues de services internet WMS
-* des feature types (classes d'entités) de services internet WFS (avec la possibilité de définir un filtre sur
-certaines entités)
-* des répertoires facilitant l'organisation et la présentation des ressources décrites ci-dessus
+Dans les propriétés du projets, remplir les champs suivants :
 
-Pour ajouter une couche WMS ou une classe d'entités WFS sur la carte courante de QGIS vous pouvez utiliser l'une des
-opérations suivantes :
+- **Métadonnées > Identification > Titre** : Le nom de la plateforme qui sera visible par l'utilisateur (ex : Geo2France)
+- **Métadonnées > Identification > Résumé** : Facultatif, une brève présentation qui sera visible au survol
+- **Métadonnées > Liens** : Vous pouvez ajouter ici des liens vers les différents services de votre plateformes (ex : contact, catalogue). 
+   Ceux-ci seront accessibles à l'utilisateur via un clique droit sur le nom de la plateforme.
 
-* double-clic sur le nœud en question
-* clic-droit sur le nœud en question et menu contextuel "Ajouter à la carte"
-* glisser-déposer du nœud sur la carte de QGIS
+Pour chaque couche, vous pouvez définir :
+- Un titre et un résumé (_Propriété > Métadonnées > Identification_)
+- Une symbologie
+- Une URL de métadonnées : créer un lien nommé "Metadata" dans les propriété de la couche (_Propriété > Métadonnées > Liens_)
 
-L'arbre des ressources n'est pas entièrement renseigné, par conséquent, le double-clic sur certains nœuds peut ne rien
-ajouter à la carte courante. Les ressources non correctement paramétrées dans le plugin sont marquées d'une icône avec
-un point d'exclamation.
+Enregistrez le fichier projet ((qgs ou qgz) et déposez le sur un un serveur web (serveur HTTP, Github, Cloud, etc.).
+
+[TODO] Procédure pour enregistrer la plateforme dans les plateforme par défaut du plugin)
+
+### Utilisateur
+
+Dans le panneau _navigateur_ sur la gauche, double-cliquer sur l'icon **IDG** : cela déroulera les différentes plateformes disponibles.
+
+Pour ajouter de nouvelles plateformes, mettre à jour le plugin ou ajouter l'url fournie par l'administrateur dans _préférence > IDG_
+
 
 ## Conception
 
