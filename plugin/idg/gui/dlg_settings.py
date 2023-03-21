@@ -11,8 +11,9 @@ from pathlib import Path
 # PyQGIS
 from qgis.core import QgsApplication
 from qgis.gui import QgsOptionsPageWidget, QgsOptionsWidgetFactory
+from qgis.utils import iface
 from qgis.PyQt import uic
-from qgis.PyQt.Qt import QUrl
+from qgis.PyQt.Qt import QUrl, QWidget
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
 
 # project
@@ -72,6 +73,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.btn_reset.setIcon(QIcon(QgsApplication.iconPath("mActionUndo.svg")))
         self.btn_reset.pressed.connect(self.reset_settings)
 
+
         # load previously saved settings
         self.load_settings()
 
@@ -84,9 +86,12 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # misc
         settings.debug_mode = self.opt_debug.isChecked()
         settings.version = __version__
+        settings.idgs = self.idgs_list.toPlainText()
 
         # dump new settings into QgsSettings
-        self.plg_settings.save_from_object(settings)
+        self.plg_settings.save_from_object(settings) #Les variables globales ne sont peut être pas MAJ ici
+
+        iface.mainWindow().findChildren(QWidget, 'Browser')[0].refresh() # refresh browser (supprimer et recreer le registre IDG plutôt ?)
 
         if __debug__:
             self.log(
@@ -97,11 +102,11 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
     def load_settings(self):
         """Load options from QgsSettings into UI form."""
         settings = self.plg_settings.get_plg_settings()
-
         # global
         self.opt_debug.setChecked(settings.debug_mode)
         self.lbl_version_saved_value.setText(settings.version)
 
+        self.idgs_list.setText(settings.idgs)
 
     def reset_settings(self):
         """Reset settings to default values (set in preferences.py module)."""
