@@ -63,7 +63,7 @@ class IdgPlugin:
         #    download_tree_config_file(PluginGlobals.instance().CONFIG_FILE_URLS[0])
         
         # Read the resources tree file and update the GUI
-        self.ressources_tree = TreeNodeFactory(PluginGlobals.instance().config_file_path).root_node
+        #self.ressources_tree = TreeNodeFactory(PluginGlobals.instance().config_file_path).root_node # dev
 
         download_all_config_files(PlgOptionsManager().get_value_from_key('idgs').split(','))
 
@@ -113,9 +113,9 @@ class IdgPlugin:
         self.createPluginMenu()
 
         # Create a dockable panel with a tree of resources
-        self.dock = DockWidget()
-        self.dock.set_tree_content(self.ressources_tree)
-        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock)
+        #self.dock = DockWidget()
+        #self.dock.set_tree_content(self.ressources_tree)
+        #self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock) # dev
 
     # Add browser provider
         self.registry = QgsApplication.dataItemProviderRegistry()       
