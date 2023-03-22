@@ -140,8 +140,8 @@ class IdgPlugin:
         Removes the plugin menu
         """
         self.iface.pluginMenu().removeAction(self.plugin_menu.menuAction())
-        self.iface.removeDockWidget(self.dock)
-        del self.dock
+        #self.iface.removeDockWidget(self.dock)
+        #del self.dock
         
         #Clean-up browser
         self.registry.removeProvider(self.provider)
