@@ -73,7 +73,8 @@ class PlatformCollection(QgsDataCollectionItem):
         QgsDataCollectionItem.__init__(self, parent, label, self.path )
         self.setToolTip(self.url)
         self.project = QgsProject()
-        if self.project.read(self.url) is not True:
+        if self.project.read(self.url, QgsProject.ReadFlags()|QgsProject.FlagDontResolveLayers|QgsProject.FlagDontLoadLayouts) \
+                is not True:  # Le flag permet d'éviter que les URL des layers soient interrogées, mais le datasource du layer doit être reset avant usage
             print('error')
             self.setIcon(PluginIcons.instance().warn_icon)
         if (self.project.metadata().title() or '') != '':
@@ -145,6 +146,8 @@ class LayerItem(QgsDataItem):
         return False
 
     def handleDoubleClick(self):
+        self.layer.setDataSource(self.layer.source(), self.layer.name(),
+                            self.layer.providerType())  # Reset datasource, à cause du flag FlagDontResolveLayers
         QgsProject.instance().addMapLayer(self.layer)
         return True
 
