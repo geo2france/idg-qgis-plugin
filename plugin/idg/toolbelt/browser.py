@@ -2,20 +2,13 @@ from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataItem, Q
     QgsLayerTreeLayer, QgsLayerTreeGroup, QgsMimeDataUtils, QgsAbstractMetadataBase
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtCore import QCoreApplication
-
-from idg.toolbelt import PluginGlobals, PlgOptionsManager, PluginIcons, PlgTranslator
+from idg.toolbelt import PluginGlobals, PlgOptionsManager, PluginIcons
 from qgis.PyQt.QtWidgets import QAction, QMenu
 
 import os.path
 import json
 import webbrowser
 
-# translation
-plg_translation_mngr = PlgTranslator()
-translator = plg_translation_mngr.get_translator()
-if translator:
-    QCoreApplication.installTranslator(translator)
 
 def find_catalog_url(metadata: QgsAbstractMetadataBase):
     """Find and return catalog url from layer metadatabase"""
@@ -28,7 +21,6 @@ def find_catalog_url(metadata: QgsAbstractMetadataBase):
 class IdgProvider(QgsDataItemProvider):
     def __init__(self):
         QgsDataItemProvider.__init__(self)
-        self.tr = plg_translation_mngr.tr
 
     def name(self):
         return "IDG Provider"
@@ -45,7 +37,6 @@ class RootCollection(QgsDataCollectionItem):
     def __init__(self):
         QgsDataCollectionItem.__init__(self, None, "IDG", "/IDG")
         self.setIcon(QIcon(PluginGlobals.instance().plugin_path+'/resources/images/World-in-Hand-Big.svg'))
-        self.tr = plg_translation_mngr.tr
 
     def actions(self, parent):
         actions = list()
@@ -90,8 +81,6 @@ class PlatformCollection(QgsDataCollectionItem):
             self.setName(self.project.metadata().title())
         if icon:  # QIcon
             self.setIcon(icon)
-
-        self.tr = plg_translation_mngr.tr
 
     def createChildren(self):
         # TODO add layer/folder for each platform
@@ -144,7 +133,6 @@ class LayerItem(QgsDataItem):
                              parent, name, self.path )
         self.setState(QgsDataItem.Populated)  # no children
         self.setToolTip(self.layer.metadata().abstract())
-        self.tr = plg_translation_mngr.tr
 
     def mimeUri(self):
         # Définir le mime est nécessaire pour le drag&drop
