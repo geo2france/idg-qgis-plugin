@@ -1,5 +1,5 @@
 from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataItem, QgsDataProvider, QgsProject, \
-    QgsLayerTreeLayer, QgsLayerTreeGroup, QgsMimeDataUtils, QgsAbstractMetadataBase
+    QgsLayerTreeLayer, QgsLayerTreeGroup, QgsMimeDataUtils, QgsAbstractMetadataBase, QgsApplication, QgsIconUtils
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtGui import QIcon
 from idg.toolbelt import PluginGlobals, PlgOptionsManager, PluginIcons
@@ -76,10 +76,12 @@ class PlatformCollection(QgsDataCollectionItem):
         if self.project.read(self.url, QgsProject.ReadFlags()|QgsProject.FlagDontResolveLayers|QgsProject.FlagDontLoadLayouts) \
                 is not True:  # Le flag permet d'éviter que les URL des layers soient interrogées, mais le datasource du layer doit être reset avant usage
             print('error')
-            self.setIcon(PluginIcons.instance().warn_icon)
+            self.setIcon(QIcon(QgsApplication.iconPath("mIconWarning.svg")))
+        else:
+            self.setIcon(QIcon(QgsApplication.iconPath("mIconFolderProject.svg")))
         if (self.project.metadata().title() or '') != '':
             self.setName(self.project.metadata().title())
-        if icon:  # QIcon
+        if icon:  # Custom QIcon
             self.setIcon(icon)
 
     def createChildren(self):
@@ -112,7 +114,7 @@ class GroupItem(QgsDataCollectionItem):
         self.path = os.path.join(parent.path, group.name())
         self.group = group
         QgsDataCollectionItem.__init__(self, parent, name, self.path)
-        self.setIcon(PluginIcons.instance().folder_icon)
+        self.setIcon(QIcon(QgsApplication.iconPath("mIconFolder.svg")))
 
     def createChildren(self):
         children = []
@@ -133,6 +135,7 @@ class LayerItem(QgsDataItem):
                              parent, name, self.path )
         self.setState(QgsDataItem.Populated)  # no children
         self.setToolTip(self.layer.metadata().abstract())
+        self.setIcon(QgsIconUtils.iconForLayer(self.layer))
 
     def mimeUri(self):
         # Définir le mime est nécessaire pour le drag&drop
