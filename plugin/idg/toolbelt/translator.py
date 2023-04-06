@@ -53,7 +53,7 @@ class PlgTranslator:
         # list .qm files
         qm_files = tuple(qm_search_start_path.glob("**/*.qm"))
         self.AVAILABLE_TRANSLATIONS = tuple(q.name for q in qm_files)
-
+        logger.info(tpl_filename)
         # get locale and identify the compiled translation file (*.qm) to use
         locale = QgsSettings().value("locale/userLocale", QLocale().name())[0:2]
         locale_filename = tpl_filename.substitute(locale=locale)

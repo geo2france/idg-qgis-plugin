@@ -2,13 +2,20 @@ from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataItem, Q
     QgsLayerTreeLayer, QgsLayerTreeGroup, QgsMimeDataUtils, QgsAbstractMetadataBase
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtGui import QIcon
-from idg.toolbelt import PluginGlobals, PlgOptionsManager, PluginIcons
+from qgis.PyQt.QtCore import QCoreApplication
+
+from idg.toolbelt import PluginGlobals, PlgOptionsManager, PluginIcons, PlgTranslator
 from qgis.PyQt.QtWidgets import QAction, QMenu
 
 import os.path
 import json
 import webbrowser
 
+# translation
+plg_translation_mngr = PlgTranslator()
+translator = plg_translation_mngr.get_translator()
+if translator:
+    QCoreApplication.installTranslator(translator)
 
 def find_catalog_url(metadata: QgsAbstractMetadataBase):
     """Find and return catalog url from layer metadatabase"""
@@ -21,6 +28,7 @@ def find_catalog_url(metadata: QgsAbstractMetadataBase):
 class IdgProvider(QgsDataItemProvider):
     def __init__(self):
         QgsDataItemProvider.__init__(self)
+        self.tr = plg_translation_mngr.tr
 
     def name(self):
         return "IDG Provider"
@@ -37,22 +45,23 @@ class RootCollection(QgsDataCollectionItem):
     def __init__(self):
         QgsDataCollectionItem.__init__(self, None, "IDG", "/IDG")
         self.setIcon(QIcon(PluginGlobals.instance().plugin_path+'/resources/images/World-in-Hand-Big.svg'))
-        
+        self.tr = plg_translation_mngr.tr
+
     def actions(self, parent):
         actions = list()
-        add_idg_action = QAction(QIcon(), 'Paramètres...', parent)
+        add_idg_action = QAction(QIcon(), self.tr('Settings...'), parent)
         
         actions.append(add_idg_action)
         return actions
         
     def menus(self, parent):
-        menu = QMenu(title='Plateformes', parent=parent)
+        menu = QMenu(title=self.tr('Plateforms'), parent=parent)
         for pf, checked in zip(['DataGrandEst', 'GeoBretagne', 'Geo2France', 'Indigeo'], [True, False, True, False]): # pour maquette TODO boucler sur une variable de conf
             action = QAction(pf, menu, checkable=True)
             action.setChecked(checked)
             menu.addAction(action) # TODO l'action permet d'activer/désactiver une plateforme. La désactivation supprime le DataCollectionItem et désactive le download du fichier de conf
         menu.addSeparator()
-        menu.addAction(QAction('Ajouter une URL...', menu, )) # TODO Liens vers le panneau Options de QGIS
+        menu.addAction(QAction(self.tr('Add URL'), menu, )) # TODO Liens vers le panneau Options de QGIS
         return [menu]
         
     def createChildren(self):
@@ -81,6 +90,8 @@ class PlatformCollection(QgsDataCollectionItem):
             self.setName(self.project.metadata().title())
         if icon:  # QIcon
             self.setIcon(icon)
+
+        self.tr = plg_translation_mngr.tr
 
     def createChildren(self):
         # TODO add layer/folder for each platform
@@ -133,6 +144,7 @@ class LayerItem(QgsDataItem):
                              parent, name, self.path )
         self.setState(QgsDataItem.Populated)  # no children
         self.setToolTip(self.layer.metadata().abstract())
+        self.tr = plg_translation_mngr.tr
 
     def mimeUri(self):
         # Définir le mime est nécessaire pour le drag&drop
@@ -158,13 +170,13 @@ class LayerItem(QgsDataItem):
         webbrowser.open_new_tab(self.catalog_url)
 
     def actions(self, parent):
-        ac_open_meta = QAction('Voir les métadonnées', parent)
+        ac_open_meta = QAction(self.tr('Show metadata'), parent)
         if self.catalog_url is not None:
             ac_open_meta.triggered.connect(self.openUrl)
         else:
             ac_open_meta.setEnabled(False)
         actions = [
-            QAction('Afficher la couche', parent),
+            QAction(self.tr('Display layer'), parent),
             ac_open_meta,
         ]
         return actions

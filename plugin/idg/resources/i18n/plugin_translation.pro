@@ -1,5 +1,5 @@
-FORMS = 
+FORMS = ../../gui/dlg_settings.ui
 
-SOURCES= ../../plugin_main.py 
+SOURCES= ../../plugin_main.py ../../toolbelt/browser.py
 
-TRANSLATIONS = idg_en.ts
+TRANSLATIONS = idg_fr.ts
