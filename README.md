@@ -2,6 +2,7 @@
 
 Plugin pour QGIS 3 fournissant un accès simple aux données de l'ensemble des Infrastructure de Données Géographiques (IDG) et d'autres ressources nationales géographiques utiles.
 
+![QGIS Browser](repo/screenshot_browser_1.png)
 
 ## Installation
 
