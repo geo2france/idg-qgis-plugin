@@ -119,7 +119,7 @@ class IdgPlugin:
 
     # Add browser provider
         self.registry = QgsApplication.dataItemProviderRegistry()       
-        self.provider = IdgProvider()
+        self.provider = IdgProvider(self.iface)
         self.registry.addProvider(self.provider)
 
     def unload(self):
