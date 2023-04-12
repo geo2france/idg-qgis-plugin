@@ -36,7 +36,7 @@ class IdgProvider(QgsDataItemProvider):
 class RootCollection(QgsDataCollectionItem):
     def __init__(self):
         QgsDataCollectionItem.__init__(self, None, "IDG", "/IDG")
-        self.setIcon(QIcon(PluginGlobals.instance().plugin_path+'/resources/images/World-in-Hand-Big.svg'))
+        self.setIcon(QIcon(PluginGlobals.instance().plugin_path+'/resources/images/layers-svgrepo-com.svg'))
 
     def actions(self, parent):
         actions = list()

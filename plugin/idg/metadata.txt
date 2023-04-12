@@ -6,7 +6,7 @@ category=Web
 hasProcessingProvider=no
 description=Plugin providing easy access to data from different Spatial Data Infrastructures
 description[fr]=Plugin fournissant un accès simple aux données de différentes Infrastructures de Données Géographiques
-icon=resources/images/World-in-Hand-Big.svg
+icon=resources/images/layers-svgrepo-com.svg
 tags=opendata,sdi
 tags[fr]=opendata,idg
 
