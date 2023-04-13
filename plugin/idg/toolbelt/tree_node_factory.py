@@ -35,7 +35,13 @@ def download_all_config_files(idgs: list[str]):
         suffix = os.path.splitext(os.path.basename(url))[-1]
         local_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix)
         if response.error() == QNetworkReply.NoError:
-            # TODO Supprimer le fichier si existant
+            # Creer le dossier si non existant
+            try:
+                os.makedirs(os.path.join(PluginGlobals.instance().config_dir_path))
+            except OSError:
+                if not os.path.isdir(os.path.join(PluginGlobals.instance().config_dir_path)):
+                    raise
+            # Supprimer le fichier si existant
             try :
                 os.remove(os.path.join(PluginGlobals.instance().config_dir_path, idg_id + '.qgz') )
             except OSError:
