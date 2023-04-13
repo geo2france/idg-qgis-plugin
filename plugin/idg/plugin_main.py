@@ -155,18 +155,6 @@ class IdgPlugin:
         self.plugin_menu = QMenu(__title__, plugin_menu)
         plugin_menu.addMenu(self.plugin_menu)
 
-        show_panel_action = QAction(u'Afficher le panneau latéral', self.iface.mainWindow())
-        show_panel_action.triggered.connect(self.showPanelMenuTriggered)
-        self.plugin_menu.addAction(show_panel_action)
-
-        param_action = QAction(u'Paramétrer le plugin…', self.iface.mainWindow())
-        param_action.triggered.connect(self.paramMenuTriggered)
-        self.plugin_menu.addAction(param_action)
-
-        about_action = QAction(u'À propos…', self.iface.mainWindow())
-        about_action.triggered.connect(self.aboutMenuTriggered)
-        self.plugin_menu.addAction(about_action)
-
         self.plugin_menu.addAction(self.action_settings)
         self.plugin_menu.addAction(self.action_help)
 
