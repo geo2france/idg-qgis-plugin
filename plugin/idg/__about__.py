@@ -67,7 +67,7 @@ __icon_path__: Path = DIR_PLUGIN_ROOT.resolve() / __plugin_md__.get("general").g
 __keywords__: list = [
     t.strip() for t in __plugin_md__.get("general").get("repository").split("tags")
 ]
-__license__: str = "MIT"
+__license__: str = "GNU Public License (GPL) Version 2"
 __summary__: str = "{}\n{}".format(
     __plugin_md__.get("general").get("description"),
     __plugin_md__.get("general").get("about"),

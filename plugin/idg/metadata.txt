@@ -11,8 +11,8 @@ tags=opendata,sdi
 tags[fr]=opendata,idg
 
 # credits and contact
-author=Firstname LASTNAME
-email=qgis@company.com
+author=Benjamin CHARTIER, Jean-Baptiste DESBAS
+email=contact@geo2france.fr
 homepage=https://github.com/geo2france/idg-qgis-plugin
 repository=https://github.com/geo2france/idg-qgis-plugin
 tracker=https://github.com/geo2france/idg-qgis-plugin/issues
