@@ -20,7 +20,7 @@ from .nodes import WmsLayerTreeNode, WmsStyleLayerTreeNode, WmtsLayerTreeNode, W
 from .nodes import WfsFeatureTypeFilterTreeNode, GdalWmsConfigFileTreeNode, FolderTreeNode
 
 
-def download_all_config_files(idgs):
+def download_all_config_files(idgs: list[str]):
     """Download all config file in dict
         key = IDG_id, value = url
         rename local file
@@ -36,6 +36,15 @@ def download_all_config_files(idgs):
         local_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix)
         print(response.errorString())
         if response.error() == QNetworkReply.NoError:
+            # TODO Supprimer le fichier si existant
+            try :
+                os.remove(os.path.join(PluginGlobals.instance().config_dir_path, idg_id + '.qgz') )
+            except OSError:
+                pass
+            try :
+                os.remove(os.path.join(PluginGlobals.instance().config_dir_path, idg_id + '.qgs') )
+            except OSError:
+                pass
             with open(local_file_name, "wb") as local_config_file:
                 local_config_file.write(response.content())
         else :
