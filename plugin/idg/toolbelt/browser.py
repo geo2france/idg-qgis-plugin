@@ -156,9 +156,7 @@ class LayerItem(QgsDataItem):
         return False
 
     def handleDoubleClick(self):
-        self.layer.setDataSource(self.layer.source(), self.layer.name(),
-                            self.layer.providerType())  # Reset datasource, à cause du flag FlagDontResolveLayers
-        QgsProject.instance().addMapLayer(self.layer)
+        self.addLayer()
         return True
 
     def hasChildren(self):
@@ -167,14 +165,23 @@ class LayerItem(QgsDataItem):
     def openUrl(self):
         webbrowser.open_new_tab(self.catalog_url)
 
+    def addLayer(self):
+        self.layer.setDataSource(self.layer.source(), self.layer.name(),
+                            self.layer.providerType())  # Reset datasource, à cause du flag FlagDontResolveLayers
+        QgsProject.instance().addMapLayer(self.layer)
+
     def actions(self, parent):
         ac_open_meta = QAction(self.tr('Show metadata'), parent)
         if self.catalog_url is not None:
             ac_open_meta.triggered.connect(self.openUrl)
         else:
             ac_open_meta.setEnabled(False)
+
+        ac_show_layer = QAction(self.tr('Display layer'), parent)
+        ac_show_layer.triggered.connect(self.addLayer)
+        
         actions = [
-            QAction(self.tr('Display layer'), parent),
+            ac_show_layer,
             ac_open_meta,
         ]
         return actions
