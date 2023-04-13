@@ -49,7 +49,7 @@ class PluginGlobals:
     CONFIG_FILE_NAMES = ["projet_idg.qgs"]
     CONFIG_FILE_URLS = ["http://127.0.0.1:8000/projet_idg.qgs"]
 
-    IDGS = PlgOptionsManager().get_value_from_key('idgs').split(',')
+    IDGS = PlgOptionsManager().get_plg_settings().idgs.split(',')
 
     # Hide resources with status = warn
     HIDE_RESOURCES_WITH_WARN_STATUS = PlgOptionsManager().get_value_from_key('hide_resources_with_warn_status')
