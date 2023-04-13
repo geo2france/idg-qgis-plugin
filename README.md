@@ -65,6 +65,7 @@ Pour ajouter de nouvelles plateformes, mettre à jour le plugin ou ajouter l'url
 
 ### Autres remerciements
 
+* [Julien Moura](https://github.com/Guts) (Oslandia) pour le [template](https://oslandia.gitlab.io/qgis/template-qgis-plugin/) du plugin.
 * Auteurs des icônes de QGIS, reprises dans l'arbre des ressources
 * Pour le fichier plugin/geo2france/images/Icon_Simple_Warn.png cf.
 <https://commons.wikimedia.org/wiki/File:Icon_Simple_Warn.png>
