@@ -12,7 +12,7 @@ from pathlib import Path
 from qgis.core import QgsApplication
 from qgis.gui import QgsOptionsPageWidget, QgsOptionsWidgetFactory
 from qgis.utils import iface
-from qgis.PyQt import uic
+from qgis.PyQt import uic, QtWidgets
 from qgis.PyQt.Qt import QUrl, QWidget
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
 
@@ -41,6 +41,20 @@ FORM_CLASS, _ = uic.loadUiType(
 # ########## Classes ###############
 # ##################################
 
+def tablewidgetToList(table: QtWidgets.QTableWidget, column_index: int, skipnone=True):
+    """Convertir en liste une colonne d'un tableau"""
+    out=[]
+    for row in range(table.rowCount()):
+            item = table.item(row, column_index)
+            if (item is None or item.text().strip() == '') and skipnone:
+                continue
+            out.append(item.text())
+    return out
+
+def listToTablewidget(data_list: list[str], table: QtWidgets.QTableWidget, column_index: int, skipnone=True):
+    """ Ecrit une liste dans la colonne _column_index_ d'un talbeau"""
+    for row, item in enumerate(data_list):
+        table.setItem(row, column_index, QtWidgets.QTableWidgetItem(str(item)))
 
 class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
     """Settings form embedded into QGIS 'options' menu."""
@@ -73,7 +87,12 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.btn_reset.setIcon(QIcon(QgsApplication.iconPath("mActionUndo.svg")))
         self.btn_reset.pressed.connect(self.reset_settings)
 
-
+        # table widget
+        self.idgs_list.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch) # Etirer la colonne à 100% du tableau
+        self.btn_addrow.setIcon(QIcon(":images/themes/default/symbologyAdd.svg"))
+        self.btn_addrow.clicked.connect(
+            lambda:self.idgs_list.setRowCount(self.idgs_list.rowCount() + 1)
+        )
         # load previously saved settings
         self.load_settings()
 
@@ -86,8 +105,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # misc
         settings.debug_mode = self.opt_debug.isChecked()
         settings.version = __version__
-        settings.idgs = self.idgs_list.toPlainText()
-
+        settings.idgs = ','.join(tablewidgetToList(self.idgs_list, 0))
         # dump new settings into QgsSettings
         self.plg_settings.save_from_object(settings) #Les variables globales ne sont peut être pas MAJ ici
 
@@ -105,8 +123,8 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # global
         self.opt_debug.setChecked(settings.debug_mode)
         self.lbl_version_saved_value.setText(settings.version)
-
-        self.idgs_list.setText(settings.idgs)
+        self.idgs_list.setRowCount( len(settings.idgs.split(',')) + 1 )
+        listToTablewidget(settings.idgs.split(','), self.idgs_list, column_index=0)
 
     def reset_settings(self):
         """Reset settings to default values (set in preferences.py module)."""
