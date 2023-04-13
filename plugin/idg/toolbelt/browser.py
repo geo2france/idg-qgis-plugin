@@ -83,7 +83,6 @@ class PlatformCollection(QgsDataCollectionItem):
         self.project = QgsProject()
         if self.project.read(self.url, QgsProject.ReadFlags()|QgsProject.FlagDontResolveLayers|QgsProject.FlagDontLoadLayouts) \
                 is not True:  # Le flag permet d'éviter que les URL des layers soient interrogées, mais le datasource du layer doit être reset avant usage
-            print('error')
             self.setIcon(QIcon(QgsApplication.iconPath("mIconWarning.svg")))
         else:
             self.setIcon(QIcon(QgsApplication.iconPath("mIconFolderProject.svg")))

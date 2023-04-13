@@ -34,7 +34,6 @@ def download_all_config_files(idgs: list[str]):
         )
         suffix = os.path.splitext(os.path.basename(url))[-1]
         local_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix)
-        print(response.errorString())
         if response.error() == QNetworkReply.NoError:
             # TODO Supprimer le fichier si existant
             try :
