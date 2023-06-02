@@ -3,6 +3,7 @@ from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataItem, Q
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtGui import QIcon
 from idg.toolbelt import PluginGlobals, PlgOptionsManager, PluginIcons
+from .remote_platforms import RemotePlatforms
 from idg.__about__ import __title__
 from qgis.PyQt.QtWidgets import QAction, QMenu
 
@@ -65,12 +66,8 @@ class RootCollection(QgsDataCollectionItem):
         
     def createChildren(self):
         children = []
-        with open(os.path.join(PluginGlobals.instance().config_dir_path,'default_idg.json')) as f :
-            stock_idgs = json.load(f)
-        custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(',')
 
-        for idg_id,url in enumerate(list(stock_idgs.values()) + custom_idg):
-        #for idg_id, url in enumerate(PlgOptionsManager().get_plg_settings().idgs.split(',')):
+        for idg_id, url in enumerate(RemotePlatforms().url_all()):
             idg_id = str(idg_id)
             suffix = os.path.splitext(os.path.basename(url))[-1] #.qgs ou .qgz
             local_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix)

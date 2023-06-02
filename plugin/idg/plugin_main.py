@@ -19,7 +19,7 @@ from idg.gui.dlg_settings import PlgOptionsFactory
 from idg.toolbelt import PlgLogger, PlgTranslator, PluginGlobals
 
 
-from idg.toolbelt import PluginGlobals, PlgOptionsManager, IdgProvider
+from idg.toolbelt import PluginGlobals, PlgOptionsManager, IdgProvider, RemotePlatforms
 from idg.gui.dock import DockWidget
 from idg.gui.about_box import AboutBox
 from idg.gui.param_box import ParamBox
@@ -64,9 +64,8 @@ class IdgPlugin:
         
         # Read the resources tree file and update the GUI
         #self.ressources_tree = TreeNodeFactory(PluginGlobals.instance().config_file_path).root_node # dev
-        default_idg = list(download_default_idg_list().values() )
-        custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(',')
-        download_all_config_files(default_idg + custom_idg)
+        download_default_idg_list()
+        download_all_config_files(RemotePlatforms().url_all())
 
     def need_download_tree_config_file(self):
         """

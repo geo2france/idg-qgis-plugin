@@ -27,7 +27,7 @@ from idg.__about__ import (
     __uri_tracker__,
     __version__,
 )
-from idg.toolbelt import PlgLogger, PlgOptionsManager, PluginGlobals
+from idg.toolbelt import PlgLogger, PlgOptionsManager, PluginGlobals, RemotePlatforms
 from idg.toolbelt.preferences import PlgSettingsStructure
 
 # ############################################################################
@@ -99,9 +99,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         """"TODO"""
         vbox = QtWidgets.QVBoxLayout()
         self.groupBox_stock.setLayout(vbox)
-        with open(os.path.join(PluginGlobals.instance().config_dir_path, 'default_idg.json')) as f:
-            stock_idgs = json.load(f)
-        for k in stock_idgs.keys():
+        for k in RemotePlatforms().stock_idgs.keys():
             cb = QtWidgets.QCheckBox(k)
             cb.setEnabled(False)
             vbox.addWidget(cb)
