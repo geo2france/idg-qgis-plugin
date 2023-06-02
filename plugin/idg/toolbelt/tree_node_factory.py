@@ -34,6 +34,7 @@ def download_default_idg_list(url='https://raw.githubusercontent.com/geo2france/
             pass
         with open(local_file, "wb") as local_config_file:
             local_config_file.write(response.content())
+        return json.loads(bytes(response.content()).decode())
     #TOD gérer les erreur (garder le fichier précédent + avertissement)
 
 def download_all_config_files(idgs: list[str]):

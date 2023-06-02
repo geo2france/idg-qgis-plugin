@@ -32,7 +32,6 @@ class PlgSettingsStructure:
     config_files_download_at_startup: bool = False
     hide_empty_groups: bool = True
     hide_resources_with_warn_status: bool = True
-    idgs: str = 'https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/dev/projects/projet_idg_demo.qgs,https://www.geo2france.fr/public/qgis3/plugins/geo2france/geo2france.qgs'
 
 
 class PlgOptionsManager:
