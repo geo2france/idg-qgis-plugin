@@ -32,6 +32,7 @@ class PlgSettingsStructure:
     config_files_download_at_startup: bool = False
     hide_empty_groups: bool = True
     hide_resources_with_warn_status: bool = True
+    custom_idgs: str = ''
 
 
 class PlgOptionsManager:

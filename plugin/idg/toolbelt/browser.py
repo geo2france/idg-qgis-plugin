@@ -67,10 +67,11 @@ class RootCollection(QgsDataCollectionItem):
         children = []
         with open(os.path.join(PluginGlobals.instance().config_dir_path,'default_idg.json')) as f :
             stock_idgs = json.load(f)
-        for idg_id,key in enumerate(stock_idgs):
+        custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(',')
+
+        for idg_id,url in enumerate(list(stock_idgs.values()) + custom_idg):
         #for idg_id, url in enumerate(PlgOptionsManager().get_plg_settings().idgs.split(',')):
             idg_id = str(idg_id)
-            url = stock_idgs[key]
             suffix = os.path.splitext(os.path.basename(url))[-1] #.qgs ou .qgz
             local_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix)
             pf_collection = PlatformCollection(name=idg_id.lower(), label=idg_id, url=local_file_name)

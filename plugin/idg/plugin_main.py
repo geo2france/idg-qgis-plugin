@@ -64,8 +64,9 @@ class IdgPlugin:
         
         # Read the resources tree file and update the GUI
         #self.ressources_tree = TreeNodeFactory(PluginGlobals.instance().config_file_path).root_node # dev
-        default_idg = download_default_idg_list()
-        download_all_config_files(list(default_idg.values()))
+        default_idg = list(download_default_idg_list().values() )
+        custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(',')
+        download_all_config_files(default_idg + custom_idg)
 
     def need_download_tree_config_file(self):
         """

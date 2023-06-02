@@ -105,7 +105,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # misc
         settings.debug_mode = self.opt_debug.isChecked()
         settings.version = __version__
-        settings.idgs = ','.join(tablewidgetToList(self.idgs_list, 0))
+        settings.custom_idgs = ','.join(tablewidgetToList(self.idgs_list, 0))
         # dump new settings into QgsSettings
         self.plg_settings.save_from_object(settings) #Les variables globales ne sont peut être pas MAJ ici
 
@@ -123,8 +123,8 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # global
         self.opt_debug.setChecked(settings.debug_mode)
         self.lbl_version_saved_value.setText(settings.version)
-        self.idgs_list.setRowCount( len(settings.idgs.split(',')) + 1 )
-        listToTablewidget(settings.idgs.split(','), self.idgs_list, column_index=0)
+        self.idgs_list.setRowCount( len(settings.custom_idgs.split(',')) + 1 )
+        listToTablewidget(settings.custom_idgs.split(','), self.idgs_list, column_index=0)
 
     def reset_settings(self):
         """Reset settings to default values (set in preferences.py module)."""
