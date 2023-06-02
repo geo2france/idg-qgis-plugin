@@ -7,6 +7,8 @@
 # standard
 from functools import partial
 from pathlib import Path
+import os.path
+import json
 
 # PyQGIS
 from qgis.core import QgsApplication
@@ -25,7 +27,7 @@ from idg.__about__ import (
     __uri_tracker__,
     __version__,
 )
-from idg.toolbelt import PlgLogger, PlgOptionsManager
+from idg.toolbelt import PlgLogger, PlgOptionsManager, PluginGlobals
 from idg.toolbelt.preferences import PlgSettingsStructure
 
 # ############################################################################
@@ -93,6 +95,17 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.btn_addrow.clicked.connect(
             lambda:self.idgs_list.setRowCount(self.idgs_list.rowCount() + 1)
         )
+
+        """"TODO"""
+        vbox = QtWidgets.QVBoxLayout()
+        self.groupBox_stock.setLayout(vbox)
+        with open(os.path.join(PluginGlobals.instance().config_dir_path, 'default_idg.json')) as f:
+            stock_idgs = json.load(f)
+        for k in stock_idgs.keys():
+            cb = QtWidgets.QCheckBox(k)
+            cb.setEnabled(False)
+            vbox.addWidget(cb)
+
         # load previously saved settings
         self.load_settings()
 
