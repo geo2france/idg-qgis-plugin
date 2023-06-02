@@ -42,6 +42,8 @@ Pour chaque couche, vous pouvez définir :
 
 Enregistrez le fichier projet (qgs ou qgz) et déposez le sur un un serveur web (serveur HTTP, Github, cloud, etc.).
 
+Pour proposer l'ajout d'une plateforme par défaut : éditez le fichier [default_idg.json](plugin/idg/config/default_idg.json).
+
 [TODO] Procédure pour enregistrer la plateforme dans les plateformes par défaut du plugin (quel fichier éditer ?).
 
 ### Utilisateur
