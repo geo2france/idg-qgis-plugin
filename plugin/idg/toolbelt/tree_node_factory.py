@@ -20,6 +20,22 @@ from .nodes import WmsLayerTreeNode, WmsStyleLayerTreeNode, WmtsLayerTreeNode, W
 from .nodes import WfsFeatureTypeFilterTreeNode, GdalWmsConfigFileTreeNode, FolderTreeNode
 
 
+def download_default_idg_list(url='https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/dev/plugin/idg/config/default_idg.json'):
+    local_file = os.path.join(PluginGlobals.instance().config_dir_path, 'default_idg.json')
+    request = QNetworkRequest(QUrl(url))
+    manager = QgsNetworkAccessManager.instance()
+    response: QgsNetworkReplyContent = manager.blockingGet(
+        request, forceRefresh=True
+    )
+    if response.error() == QNetworkReply.NoError:
+        try:
+            os.remove(local_file)
+        except OSError:
+            pass
+        with open(local_file, "wb") as local_config_file:
+            local_config_file.write(response.content())
+    #TOD gérer les erreur (garder le fichier précédent + avertissement)
+
 def download_all_config_files(idgs: list[str]):
     """Download all config file in dict
         key = IDG_id, value = url
