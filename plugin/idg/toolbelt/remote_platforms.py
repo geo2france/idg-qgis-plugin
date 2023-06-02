@@ -19,3 +19,7 @@ class RemotePlatforms:
 
     def url_stock(self):
         return list(self.stock_idgs.values())
+
+    def reset(self):
+        pass
+        #TODO remove all local files (projects & images)

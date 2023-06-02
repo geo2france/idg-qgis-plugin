@@ -19,6 +19,12 @@ def find_catalog_url(metadata: QgsAbstractMetadataBase):
             return l.url
     return None
 
+def project_custom_icon_url(metadata: QgsAbstractMetadataBase):
+    for l in metadata.links():
+        if l.name.lower().strip() == 'icon':
+            return l.url
+    return None
+
 
 class IdgProvider(QgsDataItemProvider):
     def __init__(self, iface: QgisInterface):
@@ -71,14 +77,14 @@ class RootCollection(QgsDataCollectionItem):
             idg_id = str(idg_id)
             suffix = os.path.splitext(os.path.basename(url))[-1] #.qgs ou .qgz
             local_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix)
-            pf_collection = PlatformCollection(name=idg_id.lower(), label=idg_id, url=local_file_name)
+            pf_collection = PlatformCollection(name=idg_id.lower(), label=idg_id, url=local_file_name, idg_id=idg_id)
             children.append(pf_collection)
         return children
 
 
 class PlatformCollection(QgsDataCollectionItem):
-    def __init__(self, name, url, label=None, icon=None, parent=None):
-        self.url = url # TODO prevoir pour plusieurs fichier de conf
+    def __init__(self, name, url, idg_id, label=None, parent=None):
+        self.url = url
         self.path = "/IDG/"+name
         QgsDataCollectionItem.__init__(self, parent, label, self.path )
         self.setToolTip(self.url)
@@ -87,11 +93,14 @@ class PlatformCollection(QgsDataCollectionItem):
                 is not True:  # Le flag permet d'éviter que les URL des layers soient interrogées, mais le datasource du layer doit être reset avant usage
             self.setIcon(QIcon(QgsApplication.iconPath("mIconWarning.svg")))
         else:
-            self.setIcon(QIcon(QgsApplication.iconPath("mIconFolderProject.svg")))
+            if project_custom_icon_url(self.project.metadata()):
+                icon_suffix = os.path.splitext(os.path.basename(project_custom_icon_url(self.project.metadata())))[-1]
+                self.setIcon(QIcon(os.path.join(PluginGlobals.instance().config_dir_path, str(idg_id) + icon_suffix)))
+            else :
+                self.setIcon(QIcon(QgsApplication.iconPath("mIconFolderProject.svg")))
         if (self.project.metadata().title() or '') != '':
             self.setName(self.project.metadata().title())
-        if icon:  # Custom QIcon
-            self.setIcon(icon)
+
 
     def createChildren(self):
         # TODO add layer/folder for each platform
@@ -114,7 +123,8 @@ class PlatformCollection(QgsDataCollectionItem):
 
         actions = []
         for link in self.project.metadata().links():
-            actions.append(set_action_url(link))
+            if link.name.lower() != 'icon':
+                actions.append(set_action_url(link))
         return actions
 
 

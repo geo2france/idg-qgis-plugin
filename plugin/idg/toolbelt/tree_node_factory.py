@@ -69,6 +69,27 @@ def download_all_config_files(idgs: list[str]):
                 pass
             with open(local_file_name, "wb") as local_config_file:
                 local_config_file.write(response.content())
+            # Download icon if custom TODO a factoriser
+            project = QgsProject()
+            project.read(local_file_name, QgsProject.ReadFlags()|QgsProject.FlagDontResolveLayers|QgsProject.FlagDontLoadLayouts)
+            for l in project.metadata().links():
+                if l.name.lower().strip() == 'icon':
+                    request = QNetworkRequest(QUrl(l.url))
+                    manager = QgsNetworkAccessManager.instance()
+                    suffix = os.path.splitext(os.path.basename(l.url))[-1]
+                    response: QgsNetworkReplyContent = manager.blockingGet(
+                        request, forceRefresh=True
+                    )
+                    if response.error() == QNetworkReply.NoError:
+                        local_icon_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix) #TODO : vérifier qu'il s'agit d'un type image
+                        try:
+                            os.remove(local_icon_file_name)
+                        except OSError:
+                            pass
+                        with open(local_icon_file_name, "wb") as icon_file:
+                            icon_file.write(response.content())
+                    break
+
         else :
             short_message = "Le téléchargement du fichier projet {0} a échoué.".format(idg_id)
             PluginGlobals.instance().iface.messageBar().pushMessage(

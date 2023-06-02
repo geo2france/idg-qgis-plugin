@@ -33,7 +33,7 @@ Dans les propriétés du projets, remplir les champs suivants :
 - **Métadonnées > Identification > Titre** : Le nom de la plateforme qui sera visible par l'utilisateur (ex : Geo2France)
 - **Métadonnées > Identification > Résumé** : Facultatif, une brève présentation qui sera visible au survol
 - **Métadonnées > Liens** : Vous pouvez ajouter ici des liens vers les différents services de votre plateforme (ex : contact, catalogue, etc.) 
-   Ceux-ci seront accessibles à l'utilisateur via un clic droit sur le nom de la plateforme
+   Ceux-ci seront accessibles à l'utilisateur via un clic droit sur le nom de la plateforme. Ajouterz un lien nommé `icon` pour définir une icône à la plateforme (png ou svg)
 
 Pour chaque couche, vous pouvez définir :
 - Un titre et un résumé (_Propriété > Métadonnées > Identification_)
