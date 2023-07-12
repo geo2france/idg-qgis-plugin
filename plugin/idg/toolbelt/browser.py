@@ -93,11 +93,11 @@ class PlatformCollection(QgsDataCollectionItem):
                 is not True:  # Le flag permet d'éviter que les URL des layers soient interrogées, mais le datasource du layer doit être reset avant usage
             self.setIcon(QIcon(QgsApplication.iconPath("mIconWarning.svg")))
         else:
-            if project_custom_icon_url(self.project.metadata()):
+            if project_custom_icon_url(self.project.metadata()):  # Le projet a une icon custom
                 icon_suffix = os.path.splitext(os.path.basename(project_custom_icon_url(self.project.metadata())))[-1]
                 self.setIcon(QIcon(os.path.join(PluginGlobals.instance().config_dir_path, str(idg_id) + icon_suffix)))
             else :
-                self.setIcon(QIcon(QgsApplication.iconPath("mIconFolderProject.svg")))
+                self.setIcon(QIcon(QgsApplication.iconPath("mIconFolderProject.svg")))  # Default Icon
         if (self.project.metadata().title() or '') != '':
             self.setName(self.project.metadata().title())
 
