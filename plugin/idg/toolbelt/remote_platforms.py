@@ -9,7 +9,7 @@ class RemotePlatforms:
         with open(os.path.join(PluginGlobals.instance().config_dir_path,'default_idg.json')) as f : #Télécharger si non existant ?
             self.stock_idgs = json.load(f)
         self.custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(',')
-        #TOFIX supprimer empty string de custom_idg
+        self.custom_idg.remove('')
         pass
 
     def url_all(self):
