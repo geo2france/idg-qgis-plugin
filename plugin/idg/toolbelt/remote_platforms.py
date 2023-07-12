@@ -19,7 +19,13 @@ class RemotePlatforms:
         return self.custom_idg
 
     def url_stock(self):
-        return list(self.stock_idgs.values())
+        out = []
+        for k,v in self.stock_idgs.items():
+            if k not in PlgOptionsManager().get_plg_settings().hidden_idgs.split(','):
+                out.append(v)
+        print(out)
+        return out
+
 
     def reset(self):
         rep = PluginGlobals.instance().config_dir_path
@@ -30,5 +36,5 @@ class RemotePlatforms:
                     os.remove(chemin_fichier)
 
         download_default_idg_list()
-        download_all_config_files(RemotePlatforms().url_all())
+        download_all_config_files(RemotePlatforms().stock_idgs)
         #TODO remove all local files (projects & images)

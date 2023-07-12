@@ -73,7 +73,7 @@ class RootCollection(QgsDataCollectionItem):
     def createChildren(self):
         children = []
 
-        for idg_id, url in enumerate(RemotePlatforms().url_all()):
+        for idg_id, url in RemotePlatforms().stock_idgs.items():
             idg_id = str(idg_id)
             suffix = os.path.splitext(os.path.basename(url))[-1] #.qgs ou .qgz
             local_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix)

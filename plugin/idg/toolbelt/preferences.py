@@ -33,7 +33,7 @@ class PlgSettingsStructure:
     hide_empty_groups: bool = True
     hide_resources_with_warn_status: bool = True
     custom_idgs: str = ''
-
+    hidden_idgs: str = ''
 
 class PlgOptionsManager:
     @staticmethod

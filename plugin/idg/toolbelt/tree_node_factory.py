@@ -24,6 +24,7 @@ def download_default_idg_list(url='https://raw.githubusercontent.com/geo2france/
     local_file = os.path.join(PluginGlobals.instance().config_dir_path, 'default_idg.json')
     request = QNetworkRequest(QUrl(url))
     manager = QgsNetworkAccessManager.instance()
+    manager.setTimeout(2*1000)
     response: QgsNetworkReplyContent = manager.blockingGet(
         request, forceRefresh=True
     )
@@ -37,15 +38,16 @@ def download_default_idg_list(url='https://raw.githubusercontent.com/geo2france/
         return json.loads(bytes(response.content()).decode())
     #TOD gérer les erreur (garder le fichier précédent + avertissement)
 
-def download_all_config_files(idgs: list[str]):
-    for i in idgs:
-        print('a')
-        print(i)
+def download_all_config_files(idgs): #remplacer la list par un dict ({idg_id:url})
+    #for i in idgs:
+    #    print('a')
+    #    print(i)
+
     """Download all config file in dict
         key = IDG_id, value = url
         rename local file
     """
-    for idg_id, url in enumerate(idgs):
+    for idg_id, url in idgs.items():
         idg_id = str(idg_id)
         request = QNetworkRequest(QUrl(url))
         manager = QgsNetworkAccessManager.instance()

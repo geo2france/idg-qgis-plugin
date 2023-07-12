@@ -65,6 +65,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         super().__init__(parent)
         self.log = PlgLogger().log
         self.plg_settings = PlgOptionsManager()
+        settings = self.plg_settings.get_plg_settings()
 
         # load UI and set objectName
         self.setupUi(self)
@@ -97,13 +98,18 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
             lambda:self.idgs_list.setRowCount(self.idgs_list.rowCount() + 1)
         )
 
-        """"TODO"""
+        #Lire la config pour voir quels sont les PF masquées
         vbox = QtWidgets.QVBoxLayout()
+        self.checkboxes = []
         self.groupBox_stock.setLayout(vbox)
         for k in RemotePlatforms().stock_idgs.keys():
             cb = QtWidgets.QCheckBox(k)
-            cb.setEnabled(False)
+            if k in settings.hidden_idgs.split(','):
+                cb.setChecked(False)
+            else :
+                cb.setChecked(True)
             vbox.addWidget(cb)
+            self.checkboxes.append(cb)
 
         # load previously saved settings
         self.load_settings()
@@ -118,6 +124,15 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         settings.debug_mode = self.opt_debug.isChecked()
         settings.version = __version__
         settings.custom_idgs = ','.join(tablewidgetToList(self.idgs_list, 0))
+
+        hidden__idgs_arr = []
+        for cb in self.checkboxes :
+            print(cb.text() ,cb.checkState())
+            if cb.checkState() == 0 :
+                hidden__idgs_arr.append(cb.text())
+                #Add to hidden PF
+        settings.hidden_idgs = ','.join(hidden__idgs_arr)
+
         # dump new settings into QgsSettings
         self.plg_settings.save_from_object(settings) #Les variables globales ne sont peut être pas MAJ ici
 
