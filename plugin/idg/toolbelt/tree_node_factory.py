@@ -38,6 +38,9 @@ def download_default_idg_list(url='https://raw.githubusercontent.com/geo2france/
     #TOD gérer les erreur (garder le fichier précédent + avertissement)
 
 def download_all_config_files(idgs: list[str]):
+    for i in idgs:
+        print('a')
+        print(i)
     """Download all config file in dict
         key = IDG_id, value = url
         rename local file

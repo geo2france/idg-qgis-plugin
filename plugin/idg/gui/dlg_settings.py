@@ -70,6 +70,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.setupUi(self)
         self.setObjectName("mOptionsPage{}".format(__title__))
 
+
         # header
         self.lbl_title.setText(f"{__title__} - Version {__version__}")
 
@@ -143,6 +144,8 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
 
         # dump default settings into QgsSettings
         self.plg_settings.save_from_object(default_settings)
+
+        RemotePlatforms().reset()
 
         # update the form
         self.load_settings()
