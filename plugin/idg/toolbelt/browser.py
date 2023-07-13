@@ -72,34 +72,28 @@ class RootCollection(QgsDataCollectionItem):
         
     def createChildren(self):
         children = []
-
-        for idg_id, url in RemotePlatforms().stock_idgs.items():
-            idg_id = str(idg_id)
-            suffix = os.path.splitext(os.path.basename(url))[-1] #.qgs ou .qgz
-            local_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix)
-            pf_collection = PlatformCollection(name=idg_id.lower(), label=idg_id, url=local_file_name, idg_id=idg_id)
+        for pf in RemotePlatforms().plateforms :
+            pf_collection = PlatformCollection(plateform=pf)
             children.append(pf_collection)
         return children
 
 
 class PlatformCollection(QgsDataCollectionItem):
-    def __init__(self, name, url, idg_id, label=None, parent=None):
-        self.url = url
-        self.path = "/IDG/"+name
-        QgsDataCollectionItem.__init__(self, parent, label, self.path )
+    def __init__(self, plateform,parent=None):
+        self.url = plateform.url
+        self.path = "/IDG/"+plateform.idg_id.lower()
+        QgsDataCollectionItem.__init__(self, parent, plateform.idg_id, self.path )
         self.setToolTip(self.url)
-        self.project = QgsProject()
-        if self.project.read(self.url, QgsProject.ReadFlags()|QgsProject.FlagDontResolveLayers|QgsProject.FlagDontLoadLayouts) \
-                is not True:  # Le flag permet d'éviter que les URL des layers soient interrogées, mais le datasource du layer doit être reset avant usage
+        self.project = plateform.project
+        if self.project is None:
             self.setIcon(QIcon(QgsApplication.iconPath("mIconWarning.svg")))
         else:
-            if project_custom_icon_url(self.project.metadata()):  # Le projet a une icon custom
-                icon_suffix = os.path.splitext(os.path.basename(project_custom_icon_url(self.project.metadata())))[-1]
-                self.setIcon(QIcon(os.path.join(PluginGlobals.instance().config_dir_path, str(idg_id) + icon_suffix)))
+            if plateform.icon() is not None :  # Custom icon
+                self.setIcon(plateform.icon())
             else :
                 self.setIcon(QIcon(QgsApplication.iconPath("mIconFolderProject.svg")))  # Default Icon
-        if (self.project.metadata().title() or '') != '':
-            self.setName(self.project.metadata().title())
+            if (self.project.metadata().title() or '') != '':
+                self.setName(self.project.metadata().title())
 
 
     def createChildren(self):
