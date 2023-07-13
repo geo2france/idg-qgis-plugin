@@ -17,70 +17,50 @@
         <translation>Formulaire</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="44"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PluginTitle - Version X.X.X&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../gui/dlg_settings.ui" line="75"/>
+        <location filename="../../gui/dlg_settings.ui" line="128"/>
         <source>Miscellaneous</source>
         <translation>Divers</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="127"/>
+        <location filename="../../gui/dlg_settings.ui" line="205"/>
         <source>Report an issue</source>
         <translation>Signaler un bug</translation>
     </message>
     <message>
         <location filename="../../gui/dlg_settings.ui" line="149"/>
         <source>Version used to save settings:</source>
-        <translation>Version utilisées pour sauvegarder la configuration:</translation>
+        <translation type="obsolete">Version utilisées pour sauvegarder la configuration:</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="174"/>
+        <location filename="../../gui/dlg_settings.ui" line="155"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="199"/>
+        <location filename="../../gui/dlg_settings.ui" line="180"/>
         <source>Reset setttings to factory defaults</source>
         <translation>Réinitialiser les paramètres par défaut</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="221"/>
-        <source>Enable debug mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../gui/dlg_settings.ui" line="230"/>
-        <source>Debug mode (degraded performances)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../gui/dlg_settings.ui" line="243"/>
+        <location filename="../../gui/dlg_settings.ui" line="66"/>
         <source>Default plateforms</source>
         <translation>Plateformes IDG</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="250"/>
+        <location filename="../../gui/dlg_settings.ui" line="73"/>
         <source>Custom plateforms</source>
         <translation>Plateformes supplémentaires</translation>
-    </message>
-    <message>
-        <location filename="../../gui/dlg_settings.ui" line="286"/>
-        <source>...</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>IdgPlugin</name>
     <message>
-        <location filename="../../plugin_main.py" line="90"/>
+        <location filename="../../plugin_main.py" line="89"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="99"/>
+        <location filename="../../plugin_main.py" line="98"/>
         <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
@@ -88,30 +68,38 @@
 <context>
     <name>LayerItem</name>
     <message>
-        <location filename="../../toolbelt/browser.py" line="179"/>
+        <location filename="../../toolbelt/browser.py" line="195"/>
         <source>Show metadata</source>
         <translation>Voir les métadonnées</translation>
     </message>
     <message>
-        <location filename="../../toolbelt/browser.py" line="185"/>
+        <location filename="../../toolbelt/browser.py" line="201"/>
         <source>Display layer</source>
         <translation>Afficher la couche</translation>
     </message>
 </context>
 <context>
+    <name>PlatformCollection</name>
+    <message>
+        <location filename="../../toolbelt/browser.py" line="134"/>
+        <source>Hide</source>
+        <translation>Masquer</translation>
+    </message>
+</context>
+<context>
     <name>RootCollection</name>
     <message>
-        <location filename="../../toolbelt/browser.py" line="46"/>
+        <location filename="../../toolbelt/browser.py" line="55"/>
         <source>Settings...</source>
         <translation>Paramètres...</translation>
     </message>
     <message>
-        <location filename="../../toolbelt/browser.py" line="56"/>
+        <location filename="../../toolbelt/browser.py" line="65"/>
         <source>Plateforms</source>
         <translation>Plateformes</translation>
     </message>
     <message>
-        <location filename="../../toolbelt/browser.py" line="63"/>
+        <location filename="../../toolbelt/browser.py" line="72"/>
         <source>Add URL</source>
         <translation>Ajouter une URL</translation>
     </message>

@@ -2,10 +2,12 @@ from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataItem, Q
     QgsLayerTreeLayer, QgsLayerTreeGroup, QgsMimeDataUtils, QgsAbstractMetadataBase, QgsApplication, QgsIconUtils
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.Qt import QWidget
 from idg.toolbelt import PluginGlobals, PlgOptionsManager, PluginIcons
 from .remote_platforms import RemotePlatforms
 from idg.__about__ import __title__
 from qgis.PyQt.QtWidgets import QAction, QMenu
+from qgis.utils import iface
 
 import os.path
 import json
@@ -81,12 +83,13 @@ class RootCollection(QgsDataCollectionItem):
 
 
 class PlatformCollection(QgsDataCollectionItem):
-    def __init__(self, plateform,parent=None):
+    def __init__(self, plateform, parent=None):
         self.url = plateform.url
         self.path = "/IDG/"+plateform.idg_id.lower()
         QgsDataCollectionItem.__init__(self, parent, plateform.idg_id, self.path )
         self.setToolTip(self.url)
         self.project = plateform.project
+        self.plateform = plateform
         if self.project is None:
             self.setIcon(QIcon(QgsApplication.iconPath("mIconWarning.svg")))
         else:
@@ -117,10 +120,20 @@ class PlatformCollection(QgsDataCollectionItem):
             #a.setToolTip(link.description)
             return a
 
+        def hide_plateform(pf):
+            pf.hide()
+            iface.mainWindow().findChildren(QWidget, 'Browser')[0].refresh()
+
         actions = []
         for link in self.project.metadata().links():
             if link.name.lower() != 'icon':
                 actions.append(set_action_url(link))
+        separator = QAction(QIcon(), '', parent)
+        separator.setSeparator(True)
+        actions.append(separator)
+        hide_action = QAction(self.tr('Hide'), parent )
+        hide_action.triggered.connect(lambda: hide_plateform(self.plateform) )
+        actions.append(hide_action)
         return actions
 
 

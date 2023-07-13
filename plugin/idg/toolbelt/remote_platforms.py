@@ -73,6 +73,14 @@ class Plateform:
     def title(self):
         pass
 
+    def hide(self):
+        settings = PlgOptionsManager().get_plg_settings()
+        hidden_pf = settings.hidden_idgs.split(',')
+        if self.idg_id not in hidden_pf :
+            hidden_pf.append(self.idg_id)
+        settings.hidden_idgs = ','.join(hidden_pf)
+        PlgOptionsManager().save_from_object(settings)
+
     def icon(self):
         for l in self.project.metadata().links():
             if l.name.lower().strip() == 'icon':
