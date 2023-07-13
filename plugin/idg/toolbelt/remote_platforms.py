@@ -66,8 +66,9 @@ class Plateform:
         pass
 
     def is_hidden(self):
-        # Voir dans PlgOptionsManager().get_plg_settings().hidden_idgs.split(',')
-        pass
+        if self.idg_id in PlgOptionsManager().get_plg_settings().hidden_idgs.split(','):
+            return True
+        return False
 
     def title(self):
         pass

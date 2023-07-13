@@ -73,6 +73,8 @@ class RootCollection(QgsDataCollectionItem):
     def createChildren(self):
         children = []
         for pf in RemotePlatforms().plateforms :
+            if pf.is_hidden() :
+                continue
             pf_collection = PlatformCollection(plateform=pf)
             children.append(pf_collection)
         return children
