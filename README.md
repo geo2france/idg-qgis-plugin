@@ -33,18 +33,18 @@ Dans les propriétés du projets, remplir les champs suivants :
 - **Métadonnées > Identification > Titre** : Le nom de la plateforme qui sera visible par l'utilisateur (ex : Geo2France)
 - **Métadonnées > Identification > Résumé** : Facultatif, une brève présentation qui sera visible au survol
 - **Métadonnées > Liens** : Vous pouvez ajouter ici des liens vers les différents services de votre plateforme (ex : contact, catalogue, etc.) 
-   Ceux-ci seront accessibles à l'utilisateur via un clic droit sur le nom de la plateforme. Ajouterz un lien nommé `icon` pour définir une icône à la plateforme (png ou svg)
+   Ceux-ci seront accessibles à l'utilisateur via un clic droit sur le nom de la plateforme. Ajoutez un lien nommé `icon` pour définir une icône à la plateforme (png ou svg)
 
 Pour chaque couche, vous pouvez définir :
-- Un titre et un résumé (_Propriété > Métadonnées > Identification_)
-- Une symbologie
-- Une URL de métadonnées : créer un lien nommé "Metadata" dans les propriété de la couche (_Propriété > Métadonnées > Liens_)
+- **Métadonnées > Identification > Titre & Réumé** Un titre et un résumé
+- **Métadonnées > Identification > Liens** créer un lien nommé "Metadata" vers la fiche de métadonnées
+- Une symbologie (style, étiquettes, formulaires, etc.)
 
-Enregistrez le fichier projet (qgs ou qgz) et déposez le sur un un serveur web (serveur HTTP, Github, cloud, etc.).
+Enregistrez le fichier projet (qgs ou qgz) et **déposez le sur un un serveur web** accessible depuis l'exterieur (serveur HTTP, Github, cloud, etc.).
 
-Pour proposer l'ajout d'une plateforme par défaut : éditez le fichier [default_idg.json](plugin/idg/config/default_idg.json).
+Pour proposer l'ajout d'une plateforme dans le plugin : **éditez le fichier [default_idg.json](plugin/idg/config/default_idg.json)** 
+et faites une _pull request_.
 
-[TODO] Procédure pour enregistrer la plateforme dans les plateformes par défaut du plugin (quel fichier éditer ?).
 
 ### Utilisateur
 
