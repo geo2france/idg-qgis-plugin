@@ -76,6 +76,9 @@
    </item>
    <item>
     <widget class="QTableWidget" name="idgs_list">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="lineWidth">
       <number>1</number>
      </property>
