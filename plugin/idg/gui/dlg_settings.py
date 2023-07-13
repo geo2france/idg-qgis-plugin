@@ -85,7 +85,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
             QIcon(QgsApplication.iconPath("console/iconSyntaxErrorConsole.svg"))
         )
         self.btn_report.pressed.connect(
-            partial(QDesktopServices.openUrl, QUrl(f"{__uri_tracker__}/new/choose"))
+            partial(QDesktopServices.openUrl, QUrl(f"{__uri_tracker__}"))
         )
 
         self.btn_reset.setIcon(QIcon(QgsApplication.iconPath("mActionUndo.svg")))
@@ -148,8 +148,6 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         """Load options from QgsSettings into UI form."""
         settings = self.plg_settings.get_plg_settings()
         # global
-        self.opt_debug.setChecked(settings.debug_mode)
-        self.lbl_version_saved_value.setText(settings.version)
         self.idgs_list.setRowCount( len(settings.custom_idgs.split(',')) + 1 )
         listToTablewidget(settings.custom_idgs.split(','), self.idgs_list, column_index=0)
 
