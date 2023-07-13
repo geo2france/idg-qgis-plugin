@@ -121,7 +121,6 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         settings = self.plg_settings.get_plg_settings()
 
         # misc
-        settings.debug_mode = self.opt_debug.isChecked()
         settings.version = __version__
         settings.custom_idgs = ','.join(tablewidgetToList(self.idgs_list, 0))
 
