@@ -70,8 +70,13 @@ class Plateform:
             return True
         return False
 
+    @property
     def title(self):
-        pass
+        return self.project.metadata().title() or self.idg_id
+
+    @property
+    def abstract(self):
+        return self.project.metadata().abstract()
 
     def hide(self):
         settings = PlgOptionsManager().get_plg_settings()
@@ -81,6 +86,7 @@ class Plateform:
         settings.hidden_idgs = ','.join(hidden_pf)
         PlgOptionsManager().save_from_object(settings)
 
+    @property
     def icon(self):
         for l in self.project.metadata().links():
             if l.name.lower().strip() == 'icon':

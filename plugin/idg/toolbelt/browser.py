@@ -87,19 +87,17 @@ class PlatformCollection(QgsDataCollectionItem):
         self.url = plateform.url
         self.path = "/IDG/"+plateform.idg_id.lower()
         QgsDataCollectionItem.__init__(self, parent, plateform.idg_id, self.path )
-        self.setToolTip(self.url)
+        self.setToolTip(plateform.abstract)
         self.project = plateform.project
         self.plateform = plateform
+        self.setName(plateform.title)
         if self.project is None:
             self.setIcon(QIcon(QgsApplication.iconPath("mIconWarning.svg")))
         else:
-            if plateform.icon() is not None :  # Custom icon
-                self.setIcon(plateform.icon())
+            if plateform.icon is not None :  # Custom icon
+                self.setIcon(plateform.icon)
             else :
                 self.setIcon(QIcon(QgsApplication.iconPath("mIconFolderProject.svg")))  # Default Icon
-            if (self.project.metadata().title() or '') != '':
-                self.setName(self.project.metadata().title())
-
 
     def createChildren(self):
         # TODO add layer/folder for each platform
