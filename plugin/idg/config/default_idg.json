@@ -1,4 +1,5 @@
 {
   "geo2france": "https://www.geo2france.fr/public/qgis3/plugins/geo2france/geo2france.qgs",
-  "OPenIG": "https://raw.githubusercontent.com/openig/Plugin-QGIS3-OPenIG/master/OPenIG_qgis_plugin.qgs"
+  "OPenIG": "https://raw.githubusercontent.com/openig/Plugin-QGIS3-OPenIG/master/OPenIG_qgis_plugin.qgs",
+  "DataGrandEst": "https://www.datagrandest.fr/tools/plugin-qgis-datagrandest/config-plugin-idg-datagrandest.qgz"
 }
