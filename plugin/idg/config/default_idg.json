@@ -1,5 +1,4 @@
 {
-  "demo": "https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/dev/projects/projet_idg_demo.qgs",
   "geo2france": "https://www.geo2france.fr/public/qgis3/plugins/geo2france/geo2france.qgs",
   "OPenIG": "https://raw.githubusercontent.com/openig/Plugin-QGIS3-OPenIG/master/OPenIG_qgis_plugin.qgs"
 }
