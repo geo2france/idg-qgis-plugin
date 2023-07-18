@@ -24,7 +24,7 @@ def download_default_idg_list(url='https://raw.githubusercontent.com/geo2france/
     local_file = os.path.join(PluginGlobals.instance().config_dir_path, 'default_idg.json')
     request = QNetworkRequest(QUrl(url))
     manager = QgsNetworkAccessManager.instance()
-    manager.setTimeout(2*1000)
+    request.setTransferTimeout(5000)
     response: QgsNetworkReplyContent = manager.blockingGet(
         request, forceRefresh=True
     )
