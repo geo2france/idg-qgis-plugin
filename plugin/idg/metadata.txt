@@ -1,11 +1,11 @@
 [general]
 name=IDG
-about=Plugin providing easy access to data from different Spatial Data Infrastructures
-about[fr]=Plugin fournissant un accès simple aux données de différentes Infrastructures de Données Géographiques
 category=Web
 hasProcessingProvider=no
-description=Plugin providing easy access to data from different Spatial Data Infrastructures
-description[fr]=Plugin fournissant un accès simple aux données de différentes Infrastructures de Données Géographiques
+description=Plugin providing easy access to data from different SDI
+description[fr]=Plugin fournissant un accès simple aux données de différentes IDG
+about=Plugin providing easy access to data from different Spatial Data Infrastructures
+about[fr]=Plugin fournissant un accès simple aux données de différentes Infrastructures de Données Géographiques DataGrandEst, Géo2France et OPenIG
 icon=resources/images/layers-svgrepo-com.svg
 tags=opendata,sdi
 tags[fr]=opendata,idg
@@ -24,5 +24,5 @@ qgisMinimumVersion=3.00
 qgisMaximumVersion=3.99
 
 # versioning
-version=0.1.0
+version=0.2.0
 changelog=
