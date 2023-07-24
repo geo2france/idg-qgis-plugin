@@ -7,8 +7,8 @@ description[fr]=Plugin fournissant un accès simple aux données de différentes
 about=Plugin providing easy access to data from different Spatial Data Infrastructures
 about[fr]=Plugin fournissant un accès simple aux données de différentes Infrastructures de Données Géographiques DataGrandEst, Géo2France, GeoBretagne et OPenIG
 icon=resources/images/layers-svgrepo-com.svg
-tags=opendata,sdi
-tags[fr]=opendata,idg
+tags=opendata,sdi,DataGrandEst,Géo2France,GéoBretagne,OPenIG
+tags[fr]=opendata,idg,DataGrandEst,Géo2France,GéoBretagne,OPenIG
 
 # credits and contact
 author=Benjamin CHARTIER, Jean-Baptiste DESBAS

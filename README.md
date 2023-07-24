@@ -6,6 +6,12 @@ Canal de discussions : https://matrix.to/#/!DqHgKIoltGIikFRreo:matrix.org
 
 ![QGIS Browser](repo/screenshot_browser_1.png)
 
+Accès aux données des plateformes :
+- [DataGrandEst](https://datagrandest.fr/)
+- [GéoBretagne](https://geobretagne.fr)
+- [Géo2France](https://geo2france.fr)
+- [OPenIG](https://openig.org)
+
 ## Installation
 
 Pré-requis :
@@ -13,8 +19,8 @@ Pré-requis :
 * QGIS version LTR [3.28] ou supérieure
 * Une connexion Internet
 
+* Installation depuis le dépot QGIS : dans le gestionnaire d'exentions (Extensions > Installer/Gérer les extensions), activer les extensions expérimentales et rechercher le plugin _IDG_
 * Installation depuis le fichier zip : télécharger depuis la derniere [release](https://github.com/geo2france/idg-qgis-plugin/releases) depuis le dépot github.
-* Installation depuis le dépot de développment : ajouter le dépot `https://www.geo2france.fr/public/qgis3/plugins/plugins-dev.xml` dans le gestionnaire d'exentions (Extensions > Installer/Gérer les extensions) de QGIS et activer les extensions expérimentales.
 
 
 ## Utilisation
@@ -50,8 +56,7 @@ et faites une _pull request_.
 
 Dans le panneau _navigateur_ sur la gauche, double-cliquez sur l'icone **IDG** : cela déroulera les différentes plateformes disponibles.
 
-Pour ajouter de nouvelles plateformes, mettre à jour le plugin ou ajouter l'url fournie par l'administrateur dans _préférence > IDG_
-
+Depuis les paramètres du plugin, vous avez la possibilité d'afficher/masquer les plateformes.
 
 ## Conception
 
@@ -71,8 +76,7 @@ Pour ajouter de nouvelles plateformes, mettre à jour le plugin ou ajouter l'url
 
 * [Julien Moura](https://github.com/Guts) (Oslandia) pour le [template](https://oslandia.gitlab.io/qgis/template-qgis-plugin/) du plugin.
 * Auteurs des icônes de QGIS, reprises dans l'arbre des ressources
-* Pour le fichier plugin/geo2france/images/Icon_Simple_Warn.png cf.
-<https://commons.wikimedia.org/wiki/File:Icon_Simple_Warn.png>
+
 
 ## Licence
 
