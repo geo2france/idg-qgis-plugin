@@ -11,11 +11,13 @@ from qgis.core import (
     QgsProject,
     QgsNetworkAccessManager,
     QgsNetworkReplyContent,
+    QgsFileDownloader
 )
 from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
-from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtCore import QUrl, QEventLoop
 
 from idg.toolbelt import PluginGlobals
+from .network_manager import NetworkRequestsManager
 from .nodes import WmsLayerTreeNode, WmsStyleLayerTreeNode, WmtsLayerTreeNode, WfsFeatureTypeTreeNode
 from .nodes import WfsFeatureTypeFilterTreeNode, GdalWmsConfigFileTreeNode, FolderTreeNode
 
@@ -28,14 +30,16 @@ def download_default_idg_list(url='https://raw.githubusercontent.com/geo2france/
     response: QgsNetworkReplyContent = manager.blockingGet(
         request, forceRefresh=True
     )
-    if response.error() == QNetworkReply.NoError:
-        try:
-            os.remove(local_file)
-        except OSError:
-            pass
-        with open(local_file, "wb") as local_config_file:
-            local_config_file.write(response.content())
-        return json.loads(bytes(response.content()).decode())
+    qntwk = NetworkRequestsManager()
+    local_file_name = qntwk.download_file(url, os.path.join(PluginGlobals.instance().config_dir_path, 'default_idg.json'))
+    if local_file_name is not None:
+        #try:
+        #    os.remove(local_file)
+        #except OSError:
+        #    pass
+        with open(local_file, "r") as local_config_file:
+            out = json.load(local_config_file)
+        return out
     #TOD gérer les erreur (garder le fichier précédent + avertissement)
 
 def download_all_config_files(idgs): #remplacer la list par un dict ({idg_id:url})
@@ -47,6 +51,7 @@ def download_all_config_files(idgs): #remplacer la list par un dict ({idg_id:url
         key = IDG_id, value = url
         rename local file
     """
+    qntwk = NetworkRequestsManager()
     for idg_id, url in idgs.items():
         idg_id = str(idg_id)
         request = QNetworkRequest(QUrl(url))
@@ -55,23 +60,8 @@ def download_all_config_files(idgs): #remplacer la list par un dict ({idg_id:url
             request, forceRefresh=True
         )
         suffix = os.path.splitext(os.path.basename(url))[-1]
-        local_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix)
-        if response.error() == QNetworkReply.NoError:
-            # Creer le dossier si non existant
-            try:
-                os.makedirs(os.path.join(PluginGlobals.instance().config_dir_path))
-            except OSError:
-                if not os.path.isdir(os.path.join(PluginGlobals.instance().config_dir_path)):
-                    raise
-            # Supprimer le fichier si existant
-            try :
-                os.remove(os.path.join(PluginGlobals.instance().config_dir_path, idg_id + '.qgz') )
-            except OSError:
-                pass
-            try :
-                os.remove(os.path.join(PluginGlobals.instance().config_dir_path, idg_id + '.qgs') )
-            except OSError:
-                pass
+        local_file_name = qntwk.download_file(url, os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix))
+        if local_file_name :
             with open(local_file_name, "wb") as local_config_file:
                 local_config_file.write(response.content())
             # Download icon if custom TODO a factoriser
@@ -100,6 +90,7 @@ def download_all_config_files(idgs): #remplacer la list par un dict ({idg_id:url
             PluginGlobals.instance().iface.messageBar().pushMessage(
                 "Erreur", short_message, level=Qgis.Warning
             )
+
 
 def download_tree_config_file(file_url):
     """

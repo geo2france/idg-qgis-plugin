@@ -58,12 +58,11 @@ class IdgPlugin:
         config_struct = None
         config_string = ""
         
-        # Download the config if needed
-        #if self.need_download_tree_config_file():
-        #    download_tree_config_file(PluginGlobals.instance().CONFIG_FILE_URLS[0])
-        
-        # Read the resources tree file and update the GUI
-        #self.ressources_tree = TreeNodeFactory(PluginGlobals.instance().config_file_path).root_node # dev
+        self.iface.initializationCompleted.connect(self.post_ui_init)
+
+
+    def post_ui_init(self):
+        """Run after plugin's UI has been initialized."""
         download_default_idg_list()
         download_all_config_files(RemotePlatforms().stock_idgs)
 
