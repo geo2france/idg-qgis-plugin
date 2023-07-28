@@ -23,7 +23,7 @@ from idg.toolbelt import PluginGlobals, PlgOptionsManager, IdgProvider, RemotePl
 from idg.gui.dock import DockWidget
 from idg.gui.about_box import AboutBox
 from idg.gui.param_box import ParamBox
-from idg.toolbelt.tree_node_factory import TreeNodeFactory, download_tree_config_file, download_all_config_files, download_default_idg_list
+from idg.toolbelt.tree_node_factory import TreeNodeFactory, download_tree_config_file, download_all_config_files, download_default_idg_list, DownloadAllConfigFilesAsync
 
 import os
 import json
@@ -63,8 +63,10 @@ class IdgPlugin:
 
     def post_ui_init(self):
         """Run after plugin's UI has been initialized."""
-        download_default_idg_list()
-        download_all_config_files(RemotePlatforms().stock_idgs)
+        download_default_idg_list() # TODO a passer en asynchrone aussi ?
+        self.task = DownloadAllConfigFilesAsync(RemotePlatforms().stock_idgs)
+        self.task.finished.connect(self.add_browser_provider)
+        self.task.start()
 
     def need_download_tree_config_file(self):
         """
@@ -116,8 +118,9 @@ class IdgPlugin:
         #self.dock.set_tree_content(self.ressources_tree)
         #self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock) # dev
 
-    # Add browser provider
-        self.registry = QgsApplication.dataItemProviderRegistry()       
+
+    def add_browser_provider(self):
+        self.registry = QgsApplication.dataItemProviderRegistry()
         self.provider = IdgProvider(self.iface)
         self.registry.addProvider(self.provider)
 

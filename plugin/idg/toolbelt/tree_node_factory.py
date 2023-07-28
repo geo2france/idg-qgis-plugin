@@ -14,7 +14,7 @@ from qgis.core import (
     QgsFileDownloader
 )
 from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
-from qgis.PyQt.QtCore import QUrl, QEventLoop
+from qgis.PyQt.QtCore import QUrl, QThread, pyqtSignal
 
 from idg.toolbelt import PluginGlobals
 from .network_manager import NetworkRequestsManager
@@ -80,6 +80,32 @@ def download_all_config_files(idgs): #remplacer la list par un dict ({idg_id:url
             PluginGlobals.instance().iface.messageBar().pushMessage(
                 "Erreur", short_message, level=Qgis.Warning
             )
+
+class DownloadAllConfigFilesAsync(QThread):
+    finished = pyqtSignal()
+    def __init__(self, idgs):
+        super(QThread, self).__init__()
+        self.idgs=idgs
+    def run(self):
+        qntwk = NetworkRequestsManager()
+
+        for idg_id, url in self.idgs.items():
+            # continue si l'IDG est masquée
+            idg_id = str(idg_id)
+            suffix = os.path.splitext(os.path.basename(url))[-1]
+            local_file_name = qntwk.download_file(url, os.path.join(PluginGlobals.instance().config_dir_path,
+                                                                    idg_id + suffix))
+            if local_file_name:
+                project = QgsProject()
+                project.read(local_file_name,
+                             QgsProject.ReadFlags() | QgsProject.FlagDontResolveLayers | QgsProject.FlagDontLoadLayouts)
+                for l in project.metadata().links():
+                    if l.name.lower().strip() == 'icon':
+                        suffix = os.path.splitext(os.path.basename(l.url))[-1]
+                        qntwk.download_file(l.url,
+                                            os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix))
+                        break
+        self.finished.emit()
 
 
 def download_tree_config_file(file_url):
