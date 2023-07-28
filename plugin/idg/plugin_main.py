@@ -20,10 +20,7 @@ from idg.toolbelt import PlgLogger, PlgTranslator, PluginGlobals
 
 
 from idg.toolbelt import PluginGlobals, PlgOptionsManager, IdgProvider, RemotePlatforms
-from idg.gui.dock import DockWidget
-from idg.gui.about_box import AboutBox
-from idg.gui.param_box import ParamBox
-from idg.toolbelt.tree_node_factory import TreeNodeFactory, download_tree_config_file, download_all_config_files, download_default_idg_list, DownloadAllConfigFilesAsync
+from idg.toolbelt.tree_node_factory import download_all_config_files, download_default_idg_list, DownloadAllConfigFilesAsync
 
 import os
 import json
@@ -52,7 +49,7 @@ class IdgPlugin:
         self.tr = plg_translation_mngr.tr
         
         PluginGlobals.instance().set_plugin_path(os.path.dirname(os.path.abspath(__file__)))
-        PluginGlobals.instance().set_plugin_iface(self.iface)
+        #PluginGlobals.instance().set_plugin_iface(self.iface)
         PluginGlobals.instance().reload_globals_from_qgis_settings()
 
         config_struct = None
@@ -113,16 +110,12 @@ class IdgPlugin:
         # -- Menu
 
 
-    # Create a menu
+        # Create a menu
         self.createPluginMenu()
 
         # Add browser IDG provider
         self.registry.addProvider(self.provider)
 
-        # Create a dockable panel with a tree of resources
-        #self.dock = DockWidget()
-        #self.dock.set_tree_content(self.ressources_tree)
-        #self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock) # dev
 
 
     def populate_browser(self):
@@ -146,9 +139,7 @@ class IdgPlugin:
         Removes the plugin menu
         """
         self.iface.pluginMenu().removeAction(self.plugin_menu.menuAction())
-        #self.iface.removeDockWidget(self.dock)
-        #del self.dock
-        
+
         #Clean-up browser
         self.registry.removeProvider(self.provider)
         
@@ -164,28 +155,6 @@ class IdgPlugin:
         self.plugin_menu.addAction(self.action_settings)
         self.plugin_menu.addAction(self.action_help)
 
-
-    def showPanelMenuTriggered(self):
-        """
-        Shows the dock widget
-        """
-        self.dock.show()
-        pass
-
-    def aboutMenuTriggered(self):
-        """
-        Shows the About box
-        """
-        dialog = AboutBox(self.iface.mainWindow())
-        dialog.exec_()
-
-    def paramMenuTriggered(self):
-        """
-        Shows the Param box
-        """
-        dialog = ParamBox(self.iface.mainWindow(), self.dock)
-        dialog.exec_()
-        
 
     def run(self):
         """Main process.

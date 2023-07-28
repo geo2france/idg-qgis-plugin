@@ -42,15 +42,15 @@ class RemotePlatforms:
                     os.remove(chemin_fichier)
 
         download_default_idg_list()
-        download_all_config_files(RemotePlatforms().stock_idgs)
+        download_all_config_files(RemotePlatforms().stock_idgs) # TODO Utiliser le téléchargement asynchrone
         #TODO remove all local files (projects & images)
 
 
 class Plateform:
-    def __init__(self, url, idg_id):
+    def __init__(self, url, idg_id): #TODO ajouter un paramètre "dry" ?
         self.url=url
         self.idg_id=idg_id
-        self.project=self.read_project()
+        self.project=self.read_project() #TODO pas ici, car on peut avoir besoin d'instancier un projet sans avoir télécharger le fichier projet
 
     def read_project(self):
         p = QgsProject()

@@ -3,7 +3,7 @@ from qgis.core import Qgis, QgsDataItemProvider, QgsDataCollectionItem, QgsDataI
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.Qt import QWidget
-from idg.toolbelt import PluginGlobals, PlgOptionsManager, PluginIcons
+from idg.toolbelt import PluginGlobals, PlgOptionsManager
 from .remote_platforms import RemotePlatforms
 from idg.__about__ import __title__
 from qgis.PyQt.QtWidgets import QAction, QMenu
