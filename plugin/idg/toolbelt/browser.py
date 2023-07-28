@@ -1,4 +1,4 @@
-from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataItem, QgsDataProvider, QgsProject, \
+from qgis.core import Qgis, QgsDataItemProvider, QgsDataCollectionItem, QgsDataItem, QgsDataProvider, QgsProject, \
     QgsLayerTreeLayer, QgsLayerTreeGroup, QgsMimeDataUtils, QgsAbstractMetadataBase, QgsApplication, QgsIconUtils
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtGui import QIcon
@@ -8,7 +8,6 @@ from .remote_platforms import RemotePlatforms
 from idg.__about__ import __title__
 from qgis.PyQt.QtWidgets import QAction, QMenu
 from qgis.utils import iface
-
 import os.path
 import json
 import webbrowser
@@ -40,8 +39,8 @@ class IdgProvider(QgsDataItemProvider):
         return QgsDataProvider.Net
 
     def createDataItem(self, path, parentItem):
-        root = RootCollection(self.iface)
-        return root
+        self.root = RootCollection(self.iface)
+        return self.root
   
         
 class RootCollection(QgsDataCollectionItem):
@@ -49,6 +48,7 @@ class RootCollection(QgsDataCollectionItem):
         self.iface = iface
         QgsDataCollectionItem.__init__(self, None, "IDG", "/IDG")
         self.setIcon(QIcon(PluginGlobals.instance().plugin_path+'/resources/images/layers-svgrepo-com.svg'))
+        self.setState(Qgis.BrowserItemState.Populating)
 
     def actions(self, parent):
         actions = list()
@@ -71,15 +71,24 @@ class RootCollection(QgsDataCollectionItem):
         menu.addSeparator()
         menu.addAction(QAction(self.tr('Add URL'), menu, )) # TODO Liens vers le panneau Options de QGIS
         return [menu]
-        
-    def createChildren(self):
-        children = []
+
+    def repopulate(self):
+        self.refresh()
         for pf in RemotePlatforms().plateforms :
             if pf.is_hidden() :
                 continue
             pf_collection = PlatformCollection(plateform=pf)
-            children.append(pf_collection)
-        return children
+            self.addChildItem(pf_collection, refresh=True)
+        self.setState(Qgis.BrowserItemState.Populated)
+
+    #def createChildren(self):
+    #    children = []
+    #    for pf in RemotePlatforms().plateforms :
+    #        if pf.is_hidden() :
+    #            continue
+    #        pf_collection = PlatformCollection(plateform=pf)
+    #        children.append(pf_collection)
+    #    return children
 
 
 class PlatformCollection(QgsDataCollectionItem):

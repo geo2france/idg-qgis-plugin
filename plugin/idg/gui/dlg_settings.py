@@ -135,8 +135,9 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # dump new settings into QgsSettings
         self.plg_settings.save_from_object(settings) #Les variables globales ne sont peut être pas MAJ ici
 
-        iface.mainWindow().findChildren(QWidget, 'Browser')[0].refresh() # refresh browser (supprimer et recreer le registre IDG plutôt ?)
-
+        registry = QgsApplication.dataItemProviderRegistry()
+        provider = registry.provider('IDG Provider')
+        provider.root.repopulate()
         if __debug__:
             self.log(
                 message="DEBUG - Settings successfully saved.",

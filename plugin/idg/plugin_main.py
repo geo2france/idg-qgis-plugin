@@ -57,7 +57,10 @@ class IdgPlugin:
 
         config_struct = None
         config_string = ""
-        
+
+        self.registry = QgsApplication.dataItemProviderRegistry()
+        self.provider = IdgProvider(self.iface)
+
         self.iface.initializationCompleted.connect(self.post_ui_init)
 
 
@@ -65,7 +68,7 @@ class IdgPlugin:
         """Run after plugin's UI has been initialized."""
         download_default_idg_list() # TODO a passer en asynchrone aussi ?
         self.task = DownloadAllConfigFilesAsync(RemotePlatforms().stock_idgs)
-        self.task.finished.connect(self.add_browser_provider)
+        self.task.finished.connect(self.populate_browser)
         self.task.start()
 
     def need_download_tree_config_file(self):
@@ -113,16 +116,17 @@ class IdgPlugin:
     # Create a menu
         self.createPluginMenu()
 
+        # Add browser IDG provider
+        self.registry.addProvider(self.provider)
+
         # Create a dockable panel with a tree of resources
         #self.dock = DockWidget()
         #self.dock.set_tree_content(self.ressources_tree)
         #self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock) # dev
 
 
-    def add_browser_provider(self):
-        self.registry = QgsApplication.dataItemProviderRegistry()
-        self.provider = IdgProvider(self.iface)
-        self.registry.addProvider(self.provider)
+    def populate_browser(self):
+        self.provider.root.repopulate()
 
     def unload(self):
         """Cleans up when plugin is disabled/uninstalled."""
