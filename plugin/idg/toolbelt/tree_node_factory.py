@@ -51,8 +51,10 @@ def download_all_config_files(idgs): #remplacer la list par un dict ({idg_id:url
         key = IDG_id, value = url
         rename local file
     """
+    #TODO a passer dans RemotePlatforms
     qntwk = NetworkRequestsManager()
     for idg_id, url in idgs.items():
+        #continue si l'IDG est masquée
         idg_id = str(idg_id)
         request = QNetworkRequest(QUrl(url))
         manager = QgsNetworkAccessManager.instance()
@@ -69,20 +71,8 @@ def download_all_config_files(idgs): #remplacer la list par un dict ({idg_id:url
             project.read(local_file_name, QgsProject.ReadFlags()|QgsProject.FlagDontResolveLayers|QgsProject.FlagDontLoadLayouts)
             for l in project.metadata().links():
                 if l.name.lower().strip() == 'icon':
-                    request = QNetworkRequest(QUrl(l.url))
-                    manager = QgsNetworkAccessManager.instance()
                     suffix = os.path.splitext(os.path.basename(l.url))[-1]
-                    response: QgsNetworkReplyContent = manager.blockingGet(
-                        request, forceRefresh=True
-                    )
-                    if response.error() == QNetworkReply.NoError:
-                        local_icon_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix) #TODO : vérifier qu'il s'agit d'un type image
-                        try:
-                            os.remove(local_icon_file_name)
-                        except OSError:
-                            pass
-                        with open(local_icon_file_name, "wb") as icon_file:
-                            icon_file.write(response.content())
+                    qntwk.download_file(l.url, os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix) )
                     break
 
         else :
