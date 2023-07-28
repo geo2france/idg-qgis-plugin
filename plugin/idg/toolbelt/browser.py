@@ -9,7 +9,6 @@ from idg.__about__ import __title__
 from qgis.PyQt.QtWidgets import QAction, QMenu
 from qgis.utils import iface
 import os.path
-import json
 import webbrowser
 
 
@@ -80,15 +79,6 @@ class RootCollection(QgsDataCollectionItem):
             pf_collection = PlatformCollection(plateform=pf)
             self.addChildItem(pf_collection, refresh=True)
         self.setState(Qgis.BrowserItemState.Populated)
-
-    #def createChildren(self):
-    #    children = []
-    #    for pf in RemotePlatforms().plateforms :
-    #        if pf.is_hidden() :
-    #            continue
-    #        pf_collection = PlatformCollection(plateform=pf)
-    #        children.append(pf_collection)
-    #    return children
 
 
 class PlatformCollection(QgsDataCollectionItem):
