@@ -23,7 +23,7 @@ from idg.toolbelt import PluginGlobals, PlgOptionsManager, IdgProvider, RemotePl
 from idg.gui.dock import DockWidget
 from idg.gui.about_box import AboutBox
 from idg.gui.param_box import ParamBox
-from idg.toolbelt.tree_node_factory import TreeNodeFactory, download_tree_config_file, download_all_config_files, download_default_idg_list
+from idg.toolbelt.tree_node_factory import TreeNodeFactory, download_tree_config_file, download_all_config_files, download_default_idg_list, DownloadAllConfigFilesAsync
 
 import os
 import json
@@ -57,15 +57,19 @@ class IdgPlugin:
 
         config_struct = None
         config_string = ""
-        
-        # Download the config if needed
-        #if self.need_download_tree_config_file():
-        #    download_tree_config_file(PluginGlobals.instance().CONFIG_FILE_URLS[0])
-        
-        # Read the resources tree file and update the GUI
-        #self.ressources_tree = TreeNodeFactory(PluginGlobals.instance().config_file_path).root_node # dev
-        download_default_idg_list()
-        download_all_config_files(RemotePlatforms().stock_idgs)
+
+        self.registry = QgsApplication.dataItemProviderRegistry()
+        self.provider = IdgProvider(self.iface)
+
+        self.iface.initializationCompleted.connect(self.post_ui_init)
+
+
+    def post_ui_init(self):
+        """Run after plugin's UI has been initialized."""
+        download_default_idg_list() # TODO a passer en asynchrone aussi ?
+        self.task = DownloadAllConfigFilesAsync(RemotePlatforms().stock_idgs)
+        self.task.finished.connect(self.populate_browser)
+        self.task.start()
 
     def need_download_tree_config_file(self):
         """
@@ -112,15 +116,17 @@ class IdgPlugin:
     # Create a menu
         self.createPluginMenu()
 
+        # Add browser IDG provider
+        self.registry.addProvider(self.provider)
+
         # Create a dockable panel with a tree of resources
         #self.dock = DockWidget()
         #self.dock.set_tree_content(self.ressources_tree)
         #self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock) # dev
 
-    # Add browser provider
-        self.registry = QgsApplication.dataItemProviderRegistry()       
-        self.provider = IdgProvider(self.iface)
-        self.registry.addProvider(self.provider)
+
+    def populate_browser(self):
+        self.provider.root.repopulate()
 
     def unload(self):
         """Cleans up when plugin is disabled/uninstalled."""

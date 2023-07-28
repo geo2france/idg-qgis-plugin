@@ -11,11 +11,13 @@ from qgis.core import (
     QgsProject,
     QgsNetworkAccessManager,
     QgsNetworkReplyContent,
+    QgsFileDownloader
 )
 from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
-from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtCore import QUrl, QThread, pyqtSignal
 
 from idg.toolbelt import PluginGlobals
+from .network_manager import NetworkRequestsManager
 from .nodes import WmsLayerTreeNode, WmsStyleLayerTreeNode, WmtsLayerTreeNode, WfsFeatureTypeTreeNode
 from .nodes import WfsFeatureTypeFilterTreeNode, GdalWmsConfigFileTreeNode, FolderTreeNode
 
@@ -28,14 +30,16 @@ def download_default_idg_list(url='https://raw.githubusercontent.com/geo2france/
     response: QgsNetworkReplyContent = manager.blockingGet(
         request, forceRefresh=True
     )
-    if response.error() == QNetworkReply.NoError:
-        try:
-            os.remove(local_file)
-        except OSError:
-            pass
-        with open(local_file, "wb") as local_config_file:
-            local_config_file.write(response.content())
-        return json.loads(bytes(response.content()).decode())
+    qntwk = NetworkRequestsManager()
+    local_file_name = qntwk.download_file(url, os.path.join(PluginGlobals.instance().config_dir_path, 'default_idg.json'))
+    if local_file_name is not None:
+        #try:
+        #    os.remove(local_file)
+        #except OSError:
+        #    pass
+        with open(local_file, "r") as local_config_file:
+            out = json.load(local_config_file)
+        return out
     #TOD gérer les erreur (garder le fichier précédent + avertissement)
 
 def download_all_config_files(idgs): #remplacer la list par un dict ({idg_id:url})
@@ -47,7 +51,10 @@ def download_all_config_files(idgs): #remplacer la list par un dict ({idg_id:url
         key = IDG_id, value = url
         rename local file
     """
+    #TODO a passer dans RemotePlatforms
+    qntwk = NetworkRequestsManager()
     for idg_id, url in idgs.items():
+        #continue si l'IDG est masquée
         idg_id = str(idg_id)
         request = QNetworkRequest(QUrl(url))
         manager = QgsNetworkAccessManager.instance()
@@ -55,23 +62,8 @@ def download_all_config_files(idgs): #remplacer la list par un dict ({idg_id:url
             request, forceRefresh=True
         )
         suffix = os.path.splitext(os.path.basename(url))[-1]
-        local_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix)
-        if response.error() == QNetworkReply.NoError:
-            # Creer le dossier si non existant
-            try:
-                os.makedirs(os.path.join(PluginGlobals.instance().config_dir_path))
-            except OSError:
-                if not os.path.isdir(os.path.join(PluginGlobals.instance().config_dir_path)):
-                    raise
-            # Supprimer le fichier si existant
-            try :
-                os.remove(os.path.join(PluginGlobals.instance().config_dir_path, idg_id + '.qgz') )
-            except OSError:
-                pass
-            try :
-                os.remove(os.path.join(PluginGlobals.instance().config_dir_path, idg_id + '.qgs') )
-            except OSError:
-                pass
+        local_file_name = qntwk.download_file(url, os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix))
+        if local_file_name :
             with open(local_file_name, "wb") as local_config_file:
                 local_config_file.write(response.content())
             # Download icon if custom TODO a factoriser
@@ -79,20 +71,8 @@ def download_all_config_files(idgs): #remplacer la list par un dict ({idg_id:url
             project.read(local_file_name, QgsProject.ReadFlags()|QgsProject.FlagDontResolveLayers|QgsProject.FlagDontLoadLayouts)
             for l in project.metadata().links():
                 if l.name.lower().strip() == 'icon':
-                    request = QNetworkRequest(QUrl(l.url))
-                    manager = QgsNetworkAccessManager.instance()
                     suffix = os.path.splitext(os.path.basename(l.url))[-1]
-                    response: QgsNetworkReplyContent = manager.blockingGet(
-                        request, forceRefresh=True
-                    )
-                    if response.error() == QNetworkReply.NoError:
-                        local_icon_file_name = os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix) #TODO : vérifier qu'il s'agit d'un type image
-                        try:
-                            os.remove(local_icon_file_name)
-                        except OSError:
-                            pass
-                        with open(local_icon_file_name, "wb") as icon_file:
-                            icon_file.write(response.content())
+                    qntwk.download_file(l.url, os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix) )
                     break
 
         else :
@@ -100,6 +80,33 @@ def download_all_config_files(idgs): #remplacer la list par un dict ({idg_id:url
             PluginGlobals.instance().iface.messageBar().pushMessage(
                 "Erreur", short_message, level=Qgis.Warning
             )
+
+class DownloadAllConfigFilesAsync(QThread):
+    finished = pyqtSignal()
+    def __init__(self, idgs):
+        super(QThread, self).__init__()
+        self.idgs=idgs
+    def run(self):
+        qntwk = NetworkRequestsManager()
+
+        for idg_id, url in self.idgs.items():
+            # continue si l'IDG est masquée
+            idg_id = str(idg_id)
+            suffix = os.path.splitext(os.path.basename(url))[-1]
+            local_file_name = qntwk.download_file(url, os.path.join(PluginGlobals.instance().config_dir_path,
+                                                                    idg_id + suffix))
+            if local_file_name:
+                project = QgsProject()
+                project.read(local_file_name,
+                             QgsProject.ReadFlags() | QgsProject.FlagDontResolveLayers | QgsProject.FlagDontLoadLayouts)
+                for l in project.metadata().links():
+                    if l.name.lower().strip() == 'icon':
+                        suffix = os.path.splitext(os.path.basename(l.url))[-1]
+                        qntwk.download_file(l.url,
+                                            os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix))
+                        break
+        self.finished.emit()
+
 
 def download_tree_config_file(file_url):
     """

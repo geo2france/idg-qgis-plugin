@@ -7,3 +7,4 @@ from .plugin_icons import PluginIcons
 from .singleton import Singleton
 from .browser import IdgProvider
 from .remote_platforms import RemotePlatforms
+from .network_manager import NetworkRequestsManager  # noqa: F401
