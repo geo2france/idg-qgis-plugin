@@ -11,7 +11,8 @@
 
 # Standard library
 import logging
-
+from os import remove,  path
+from shutil import copy
 # PyQGIS
 from qgis.core import QgsBlockingNetworkRequest, QgsFileDownloader
 from qgis.PyQt.QtCore import QByteArray, QCoreApplication, QEventLoop, QUrl
@@ -65,21 +66,25 @@ class NetworkRequestsManager:
         :return: output path
         :rtype: str
         """
+
+        def dlCompleted():
+            self.log(message=f"Download of {remote_url} to {local_path} succeedeed", log_level=3)
+            copy(local_path+'_tmp', local_path)
+            remove(local_path+'_tmp')
+
         self.log(
             message=f"Downloading file from {remote_url} to {local_path}", log_level=4
         )
         # download it
         loop = QEventLoop()
         file_downloader = QgsFileDownloader(
-            url=QUrl(remote_url ), outputFileName=local_path, delayStart=True
+            url = QUrl(remote_url ), outputFileName=local_path+'_tmp', delayStart=True # Le téléchargement se fait dans un fichier temporaire, pour garder l'ancien fichier en cas d'échec
         )
-        file_downloader.downloadExited.connect(loop.quit)
-        file_downloader.downloadCompleted.connect(
-            lambda : self.log(message=f"Download of {remote_url} to {local_path} succeedeed", log_level=3)
-        )
+        file_downloader.downloadCompleted.connect(dlCompleted)
         file_downloader.downloadError.connect(
             lambda e : self.log(message=f"Download of {remote_url} to {local_path} error {e}", log_level=1)
         )
+        file_downloader.downloadExited.connect(loop.quit)
         file_downloader.startDownload()
         loop.exec_()
 
