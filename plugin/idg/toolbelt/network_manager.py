@@ -71,13 +71,17 @@ class NetworkRequestsManager:
         # download it
         loop = QEventLoop()
         file_downloader = QgsFileDownloader(
-            url=QUrl(remote_url), outputFileName=local_path, delayStart=True
+            url=QUrl(remote_url ), outputFileName=local_path, delayStart=True
         )
         file_downloader.downloadExited.connect(loop.quit)
+        file_downloader.downloadCompleted.connect(
+            lambda : self.log(message=f"Download of {remote_url} to {local_path} succeedeed", log_level=3)
+        )
+        file_downloader.downloadError.connect(
+            lambda e : self.log(message=f"Download of {remote_url} to {local_path} error {e}", log_level=1)
+        )
         file_downloader.startDownload()
         loop.exec_()
 
-        self.log(
-            message=f"Download of {remote_url} to {local_path} succeedeed", log_level=3
-        )
+
         return local_path
