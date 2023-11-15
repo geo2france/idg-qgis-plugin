@@ -111,21 +111,87 @@
       "type": "folder",
       "children": [
         {
-          "title": "Occupation du sol Hauts-de-France 2009/2010",
-          "description": "Occupation du sol Hauts-de-France 2009/2010",
-          "type": "wms_layer",
-		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/7fac6bc0-9db8-4247-993c-ba2404387bbf",
-          "params": {
-            "url": "https://www.geo2france.fr/geoserver/hdf_common/ows",
-            "name": "ocs_hdf_2009_2010",
-            "format": "image/png",
-            "srs": "epsg:2154"
-          }
+          "title": "OCS2D 2021",
+          "type": "folder",
+          "children":[
+              {
+              "title": "OCS2D 2021 - Aisne",
+              "description": "Occupation du Sol en 2 dimensions (OCS2D) millésime 2021 sur le territoire de l'Aisne",
+              "type": "wms_layer",
+		      "metadata_url": "https://www.geo2france.fr/datahub/dataset/f5bd29c8-d3a0-4ad4-b466-2857f33a34fb",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+                "name": "ocs2d_hdf_2021_aisne_v2",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+            {
+              "title": "OCS2D 2021 - Oise",
+              "description": "Occupation du Sol en 2 dimensions (OCS2D) millésime 2021 sur le territoire de l'Oise",
+              "type": "wms_layer",
+		      "metadata_url": "https://www.geo2france.fr/datahub/dataset/a6b90aa6-d6ad-493d-be1b-c0b1e6f613e8",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+                "name": "ocs2d_hdf_2021_oise_v3",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+            {
+              "title": "OCS2D 2021 - Pas-de-Calais",
+              "description": "Occupation du Sol en 2 dimensions (OCS2D) millésime 2021 sur le territoire du Pas-de-Calais",
+              "type": "wms_layer",
+		      "metadata_url": "https://www.geo2france.fr/datahub/dataset/d00a3e33-9914-40f0-8575-1a69f81d9a19",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+                "name": "ocs2d_hdf_2021_pas_de_calais_v2",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+            {
+              "title": "OCS2D 2021 - Nord",
+              "description": "Occupation du Sol en 2 dimensions (OCS2D) millésime 2021 sur le territoire du Nord",
+              "type": "wms_layer",
+		      "metadata_url": "https://www.geo2france.fr/datahub/dataset/8b314501-5472-405a-baf9-7d1dc4363336",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+                "name": "ocs2d_hdf_2021_nord_v3",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
+            {
+              "title": "OCS2D 2021 - Somme",
+              "description": "Occupation du Sol en 2 dimensions (OCS2D) millésime 2021 sur le territoire de la Somme",
+              "type": "wms_layer",
+		      "metadata_url": "https://www.geo2france.fr/datahub/dataset/ab1c31bb-4920-4afa-abdd-c131dc6dba97",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
+                "name": "ocs2d_hdf_2021_somme_v2",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            }
+          ]
         },
         {
           "title": "Occupation du sol anciennes",
           "type": "folder",
-          "children": [
+          "children": [        
+            {
+              "title": "Occupation du sol Hauts-de-France 2009/2010",
+              "description": "Occupation du sol Hauts-de-France 2009/2010",
+              "type": "wms_layer",
+		      "metadata_url": "https://www.geo2france.fr/datahub/dataset/7fac6bc0-9db8-4247-993c-ba2404387bbf",
+              "params": {
+                "url": "https://www.geo2france.fr/geoserver/hdf_common/ows",
+                "name": "ocs_hdf_2009_2010",
+                "format": "image/png",
+                "srs": "epsg:2154"
+              }
+            },
             {
               "title": "Occupation du sol de Picardie - 1992/2002/2010",
               "description": "Cartographie de l'occupation du sol de la Picardie de 1992 à 2010",
