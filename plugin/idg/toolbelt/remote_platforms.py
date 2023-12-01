@@ -2,7 +2,7 @@ from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataItem, Q
     QgsLayerTreeLayer, QgsLayerTreeGroup, QgsMimeDataUtils, QgsAbstractMetadataBase, QgsApplication, QgsIconUtils
 from qgis.PyQt.QtGui import QIcon
 
-from idg.toolbelt.tree_node_factory import download_default_idg_list, download_all_config_files
+from idg.toolbelt.tree_node_factory import DownloadAllConfigFilesAsync, DownloadDefaultIdgListAsync
 from idg.toolbelt import PlgOptionsManager, PluginGlobals
 
 import json
@@ -41,8 +41,10 @@ class RemotePlatforms:
                 if os.path.isfile(chemin_fichier):
                     os.remove(chemin_fichier)
 
-        download_default_idg_list()
-        download_all_config_files(RemotePlatforms().stock_idgs) # TODO Utiliser le téléchargement asynchrone
+        self.task1 = DownloadDefaultIdgListAsync()
+        self.task2 = DownloadAllConfigFilesAsync(RemotePlatforms().stock_idgs)
+        self.task1.finished.connect(self.task2.start)
+        self.task2.finished.connect(self.populate_browser)
         #TODO remove all local files (projects & images)
 
 

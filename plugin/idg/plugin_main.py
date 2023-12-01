@@ -10,7 +10,7 @@ from qgis.gui import QgisInterface
 from qgis.PyQt.QtCore import QCoreApplication, Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QMenu
-from qgis.utils import showPluginHelp
+from qgis.utils import showPluginHelp, active_plugins
 
 # project
 from idg.__about__ import __title__
@@ -20,7 +20,7 @@ from idg.toolbelt import PlgLogger, PlgTranslator, PluginGlobals
 
 
 from idg.toolbelt import PluginGlobals, PlgOptionsManager, IdgProvider, RemotePlatforms
-from idg.toolbelt.tree_node_factory import download_all_config_files, download_default_idg_list, DownloadAllConfigFilesAsync
+from idg.toolbelt.tree_node_factory import DownloadAllConfigFilesAsync, DownloadDefaultIdgListAsync
 
 import os
 import json
@@ -41,7 +41,6 @@ class IdgPlugin:
         self.log = PlgLogger().log
         self.dock = None
 
-        # translation
         plg_translation_mngr = PlgTranslator()
         translator = plg_translation_mngr.get_translator()
         if translator:
@@ -58,16 +57,17 @@ class IdgPlugin:
         self.registry = QgsApplication.dataItemProviderRegistry()
         self.provider = IdgProvider(self.iface)
 
-        self.iface.initializationCompleted.connect(self.post_ui_init)
-
+        #self.iface.initializationCompleted.connect(self.post_ui_init)
+        self.post_ui_init()
 
     def post_ui_init(self):
         """Run after plugin's UI has been initialized."""
-        download_default_idg_list() # TODO a passer en asynchrone aussi ?
-        self.task = DownloadAllConfigFilesAsync(RemotePlatforms().stock_idgs)
-        self.task.finished.connect(self.populate_browser)
-        self.task.start()
+        self.task1 = DownloadDefaultIdgListAsync()
+        self.task2 = DownloadAllConfigFilesAsync(RemotePlatforms().stock_idgs)
+        self.task1.finished.connect(self.task2.start)
+        self.task2.finished.connect(self.populate_browser)
 
+        self.task1.start()
     def need_download_tree_config_file(self):
         """
         Do we need to download a new version of the resources tree file?
@@ -161,6 +161,7 @@ class IdgPlugin:
 
         :raises Exception: if there is no item in the feed
         """
+        # Jamais utilisé ?
         try:
             self.log(
                 message=self.tr(
