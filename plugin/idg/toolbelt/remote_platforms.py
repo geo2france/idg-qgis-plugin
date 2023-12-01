@@ -33,21 +33,6 @@ class RemotePlatforms:
         return out
 
 
-    def reset(self):
-        rep = PluginGlobals.instance().config_dir_path
-        for fichier in os.listdir(rep):
-            chemin_fichier = os.path.join(rep, fichier)
-            if fichier != 'default_idg.json':
-                if os.path.isfile(chemin_fichier):
-                    os.remove(chemin_fichier)
-
-        self.task1 = DownloadDefaultIdgListAsync()
-        self.task2 = DownloadAllConfigFilesAsync(RemotePlatforms().stock_idgs)
-        self.task1.finished.connect(self.task2.start)
-        self.task2.finished.connect(self.populate_browser)
-        #TODO remove all local files (projects & images)
-
-
 class Plateform:
     def __init__(self, url, idg_id): #TODO ajouter un paramètre "dry" ?
         self.url=url
