@@ -40,7 +40,6 @@ class IdgPlugin:
         self.iface = iface
         self.log = PlgLogger().log
         self.dock = None
-
         plg_translation_mngr = PlgTranslator()
         translator = plg_translation_mngr.get_translator()
         if translator:
@@ -62,8 +61,10 @@ class IdgPlugin:
 
     def post_ui_init(self):
         """Run after plugin's UI has been initialized."""
+        with open(os.path.join(PluginGlobals.instance().config_dir_path, 'default_idg.json')) as f:
+            stock_idgs = json.load(f)
         self.task1 = DownloadDefaultIdgListAsync()
-        self.task2 = DownloadAllConfigFilesAsync(RemotePlatforms().stock_idgs)
+        self.task2 = DownloadAllConfigFilesAsync(stock_idgs)
         self.task1.finished.connect(self.task2.start)
         self.task2.finished.connect(self.populate_browser)
 
