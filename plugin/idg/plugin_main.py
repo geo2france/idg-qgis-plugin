@@ -68,9 +68,10 @@ class IdgPlugin:
 
     def post_ui_init(self):
         """Run after plugin's UI has been initialized."""
+        items ={c.idg_id : c.url for c in RemotePlatforms(read_projects=False).plateforms if not c.is_hidden()}
         self.task1 = DownloadDefaultIdgListAsync()
         self.task2 = DownloadAllConfigFilesAsync(
-            RemotePlatforms(read_projects=False).stock_idgs
+            items
         )
         self.task1.finished.connect(self.task2.start)
         self.task2.finished.connect(self.populate_browser)
