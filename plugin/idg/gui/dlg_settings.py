@@ -102,7 +102,9 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.vbox = QtWidgets.QVBoxLayout()
         self.checkboxes = []
         self.groupBox_stock.setLayout(self.vbox)
-        for k in RemotePlatforms().stock_idgs.keys(): #  !Couteux
+        with open(os.path.join(PluginGlobals.instance().config_dir_path, 'default_idg.json')) as f:
+            stock_idgs = json.load(f)
+        for k in stock_idgs.keys():
             cb = QtWidgets.QCheckBox(k)
             self.vbox.addWidget(cb)
             self.checkboxes.append(cb)
