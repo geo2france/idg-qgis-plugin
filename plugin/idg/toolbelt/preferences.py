@@ -28,12 +28,13 @@ class PlgSettingsStructure:
     # global
     debug_mode: bool = False
     version: str = __version__
-    configs_folder: str = ''
+    configs_folder: str = ""
     config_files_download_at_startup: bool = False
     hide_empty_groups: bool = True
     hide_resources_with_warn_status: bool = True
-    custom_idgs: str = ''
-    hidden_idgs: str = ''
+    custom_idgs: str = ""
+    hidden_idgs: str = ""
+
 
 class PlgOptionsManager:
     @staticmethod
@@ -66,7 +67,9 @@ class PlgOptionsManager:
         return options
 
     @staticmethod
-    def get_value_from_key(key: str, default=None, exp_type=QVariant): # Fix a faire remonter a Oslandia
+    def get_value_from_key(
+        key: str, default=None, exp_type=QVariant
+    ):  # Fix a faire remonter a Oslandia
         """Load and return plugin settings as a dictionary. \
         Useful to get user preferences across plugin logic.
 
@@ -75,7 +78,7 @@ class PlgOptionsManager:
         if not hasattr(PlgSettingsStructure, key):
             log_hdlr.PlgLogger.log(
                 message="Bad settings key. Must be one of: {}".format(
-                    ",".join(PlgSettingsStructure._fields) # A fixer
+                    ",".join(PlgSettingsStructure._fields)  # A fixer
                 ),
                 log_level=1,
             )

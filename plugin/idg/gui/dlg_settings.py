@@ -43,20 +43,28 @@ FORM_CLASS, _ = uic.loadUiType(
 # ########## Classes ###############
 # ##################################
 
+
 def tablewidgetToList(table: QtWidgets.QTableWidget, column_index: int, skipnone=True):
     """Convertir en liste une colonne d'un tableau"""
-    out=[]
+    out = []
     for row in range(table.rowCount()):
-            item = table.item(row, column_index)
-            if (item is None or item.text().strip() == '') and skipnone:
-                continue
-            out.append(item.text())
+        item = table.item(row, column_index)
+        if (item is None or item.text().strip() == "") and skipnone:
+            continue
+        out.append(item.text())
     return out
 
-def listToTablewidget(data_list: list[str], table: QtWidgets.QTableWidget, column_index: int, skipnone=True):
-    """ Ecrit une liste dans la colonne _column_index_ d'un talbeau"""
+
+def listToTablewidget(
+    data_list: list[str],
+    table: QtWidgets.QTableWidget,
+    column_index: int,
+    skipnone=True,
+):
+    """Ecrit une liste dans la colonne _column_index_ d'un talbeau"""
     for row, item in enumerate(data_list):
         table.setItem(row, column_index, QtWidgets.QTableWidgetItem(str(item)))
+
 
 class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
     """Settings form embedded into QGIS 'options' menu."""
@@ -70,7 +78,6 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # load UI and set objectName
         self.setupUi(self)
         self.setObjectName("mOptionsPage{}".format(__title__))
-
 
         # header
         self.lbl_title.setText(f"{__title__} - Version {__version__}")
@@ -92,17 +99,21 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.btn_reset.pressed.connect(self.reset_settings)
 
         # table widget
-        self.idgs_list.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch) # Etirer la colonne à 100% du tableau
+        self.idgs_list.horizontalHeader().setSectionResizeMode(
+            QtWidgets.QHeaderView.Stretch
+        )  # Etirer la colonne à 100% du tableau
         self.btn_addrow.setIcon(QIcon(":images/themes/default/symbologyAdd.svg"))
         self.btn_addrow.clicked.connect(
-            lambda:self.idgs_list.setRowCount(self.idgs_list.rowCount() + 1)
+            lambda: self.idgs_list.setRowCount(self.idgs_list.rowCount() + 1)
         )
 
-        #Lire la config pour voir quels sont les PF masquées
+        # Lire la config pour voir quels sont les PF masquées
         self.vbox = QtWidgets.QVBoxLayout()
         self.checkboxes = []
         self.groupBox_stock.setLayout(self.vbox)
-        with open(os.path.join(PluginGlobals.instance().config_dir_path, 'default_idg.json')) as f:
+        with open(
+            os.path.join(PluginGlobals.instance().config_dir_path, "default_idg.json")
+        ) as f:
             stock_idgs = json.load(f)
         for k in stock_idgs.keys():
             cb = QtWidgets.QCheckBox(k)
@@ -120,21 +131,23 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
 
         # misc
         settings.version = __version__
-        settings.custom_idgs = ','.join(tablewidgetToList(self.idgs_list, 0))
+        settings.custom_idgs = ",".join(tablewidgetToList(self.idgs_list, 0))
 
         hidden__idgs_arr = []
-        for cb in self.checkboxes :
-            print(cb.text() ,cb.checkState())
-            if cb.checkState() == 0 :
+        for cb in self.checkboxes:
+            print(cb.text(), cb.checkState())
+            if cb.checkState() == 0:
                 hidden__idgs_arr.append(cb.text())
-                #Add to hidden PF
-        settings.hidden_idgs = ','.join(hidden__idgs_arr)
+                # Add to hidden PF
+        settings.hidden_idgs = ",".join(hidden__idgs_arr)
 
         # dump new settings into QgsSettings
-        self.plg_settings.save_from_object(settings) #Les variables globales ne sont peut être pas MAJ ici
+        self.plg_settings.save_from_object(
+            settings
+        )  # Les variables globales ne sont peut être pas MAJ ici
 
         registry = QgsApplication.dataItemProviderRegistry()
-        provider = registry.provider('IDG Provider')
+        provider = registry.provider("IDG Provider")
         provider.root.repopulate()
         if __debug__:
             self.log(
@@ -145,14 +158,16 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
     def load_settings(self):
         """Load options from QgsSettings into UI form."""
         settings = self.plg_settings.get_plg_settings()
-        hidden_idg = settings.hidden_idgs.split(',')
+        hidden_idg = settings.hidden_idgs.split(",")
         for c in self.checkboxes:
-            if c.text() in hidden_idg :
+            if c.text() in hidden_idg:
                 c.setChecked(False)
-            else :
+            else:
                 c.setChecked(True)
-        self.idgs_list.setRowCount( len(settings.custom_idgs.split(',')) + 1 )
-        listToTablewidget(settings.custom_idgs.split(','), self.idgs_list, column_index=0)
+        self.idgs_list.setRowCount(len(settings.custom_idgs.split(",")) + 1)
+        listToTablewidget(
+            settings.custom_idgs.split(","), self.idgs_list, column_index=0
+        )
 
     def reset_settings(self):
         """Reset settings to default values (set in preferences.py module)."""
@@ -161,7 +176,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # dump default settings into QgsSettings
         self.plg_settings.save_from_object(default_settings)
         self.load_settings()
-        provider = QgsApplication.dataItemProviderRegistry().provider('IDG Provider')
+        provider = QgsApplication.dataItemProviderRegistry().provider("IDG Provider")
         provider.root.repopulate()
 
 
@@ -169,7 +184,7 @@ class PlgOptionsFactory(QgsOptionsWidgetFactory):
     """Factory for options widget."""
 
     def __init__(self):
-        """Constructor."""        
+        """Constructor."""
         super().__init__()
 
     def icon(self) -> QIcon:
@@ -177,7 +192,7 @@ class PlgOptionsFactory(QgsOptionsWidgetFactory):
 
         :return: _description_
         :rtype: QIcon
-        """        
+        """
         return QIcon(str(__icon_path__))
 
     def createWidget(self, parent) -> ConfigOptionsPage:
@@ -188,7 +203,7 @@ class PlgOptionsFactory(QgsOptionsWidgetFactory):
 
         :return: options page for tab widget
         :rtype: ConfigOptionsPage
-        """        
+        """
         return ConfigOptionsPage(parent)
 
     def title(self) -> str:
@@ -196,7 +211,7 @@ class PlgOptionsFactory(QgsOptionsWidgetFactory):
 
         :return: plugin title from about module
         :rtype: str
-        """        
+        """
         return __title__
 
     def helpId(self) -> str:
@@ -206,4 +221,3 @@ class PlgOptionsFactory(QgsOptionsWidgetFactory):
         :rtype: str
         """
         return __uri_homepage__
-
