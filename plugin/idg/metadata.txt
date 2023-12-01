@@ -5,10 +5,10 @@ hasProcessingProvider=no
 description=Plugin providing easy access to data from different SDI
 description[fr]=Plugin fournissant un accès simple aux données de différentes IDG
 about=Plugin providing easy access to data from different Spatial Data Infrastructures
-about[fr]=Plugin fournissant un accès simple aux données de différentes Infrastructures de Données Géographiques DataGrandEst, Géo2France, GeoBretagne et OPenIG
+about[fr]=Plugin fournissant un accès simple aux données de différentes Infrastructures de Données Géographiques DataGrandEst, Géo2France, GeoBretagne, OPenIG et Géoplateforme
 icon=resources/images/layers-svgrepo-com.svg
-tags=opendata,sdi,DataGrandEst,Géo2France,GéoBretagne,OPenIG, crige
-tags[fr]=opendata,idg,DataGrandEst,Géo2France,GéoBretagne,OPenIG,crige
+tags=opendata,sdi,DataGrandEst,Géo2France,GéoBretagne,OPenIG,Géoplateforme,crige
+tags[fr]=opendata,idg,DataGrandEst,Géo2France,GéoBretagne,OPenIG,Géoplateforme,crige
 
 # credits and contact
 author=Benjamin CHARTIER, Jean-Baptiste DESBAS
@@ -24,5 +24,5 @@ qgisMinimumVersion=3.00
 qgisMaximumVersion=3.99
 
 # versioning
-version=0.2.2
-changelog=Amélioration performance et stabilité
+version=0.2.3
+changelog=Correction de problèmes de lancement du plugin, Amélioration performances

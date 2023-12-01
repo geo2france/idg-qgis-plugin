@@ -99,16 +99,14 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         )
 
         #Lire la config pour voir quels sont les PF masquées
-        vbox = QtWidgets.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.checkboxes = []
-        self.groupBox_stock.setLayout(vbox)
-        for k in RemotePlatforms().stock_idgs.keys():
+        self.groupBox_stock.setLayout(self.vbox)
+        with open(os.path.join(PluginGlobals.instance().config_dir_path, 'default_idg.json')) as f:
+            stock_idgs = json.load(f)
+        for k in stock_idgs.keys():
             cb = QtWidgets.QCheckBox(k)
-            if k in settings.hidden_idgs.split(','):
-                cb.setChecked(False)
-            else :
-                cb.setChecked(True)
-            vbox.addWidget(cb)
+            self.vbox.addWidget(cb)
             self.checkboxes.append(cb)
 
         # load previously saved settings
@@ -147,7 +145,12 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
     def load_settings(self):
         """Load options from QgsSettings into UI form."""
         settings = self.plg_settings.get_plg_settings()
-        # global
+        hidden_idg = settings.hidden_idgs.split(',')
+        for c in self.checkboxes:
+            if c.text() in hidden_idg :
+                c.setChecked(False)
+            else :
+                c.setChecked(True)
         self.idgs_list.setRowCount( len(settings.custom_idgs.split(',')) + 1 )
         listToTablewidget(settings.custom_idgs.split(','), self.idgs_list, column_index=0)
 
@@ -157,11 +160,10 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
 
         # dump default settings into QgsSettings
         self.plg_settings.save_from_object(default_settings)
-
-        RemotePlatforms().reset()
-
-        # update the form
         self.load_settings()
+        provider = QgsApplication.dataItemProviderRegistry().provider('IDG Provider')
+        provider.root.repopulate()
+
 
 class PlgOptionsFactory(QgsOptionsWidgetFactory):
     """Factory for options widget."""

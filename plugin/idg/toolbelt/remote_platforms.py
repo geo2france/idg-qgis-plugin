@@ -1,16 +1,16 @@
-from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataItem, QgsDataProvider, QgsProject, \
-    QgsLayerTreeLayer, QgsLayerTreeGroup, QgsMimeDataUtils, QgsAbstractMetadataBase, QgsApplication, QgsIconUtils
+from qgis.core import QgsProject
 from qgis.PyQt.QtGui import QIcon
 
-from idg.toolbelt.tree_node_factory import download_default_idg_list, download_all_config_files
+from idg.toolbelt.tree_node_factory import DownloadAllConfigFilesAsync, DownloadDefaultIdgListAsync
 from idg.toolbelt import PlgOptionsManager, PluginGlobals
 
 import json
 import os.path
 
+
 class RemotePlatforms:
     def __init__(self):
-        self.plateforms=[]
+        self.plateforms = []
         with open(os.path.join(PluginGlobals.instance().config_dir_path,'default_idg.json')) as f : #Télécharger si non existant ?
             self.stock_idgs = json.load(f)
         self.custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(',')
@@ -33,24 +33,11 @@ class RemotePlatforms:
         return out
 
 
-    def reset(self):
-        rep = PluginGlobals.instance().config_dir_path
-        for fichier in os.listdir(rep):
-            chemin_fichier = os.path.join(rep, fichier)
-            if fichier != 'default_idg.json':
-                if os.path.isfile(chemin_fichier):
-                    os.remove(chemin_fichier)
-
-        download_default_idg_list()
-        download_all_config_files(RemotePlatforms().stock_idgs)
-        #TODO remove all local files (projects & images)
-
-
 class Plateform:
-    def __init__(self, url, idg_id):
+    def __init__(self, url, idg_id): #TODO ajouter un paramètre "dry" ?
         self.url=url
         self.idg_id=idg_id
-        self.project=self.read_project()
+        self.project=self.read_project() #TODO pas ici, car on peut avoir besoin d'instancier un projet sans avoir télécharger le fichier projet
 
     def read_project(self):
         p = QgsProject()

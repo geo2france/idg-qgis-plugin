@@ -29,7 +29,7 @@ Pré-requis :
 
 Créer un nouveau projet et y ajouter les couches que vous souhaitez diffuser.
 > **Warning**
-> Les couches doivent pouvoir être accessible depuis n'importe où (fichiers distants, flux WMS/WFS, etc.), il ne doit **pas** s'agir de fichiers locaux.
+> Les couches doivent pouvoir être accessibles depuis n'importe où (fichiers distants, flux WMS/WFS, etc.), il ne doit **pas** s'agir de fichiers locaux.
 
 
 Il est recommandé d'[organiser les couches en groupes et sous-groupes](https://docs.qgis.org/3.22/fr/docs/user_manual/introduction/general_tools.html#group-layers-interact).
@@ -39,7 +39,7 @@ Dans les propriétés du projets, remplir les champs suivants :
 - **Métadonnées > Identification > Titre** : Le nom de la plateforme qui sera visible par l'utilisateur (ex : Geo2France)
 - **Métadonnées > Identification > Résumé** : Facultatif, une brève présentation qui sera visible au survol
 - **Métadonnées > Liens** : Vous pouvez ajouter ici des liens vers les différents services de votre plateforme (ex : contact, catalogue, etc.) 
-   Ceux-ci seront accessibles à l'utilisateur via un clic droit sur le nom de la plateforme. Ajoutez un lien nommé `icon` pour définir une icône à la plateforme (png ou svg)
+   Ceux-ci seront accessibles à l'utilisateur via un clic droit sur le nom de la plateforme. Ajoutez un lien nommé `icon` pour ajouter une icône personnalisée à la plateforme (png ou svg)
 
 Pour chaque couche, vous pouvez définir :
 - **Métadonnées > Identification > Titre & Réumé** Un titre et un résumé

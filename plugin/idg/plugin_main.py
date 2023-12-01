@@ -7,7 +7,7 @@
 # PyQGIS
 from qgis.core import QgsApplication
 from qgis.gui import QgisInterface
-from qgis.PyQt.QtCore import QCoreApplication, Qt
+from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QMenu
 from qgis.utils import showPluginHelp
@@ -16,14 +16,11 @@ from qgis.utils import showPluginHelp
 from idg.__about__ import __title__
 from idg.gui.dlg_settings import PlgOptionsFactory
 
-from idg.toolbelt import PlgLogger, PlgTranslator, PluginGlobals
+from idg.toolbelt import PlgLogger, PlgTranslator
 
 
-from idg.toolbelt import PluginGlobals, PlgOptionsManager, IdgProvider, RemotePlatforms
-from idg.gui.dock import DockWidget
-from idg.gui.about_box import AboutBox
-from idg.gui.param_box import ParamBox
-from idg.toolbelt.tree_node_factory import TreeNodeFactory, download_tree_config_file, download_all_config_files, download_default_idg_list, DownloadAllConfigFilesAsync
+from idg.toolbelt import PluginGlobals, IdgProvider
+from idg.toolbelt.tree_node_factory import DownloadAllConfigFilesAsync, DownloadDefaultIdgListAsync
 
 import os
 import json
@@ -43,8 +40,6 @@ class IdgPlugin:
         self.iface = iface
         self.log = PlgLogger().log
         self.dock = None
-
-        # translation
         plg_translation_mngr = PlgTranslator()
         translator = plg_translation_mngr.get_translator()
         if translator:
@@ -52,7 +47,7 @@ class IdgPlugin:
         self.tr = plg_translation_mngr.tr
         
         PluginGlobals.instance().set_plugin_path(os.path.dirname(os.path.abspath(__file__)))
-        PluginGlobals.instance().set_plugin_iface(self.iface)
+        #PluginGlobals.instance().set_plugin_iface(self.iface)
         PluginGlobals.instance().reload_globals_from_qgis_settings()
 
         config_struct = None
@@ -61,15 +56,19 @@ class IdgPlugin:
         self.registry = QgsApplication.dataItemProviderRegistry()
         self.provider = IdgProvider(self.iface)
 
-        self.iface.initializationCompleted.connect(self.post_ui_init)
-
+        # self.iface.initializationCompleted.connect(self.post_ui_init)
+        self.post_ui_init()
 
     def post_ui_init(self):
         """Run after plugin's UI has been initialized."""
-        download_default_idg_list() # TODO a passer en asynchrone aussi ?
-        self.task = DownloadAllConfigFilesAsync(RemotePlatforms().stock_idgs)
-        self.task.finished.connect(self.populate_browser)
-        self.task.start()
+        with open(os.path.join(PluginGlobals.instance().config_dir_path, 'default_idg.json')) as f:
+            stock_idgs = json.load(f)
+        self.task1 = DownloadDefaultIdgListAsync()
+        self.task2 = DownloadAllConfigFilesAsync(stock_idgs)
+        self.task1.finished.connect(self.task2.start)
+        self.task2.finished.connect(self.populate_browser)
+
+        self.task1.start()
 
     def need_download_tree_config_file(self):
         """
@@ -112,18 +111,11 @@ class IdgPlugin:
 
         # -- Menu
 
-
-    # Create a menu
+        # Create a menu
         self.createPluginMenu()
 
         # Add browser IDG provider
         self.registry.addProvider(self.provider)
-
-        # Create a dockable panel with a tree of resources
-        #self.dock = DockWidget()
-        #self.dock.set_tree_content(self.ressources_tree)
-        #self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock) # dev
-
 
     def populate_browser(self):
         self.provider.root.repopulate()
@@ -137,8 +129,6 @@ class IdgPlugin:
         # -- Clean up preferences panel in QGIS settings
         self.iface.unregisterOptionsWidgetFactory(self.options_factory)
 
-        
-
         # remove actions
         del self.action_settings
         del self.action_help
@@ -146,13 +136,10 @@ class IdgPlugin:
         Removes the plugin menu
         """
         self.iface.pluginMenu().removeAction(self.plugin_menu.menuAction())
-        #self.iface.removeDockWidget(self.dock)
-        #del self.dock
-        
-        #Clean-up browser
+
+        # Clean-up browser
         self.registry.removeProvider(self.provider)
-        
-        
+
     def createPluginMenu(self):
         """
         Creates the plugin main menu
@@ -164,34 +151,12 @@ class IdgPlugin:
         self.plugin_menu.addAction(self.action_settings)
         self.plugin_menu.addAction(self.action_help)
 
-
-    def showPanelMenuTriggered(self):
-        """
-        Shows the dock widget
-        """
-        self.dock.show()
-        pass
-
-    def aboutMenuTriggered(self):
-        """
-        Shows the About box
-        """
-        dialog = AboutBox(self.iface.mainWindow())
-        dialog.exec_()
-
-    def paramMenuTriggered(self):
-        """
-        Shows the Param box
-        """
-        dialog = ParamBox(self.iface.mainWindow(), self.dock)
-        dialog.exec_()
-        
-
     def run(self):
         """Main process.
 
         :raises Exception: if there is no item in the feed
         """
+        # Jamais utilisé ?
         try:
             self.log(
                 message=self.tr(
