@@ -7,19 +7,19 @@
 # PyQGIS
 from qgis.core import QgsApplication
 from qgis.gui import QgisInterface
-from qgis.PyQt.QtCore import QCoreApplication, Qt
+from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QMenu
-from qgis.utils import showPluginHelp, active_plugins
+from qgis.utils import showPluginHelp
 
 # project
 from idg.__about__ import __title__
 from idg.gui.dlg_settings import PlgOptionsFactory
 
-from idg.toolbelt import PlgLogger, PlgTranslator, PluginGlobals
+from idg.toolbelt import PlgLogger, PlgTranslator
 
 
-from idg.toolbelt import PluginGlobals, PlgOptionsManager, IdgProvider, RemotePlatforms
+from idg.toolbelt import PluginGlobals, IdgProvider
 from idg.toolbelt.tree_node_factory import DownloadAllConfigFilesAsync, DownloadDefaultIdgListAsync
 
 import os
@@ -56,7 +56,7 @@ class IdgPlugin:
         self.registry = QgsApplication.dataItemProviderRegistry()
         self.provider = IdgProvider(self.iface)
 
-        #self.iface.initializationCompleted.connect(self.post_ui_init)
+        # self.iface.initializationCompleted.connect(self.post_ui_init)
         self.post_ui_init()
 
     def post_ui_init(self):
@@ -69,6 +69,7 @@ class IdgPlugin:
         self.task2.finished.connect(self.populate_browser)
 
         self.task1.start()
+
     def need_download_tree_config_file(self):
         """
         Do we need to download a new version of the resources tree file?
@@ -110,14 +111,11 @@ class IdgPlugin:
 
         # -- Menu
 
-
         # Create a menu
         self.createPluginMenu()
 
         # Add browser IDG provider
         self.registry.addProvider(self.provider)
-
-
 
     def populate_browser(self):
         self.provider.root.repopulate()
@@ -131,8 +129,6 @@ class IdgPlugin:
         # -- Clean up preferences panel in QGIS settings
         self.iface.unregisterOptionsWidgetFactory(self.options_factory)
 
-        
-
         # remove actions
         del self.action_settings
         del self.action_help
@@ -141,10 +137,9 @@ class IdgPlugin:
         """
         self.iface.pluginMenu().removeAction(self.plugin_menu.menuAction())
 
-        #Clean-up browser
+        # Clean-up browser
         self.registry.removeProvider(self.provider)
-        
-        
+
     def createPluginMenu(self):
         """
         Creates the plugin main menu
@@ -155,7 +150,6 @@ class IdgPlugin:
 
         self.plugin_menu.addAction(self.action_settings)
         self.plugin_menu.addAction(self.action_help)
-
 
     def run(self):
         """Main process.

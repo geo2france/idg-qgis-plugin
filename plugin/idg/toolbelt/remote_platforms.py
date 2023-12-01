@@ -1,5 +1,4 @@
-from qgis.core import QgsDataItemProvider, QgsDataCollectionItem, QgsDataItem, QgsDataProvider, QgsProject, \
-    QgsLayerTreeLayer, QgsLayerTreeGroup, QgsMimeDataUtils, QgsAbstractMetadataBase, QgsApplication, QgsIconUtils
+from qgis.core import QgsProject
 from qgis.PyQt.QtGui import QIcon
 
 from idg.toolbelt.tree_node_factory import DownloadAllConfigFilesAsync, DownloadDefaultIdgListAsync
@@ -8,9 +7,10 @@ from idg.toolbelt import PlgOptionsManager, PluginGlobals
 import json
 import os.path
 
+
 class RemotePlatforms:
     def __init__(self):
-        self.plateforms=[]
+        self.plateforms = []
         with open(os.path.join(PluginGlobals.instance().config_dir_path,'default_idg.json')) as f : #Télécharger si non existant ?
             self.stock_idgs = json.load(f)
         self.custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(',')

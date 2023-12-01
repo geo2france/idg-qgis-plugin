@@ -7,6 +7,7 @@ from .singleton import Singleton
 from .preferences import PlgOptionsManager
 from qgis.PyQt.QtCore import QSettings
 
+
 @Singleton
 class PluginGlobals:
     """
@@ -18,6 +19,7 @@ class PluginGlobals:
     CONFIG_DIR_NAME = "config"
     CONFIG_FILE_NAMES = ["projet_idg.qgs"]
     CONFIG_FILES_DOWNLOAD_AT_STARTUP = PlgOptionsManager().get_value_from_key('config_files_download_at_startup')
+
     def __init__(self):
         self.default_qsettings = {
             "CONFIG_FILE_NAMES": self.CONFIG_FILE_NAMES
@@ -26,7 +28,6 @@ class PluginGlobals:
         self.config_file_path = None
         self.images_dir_path = None
         self.logo_file_path = None
-
 
     def set_plugin_path(self, plugin_path):
         self.plugin_path = plugin_path
