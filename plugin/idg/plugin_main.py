@@ -20,6 +20,7 @@ from idg.toolbelt import PlgLogger, PlgTranslator
 
 
 from idg.toolbelt import PluginGlobals, IdgProvider
+from idg.toolbelt.remote_platforms import RemotePlatforms
 from idg.toolbelt.tree_node_factory import (
     DownloadAllConfigFilesAsync,
     DownloadDefaultIdgListAsync,
@@ -67,12 +68,10 @@ class IdgPlugin:
 
     def post_ui_init(self):
         """Run after plugin's UI has been initialized."""
-        with open(
-            os.path.join(PluginGlobals.instance().config_dir_path, "default_idg.json")
-        ) as f:
-            stock_idgs = json.load(f)
         self.task1 = DownloadDefaultIdgListAsync()
-        self.task2 = DownloadAllConfigFilesAsync(stock_idgs)
+        self.task2 = DownloadAllConfigFilesAsync(
+            RemotePlatforms(read_projects=False).stock_idgs
+        )
         self.task1.finished.connect(self.task2.start)
         self.task2.finished.connect(self.populate_browser)
 
