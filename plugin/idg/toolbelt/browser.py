@@ -51,21 +51,20 @@ class IdgProvider(QgsDataItemProvider):
         return QgsDataProvider.Net
 
     def createDataItem(self, path, parentItem):
-        self.root = RootCollection(self.iface)
+        self.root = RootCollection(self.iface, parent = parentItem)
         return self.root
 
 
 class RootCollection(QgsDataCollectionItem):
-    def __init__(self, iface: QgisInterface):
+    def __init__(self, iface: QgisInterface, parent):
         self.iface = iface
-        QgsDataCollectionItem.__init__(self, None, "IDG", "/IDG")
+        QgsDataCollectionItem.__init__(self, parent, "IDG", "/IDG")
         self.setIcon(
             QIcon(
                 PluginGlobals.instance().plugin_path
                 + "/resources/images/layers-svgrepo-com.svg"
             )
         )
-        self.setState(Qgis.BrowserItemState.Populating)
 
     def actions(self, parent):
         actions = list()
@@ -99,20 +98,18 @@ class RootCollection(QgsDataCollectionItem):
         )  # TODO Liens vers le panneau Options de QGIS
         return [menu]
 
-    def repopulate(self):
-        self.refresh()
-        for pf in RemotePlatforms().plateforms:
-            if pf.is_hidden():
-                continue
-            pf_collection = PlatformCollection(plateform=pf)
-            self.addChildItem(pf_collection, refresh=True)
-        self.setState(Qgis.BrowserItemState.Populated)
+    def createChildren(self):
+        children = []
+        for pfc in [PlatformCollection(plateform=pf, parent=self) for pf in RemotePlatforms().plateforms if not pf.is_hidden()]:
+            children.append(pfc)
+        return children
 
 
 class PlatformCollection(QgsDataCollectionItem):
-    def __init__(self, plateform, parent=None):
+    def __init__(self, plateform, parent):
         self.url = plateform.url
         self.path = "/IDG/" + plateform.idg_id.lower()
+        self.parent = parent
         QgsDataCollectionItem.__init__(self, parent, plateform.idg_id, self.path)
         self.setToolTip(plateform.abstract)
         self.project = plateform.project
@@ -154,7 +151,7 @@ class PlatformCollection(QgsDataCollectionItem):
 
         def hide_plateform(pf):
             pf.hide()
-            iface.mainWindow().findChildren(QWidget, "Browser")[0].refresh()
+            self.parent.removeChildItem(self)
 
         actions = []
         for link in self.project.metadata().links():

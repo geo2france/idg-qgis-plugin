@@ -60,7 +60,7 @@ class IdgPlugin:
         config_struct = None
         config_string = ""
 
-        self.registry = QgsApplication.dataItemProviderRegistry()
+        self.registry = QgsApplication.instance().dataItemProviderRegistry()
         self.provider = IdgProvider(self.iface)
 
         # self.iface.initializationCompleted.connect(self.post_ui_init)
@@ -74,7 +74,7 @@ class IdgPlugin:
             items
         )
         self.task1.finished.connect(self.task2.start)
-        self.task2.finished.connect(self.populate_browser)
+        self.task2.finished.connect(lambda : self.registry.addProvider(self.provider))
 
         self.task1.start()
 
@@ -124,11 +124,6 @@ class IdgPlugin:
         # Create a menu
         self.createPluginMenu()
 
-        # Add browser IDG provider
-        self.registry.addProvider(self.provider)
-
-    def populate_browser(self):
-        self.provider.root.repopulate()
 
     def unload(self):
         """Cleans up when plugin is disabled/uninstalled."""

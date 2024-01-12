@@ -144,13 +144,10 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         )  # Les variables globales ne sont peut être pas MAJ ici
 
         items = {c.idg_id : c.url for c in RemotePlatforms(read_projects=False).plateforms if not c.is_hidden()}
-        registry = QgsApplication.dataItemProviderRegistry()
+        registry = QgsApplication.instance().dataItemProviderRegistry()
         provider = registry.provider(IdgProvider().name())
-        provider.root.depopulate()
-        provider.root.setState(Qgis.BrowserItemState.Populating)
-
         task = DownloadAllConfigFilesAsync(items) # Download non-hidden idg
-        task.finished.connect(provider.root.repopulate)
+        task.finished.connect(provider.root.refresh)
         task.start()
         if __debug__:
             self.log(
