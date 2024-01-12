@@ -146,9 +146,9 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         items = {c.idg_id : c.url for c in RemotePlatforms(read_projects=False).plateforms if not c.is_hidden()}
         registry = QgsApplication.instance().dataItemProviderRegistry()
         provider = registry.provider(IdgProvider().name())
-        task = DownloadAllConfigFilesAsync(items) # Download non-hidden idg
-        task.finished.connect(provider.root.refresh)
-        task.start()
+        self.task = DownloadAllConfigFilesAsync(items) # Download non-hidden idg
+        self.task.finished.connect(provider.root.refresh)
+        self.task.start()
         if __debug__:
             self.log(
                 message="DEBUG - Settings successfully saved.",
@@ -176,8 +176,8 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # dump default settings into QgsSettings
         self.plg_settings.save_from_object(default_settings)
         self.load_settings()
-        provider = QgsApplication.dataItemProviderRegistry().provider("IDG Provider")
-        provider.root.repopulate()
+        provider = QgsApplication.instance().dataItemProviderRegistry().provider("IDG Provider")
+        provider.root.refresh()
 
 
 class PlgOptionsFactory(QgsOptionsWidgetFactory):
