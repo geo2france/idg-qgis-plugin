@@ -11,6 +11,7 @@ Accès aux données des plateformes :
 - [GéoBretagne](https://geobretagne.fr)
 - [Géo2France](https://geo2france.fr)
 - [OPenIG](https://openig.org)
+- [Géoplateforme](https://www.ign.fr/geoplateforme/la-geoplateforme-en-bref)
 
 ## Installation
 

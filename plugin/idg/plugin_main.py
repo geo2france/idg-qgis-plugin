@@ -20,10 +20,15 @@ from idg.toolbelt import PlgLogger, PlgTranslator
 
 
 from idg.toolbelt import PluginGlobals, IdgProvider
-from idg.toolbelt.tree_node_factory import DownloadAllConfigFilesAsync, DownloadDefaultIdgListAsync
+from idg.toolbelt.remote_platforms import RemotePlatforms
+from idg.toolbelt.tree_node_factory import (
+    DownloadAllConfigFilesAsync,
+    DownloadDefaultIdgListAsync,
+)
 
 import os
 import json
+
 # ############################################################################
 # ########## Classes ###############
 # ##################################
@@ -45,15 +50,17 @@ class IdgPlugin:
         if translator:
             QCoreApplication.installTranslator(translator)
         self.tr = plg_translation_mngr.tr
-        
-        PluginGlobals.instance().set_plugin_path(os.path.dirname(os.path.abspath(__file__)))
-        #PluginGlobals.instance().set_plugin_iface(self.iface)
+
+        PluginGlobals.instance().set_plugin_path(
+            os.path.dirname(os.path.abspath(__file__))
+        )
+        # PluginGlobals.instance().set_plugin_iface(self.iface)
         PluginGlobals.instance().reload_globals_from_qgis_settings()
 
         config_struct = None
         config_string = ""
 
-        self.registry = QgsApplication.dataItemProviderRegistry()
+        self.registry = QgsApplication.instance().dataItemProviderRegistry()
         self.provider = IdgProvider(self.iface)
 
         # self.iface.initializationCompleted.connect(self.post_ui_init)
@@ -61,12 +68,13 @@ class IdgPlugin:
 
     def post_ui_init(self):
         """Run after plugin's UI has been initialized."""
-        with open(os.path.join(PluginGlobals.instance().config_dir_path, 'default_idg.json')) as f:
-            stock_idgs = json.load(f)
+        items ={c.idg_id : c.url for c in RemotePlatforms(read_projects=False).plateforms if not c.is_hidden()}
         self.task1 = DownloadDefaultIdgListAsync()
-        self.task2 = DownloadAllConfigFilesAsync(stock_idgs)
+        self.task2 = DownloadAllConfigFilesAsync(
+            items
+        )
         self.task1.finished.connect(self.task2.start)
-        self.task2.finished.connect(self.populate_browser)
+        self.task2.finished.connect(lambda : self.registry.addProvider(self.provider))
 
         self.task1.start()
 
@@ -78,8 +86,10 @@ class IdgPlugin:
         - the file is currently missing
         """
 
-        return (PluginGlobals.instance().CONFIG_FILES_DOWNLOAD_AT_STARTUP > 0 or
-                not os.path.isfile(PluginGlobals.instance().config_file_path))
+        return (
+            PluginGlobals.instance().CONFIG_FILES_DOWNLOAD_AT_STARTUP > 0
+            or not os.path.isfile(PluginGlobals.instance().config_file_path)
+        )
 
     def initGui(self):
         """Set up plugin UI elements."""
@@ -114,11 +124,6 @@ class IdgPlugin:
         # Create a menu
         self.createPluginMenu()
 
-        # Add browser IDG provider
-        self.registry.addProvider(self.provider)
-
-    def populate_browser(self):
-        self.provider.root.repopulate()
 
     def unload(self):
         """Cleans up when plugin is disabled/uninstalled."""
