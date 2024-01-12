@@ -11,7 +11,7 @@ import os.path
 import json
 
 # PyQGIS
-from qgis.core import QgsApplication
+from qgis.core import QgsApplication, Qgis
 from qgis.gui import QgsOptionsPageWidget, QgsOptionsWidgetFactory
 from qgis.utils import iface
 from qgis.PyQt import uic, QtWidgets
@@ -27,7 +27,7 @@ from idg.__about__ import (
     __uri_tracker__,
     __version__,
 )
-from idg.toolbelt import PlgLogger, PlgOptionsManager, PluginGlobals, RemotePlatforms
+from idg.toolbelt import PlgLogger, PlgOptionsManager, PluginGlobals, RemotePlatforms, IdgProvider
 from idg.toolbelt.preferences import PlgSettingsStructure
 from idg.toolbelt.tree_node_factory import DownloadAllConfigFilesAsync
 
@@ -145,7 +145,9 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
 
         items = {c.idg_id : c.url for c in RemotePlatforms(read_projects=False).plateforms if not c.is_hidden()}
         registry = QgsApplication.dataItemProviderRegistry()
-        provider = registry.provider("IDG Provider")
+        provider = registry.provider(IdgProvider().name())
+        provider.root.depopulate()
+        provider.root.setState(Qgis.BrowserItemState.Populating)
 
         task = DownloadAllConfigFilesAsync(items) # Download non-hidden idg
         task.finished.connect(provider.root.repopulate)
