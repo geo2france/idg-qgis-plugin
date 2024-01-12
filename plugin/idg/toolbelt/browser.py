@@ -40,7 +40,7 @@ def project_custom_icon_url(metadata: QgsAbstractMetadataBase):
 
 
 class IdgProvider(QgsDataItemProvider):
-    def __init__(self, iface: QgisInterface):
+    def __init__(self, iface=iface):
         self.iface = iface
         QgsDataItemProvider.__init__(self)
 
