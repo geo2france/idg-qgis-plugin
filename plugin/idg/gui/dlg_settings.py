@@ -29,6 +29,7 @@ from idg.__about__ import (
 )
 from idg.toolbelt import PlgLogger, PlgOptionsManager, PluginGlobals, RemotePlatforms
 from idg.toolbelt.preferences import PlgSettingsStructure
+from idg.toolbelt.tree_node_factory import DownloadAllConfigFilesAsync
 
 # ############################################################################
 # ########## Globals ###############
@@ -142,9 +143,13 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
             settings
         )  # Les variables globales ne sont peut être pas MAJ ici
 
+        items = {c.idg_id : c.url for c in RemotePlatforms(read_projects=False).plateforms if not c.is_hidden()}
         registry = QgsApplication.dataItemProviderRegistry()
         provider = registry.provider("IDG Provider")
-        provider.root.repopulate()
+
+        task = DownloadAllConfigFilesAsync(items) # Download non-hidden idg
+        task.finished.connect(provider.root.repopulate)
+        task.start()
         if __debug__:
             self.log(
                 message="DEBUG - Settings successfully saved.",
