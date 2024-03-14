@@ -258,7 +258,7 @@
           "type": "wms_layer",
           "params": {
             "url": "https://www.geo2france.fr/geoserver/pci/ows",
-            "name": "geo_commune_2022",
+            "name": "geo_commune_2023",
             "format": "image/png",
             "srs": "epsg:2154"
           }
@@ -270,7 +270,7 @@
 		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/85981e02-e82a-4b71-961f-29bdddcc85a1",
           "params": {
             "url": "https://www.geo2france.fr/geoserver/pci/ows",
-            "name": "geo_section_2022",
+            "name": "geo_section_2023",
             "format": "image/png",
             "srs": "epsg:2154"
           }
@@ -282,7 +282,7 @@
 		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/85981e02-e82a-4b71-961f-29bdddcc85a1",
           "params": {
           "url": "https://www.geo2france.fr/geoserver/pci/ows",
-          "name": "geo_parcelle_2022",
+          "name": "geo_parcelle_2023",
           "format": "image/png",
           "srs": "epsg:2154"
           }
@@ -294,7 +294,7 @@
 		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/85981e02-e82a-4b71-961f-29bdddcc85a1",
           "params": {
           "url": "https://www.geo2france.fr/geoserver/pci/ows",
-          "name": "geo_batiment_2022",
+          "name": "geo_batiment_2023",
           "format": "image/png",
           "srs": "epsg:2154"
           }
@@ -306,7 +306,7 @@
 		  "metadata_url": "https://www.geo2france.fr/datahub/dataset/7706daf8-9080-4000-b7b2-19613db453ed",
           "params": {
           "url": "https://www.geo2france.fr/geoserver/geo2france/ows",
-          "name": "parcellaire_majic_personnes_morales_2020_publi",
+          "name": "parcellaire_majic_personnes_morales_2022_publi",
           "format": "image/png",
           "srs": "epsg:2154"
           }
