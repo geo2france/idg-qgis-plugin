@@ -155,28 +155,3 @@ class IdgPlugin:
 
         self.plugin_menu.addAction(self.action_settings)
         self.plugin_menu.addAction(self.action_help)
-
-    def run(self):
-        """Main process.
-
-        :raises Exception: if there is no item in the feed
-        """
-        # Jamais utilisé ?
-        try:
-            self.log(
-                message=self.tr(
-                    text="Everything ran OK.",
-                    context="IdgPlugin",
-                ),
-                log_level=3,
-                push=False,
-            )
-        except Exception as err:
-            self.log(
-                message=self.tr(
-                    text="Houston, we've got a problem: {}".format(err),
-                    context="IdgPlugin",
-                ),
-                log_level=2,
-                push=True,
-            )
