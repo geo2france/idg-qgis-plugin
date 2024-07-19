@@ -37,7 +37,7 @@ Dans les propriétés du projets, remplir les champs suivants :
 
 - **Métadonnées > Identification > Titre** : Le nom de la plateforme qui sera visible par l'utilisateur (ex : Geo2France)
 - **Métadonnées > Identification > Résumé** : Facultatif, une brève présentation qui sera visible au survol
-- **Métadonnées > Liens** : Vous pouvez ajouter ici des liens vers les différents services de votre plateforme (ex : contact, catalogue, etc.) 
+- **Métadonnées > Liens** : Vous pouvez ajouter ici des liens vers les différents services de votre plateforme (ex : contact, catalogue, etc.)
    Ceux-ci seront accessibles à l'utilisateur via un clic droit sur le nom de la plateforme. Ajoutez un lien nommé `icon` pour ajouter une icône personnalisée à la plateforme (png ou svg)
 
 Pour chaque couche, vous pouvez définir :
@@ -48,7 +48,7 @@ Pour chaque couche, vous pouvez définir :
 
 Enregistrez le fichier projet (qgs ou qgz) et **déposez le sur un un serveur web** accessible depuis l'exterieur (serveur HTTP, Github, cloud, etc.).
 
-Pour proposer l'ajout d'une plateforme dans le plugin : **éditez le fichier [default_idg.json](plugin/idg/config/default_idg.json)** 
+Pour proposer l'ajout d'une plateforme dans le plugin : **éditez le fichier [default_idg.json](plugin/idg/config/default_idg.json)**
 et faites une _pull request_.
 
 ### Utilisateur
