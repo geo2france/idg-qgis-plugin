@@ -1,7 +1,7 @@
 #! python3  # noqa: E265
 
 """
-    Main plugin module.
+Main plugin module.
 """
 
 # PyQGIS
@@ -68,15 +68,20 @@ class IdgPlugin:
 
     def post_ui_init(self):
         """Run after plugin's UI has been initialized."""
-        items ={c.idg_id : c.url for c in RemotePlatforms(read_projects=False).plateforms if not c.is_hidden()}
+        items = {
+            c.idg_id: c.url
+            for c in RemotePlatforms(read_projects=False).plateforms
+            if not c.is_hidden()
+        }
         self.task1 = DownloadDefaultIdgListAsync()
-        self.task2 = DownloadAllConfigFilesAsync(
-            items
-        )
+        self.task2 = DownloadAllConfigFilesAsync(items)
         self.task1.finished.connect(self.task2.start)
-        self.task2.finished.connect(lambda : self.registry.addProvider(self.provider))
+        self.task2.finished.connect(lambda: self.registry.addProvider(self.provider))
 
-        self.task1.start()
+        if self.need_download_tree_config_file():
+            self.task1.start()
+        else:
+            self.task2.start()
 
     def need_download_tree_config_file(self):
         """
@@ -85,10 +90,11 @@ class IdgPlugin:
         - the user wants it to be downloading at plugin start up
         - the file is currently missing
         """
+        config_file_exists = os.path.isfile(PluginGlobals.instance().config_file_path)
 
         return (
             PluginGlobals.instance().CONFIG_FILES_DOWNLOAD_AT_STARTUP > 0
-            or not os.path.isfile(PluginGlobals.instance().config_file_path)
+            or not config_file_exists
         )
 
     def initGui(self):
@@ -123,7 +129,6 @@ class IdgPlugin:
 
         # Create a menu
         self.createPluginMenu()
-
 
     def unload(self):
         """Cleans up when plugin is disabled/uninstalled."""

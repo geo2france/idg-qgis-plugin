@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import os
-import json
 from .singleton import Singleton
 from .preferences import PlgOptionsManager
 from qgis.PyQt.QtCore import QSettings
@@ -16,9 +14,14 @@ class PluginGlobals:
     plugin_path = None
     PLUGIN_TAG = "IDG"
     CONFIG_DIR_NAME = "config"
-    CONFIG_FILE_NAMES = ["projet_idg.qgs"]
+    CONFIG_FILE_NAMES = []
     CONFIG_FILES_DOWNLOAD_AT_STARTUP = PlgOptionsManager().get_value_from_key(
         "config_files_download_at_startup"
+    )
+    DEFAULT_CONFIG_FILE_NAME = "default_idg.json"
+    DEFAULT_CONFIG_FILE_URL = (
+        "https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/dev/plugin/"
+        f"idg/config/{DEFAULT_CONFIG_FILE_NAME}"
     )
 
     def __init__(self):
@@ -39,13 +42,13 @@ class PluginGlobals:
         # Read the qgis plugin settings
         s = QSettings()
         self.CONFIG_FILES_DOWNLOAD_AT_STARTUP = (
-            True
+            False
             if s.value(
                 "{0}/config_files_download_at_startup".format(self.PLUGIN_TAG),
                 self.CONFIG_FILES_DOWNLOAD_AT_STARTUP,
             )
-            == "1"
-            else False
+            is False
+            else True
         )
 
         self.CONFIG_DIR_NAME = s.value(
@@ -58,5 +61,5 @@ class PluginGlobals:
 
         self.config_dir_path = os.path.join(self.plugin_path, self.CONFIG_DIR_NAME)
         self.config_file_path = os.path.join(
-            self.config_dir_path, self.CONFIG_FILE_NAMES[0]
+            self.config_dir_path, self.DEFAULT_CONFIG_FILE_NAME
         )

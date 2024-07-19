@@ -1,19 +1,18 @@
 #! python3  # noqa: E265
 
 """
-    Plugin settings.
+Plugin settings.
 """
 
 # standard
 from dataclasses import asdict, dataclass, fields
-import json
 
 # PyQGIS
 from qgis.core import QgsSettings
 from qgis.PyQt.QtCore import QVariant
 
 # package
-import idg.toolbelt.log_handler as log_hdlr
+import idg.toolbelt
 from idg.__about__ import __title__, __version__
 
 # ############################################################################
@@ -76,7 +75,7 @@ class PlgOptionsManager:
         :return: plugin settings value matching key
         """
         if not hasattr(PlgSettingsStructure, key):
-            log_hdlr.PlgLogger.log(
+            idg.toolbelt.log_handler.PlgLogger.log(
                 message="Bad settings key. Must be one of: {}".format(
                     ",".join(PlgSettingsStructure._fields)  # A fixer
                 ),
@@ -90,7 +89,7 @@ class PlgOptionsManager:
         try:
             out_value = settings.value(key=key, defaultValue=default, type=exp_type)
         except Exception as err:
-            log_hdlr.PlgLogger.log(
+            idg.toolbelt.log_handler.PlgLogger.log(
                 message="Error occurred trying to get settings: {}.Trace: {}".format(
                     key, err
                 )
@@ -113,7 +112,7 @@ class PlgOptionsManager:
         :rtype: bool
         """
         if not hasattr(PlgSettingsStructure, key):
-            log_hdlr.PlgLogger.log(
+            idg.toolbelt.log_handler.PlgLogger.log(
                 message="Bad settings key. Must be one of: {}".format(
                     ",".join(PlgSettingsStructure._fields)
                 ),
@@ -128,7 +127,7 @@ class PlgOptionsManager:
             settings.setValue(key, value)
             out_value = True
         except Exception as err:
-            log_hdlr.PlgLogger.log(
+            idg.toolbelt.log_handler.PlgLogger.log(
                 message="Error occurred trying to set settings: {}.Trace: {}".format(
                     key, err
                 )
@@ -153,3 +152,5 @@ class PlgOptionsManager:
             cls.set_value_from_key(k, v)
 
         settings.endGroup()
+
+        idg.toolbelt.PluginGlobals.instance().reload_globals_from_qgis_settings()
