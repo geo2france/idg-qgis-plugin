@@ -26,7 +26,7 @@ class DownloadDefaultIdgListAsync(QThread):
         self.finished.emit()
 
 
-class DownloadAllConfigFilesAsync(QThread):
+class DownloadAllIdgFilesAsync(QThread):
     finished = pyqtSignal()
 
     def __init__(self, idgs):

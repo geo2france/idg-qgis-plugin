@@ -22,7 +22,7 @@ from idg.toolbelt import PlgLogger, PlgTranslator
 from idg.toolbelt import PluginGlobals, IdgProvider
 from idg.toolbelt.remote_platforms import RemotePlatforms
 from idg.toolbelt.tree_node_factory import (
-    DownloadAllConfigFilesAsync,
+    DownloadAllIdgFilesAsync,
     DownloadDefaultIdgListAsync,
 )
 
@@ -74,14 +74,12 @@ class IdgPlugin:
             if not c.is_hidden()
         }
         self.task1 = DownloadDefaultIdgListAsync()
-        self.task2 = DownloadAllConfigFilesAsync(items)
+        self.task2 = DownloadAllIdgFilesAsync(items)
         self.task1.finished.connect(self.task2.start)
         self.task2.finished.connect(lambda: self.registry.addProvider(self.provider))
 
         if self.need_download_tree_config_file():
             self.task1.start()
-        else:
-            self.task2.start()
 
     def need_download_tree_config_file(self):
         """
@@ -93,7 +91,7 @@ class IdgPlugin:
         config_file_exists = os.path.isfile(PluginGlobals.instance().config_file_path)
 
         return (
-            PluginGlobals.instance().CONFIG_FILES_DOWNLOAD_AT_STARTUP > 0
+            PluginGlobals.instance().DOWNLOAD_FILES_AT_STARTUP > 0
             or not config_file_exists
         )
 

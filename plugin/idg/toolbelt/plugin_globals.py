@@ -15,8 +15,8 @@ class PluginGlobals:
     PLUGIN_TAG = "IDG"
     CONFIG_DIR_NAME = "config"
     CONFIG_FILE_NAMES = []
-    CONFIG_FILES_DOWNLOAD_AT_STARTUP = PlgOptionsManager().get_value_from_key(
-        "config_files_download_at_startup"
+    DOWNLOAD_FILES_AT_STARTUP = PlgOptionsManager().get_value_from_key(
+        "download_files_at_startup"
     )
     DEFAULT_CONFIG_FILE_NAME = "default_idg.json"
     DEFAULT_CONFIG_FILE_URL = (
@@ -41,11 +41,11 @@ class PluginGlobals:
 
         # Read the qgis plugin settings
         s = QSettings()
-        self.CONFIG_FILES_DOWNLOAD_AT_STARTUP = (
+        self.DOWNLOAD_FILES_AT_STARTUP = (
             False
             if s.value(
-                "{0}/config_files_download_at_startup".format(self.PLUGIN_TAG),
-                self.CONFIG_FILES_DOWNLOAD_AT_STARTUP,
+                "{0}/download_files_at_startup".format(self.PLUGIN_TAG),
+                self.DOWNLOAD_FILES_AT_STARTUP,
             )
             is False
             else True
