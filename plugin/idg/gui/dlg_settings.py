@@ -1,7 +1,7 @@
 #! python3  # noqa: E265
 
 """
-    Plugin settings form integrated into QGIS 'Options' menu.
+Plugin settings form integrated into QGIS 'Options' menu.
 """
 
 # standard
@@ -27,9 +27,15 @@ from idg.__about__ import (
     __uri_tracker__,
     __version__,
 )
-from idg.toolbelt import PlgLogger, PlgOptionsManager, PluginGlobals, RemotePlatforms, IdgProvider
+from idg.toolbelt import (
+    PlgLogger,
+    PlgOptionsManager,
+    PluginGlobals,
+    RemotePlatforms,
+    IdgProvider,
+)
 from idg.toolbelt.preferences import PlgSettingsStructure
-from idg.toolbelt.tree_node_factory import DownloadAllConfigFilesAsync
+from idg.toolbelt.tree_node_factory import DownloadAllIdgFilesAsync
 
 # ############################################################################
 # ########## Globals ###############
@@ -143,10 +149,14 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
             settings
         )  # Les variables globales ne sont peut être pas MAJ ici
 
-        items = {c.idg_id : c.url for c in RemotePlatforms(read_projects=False).plateforms if not c.is_hidden()}
+        items = {
+            c.idg_id: c.url
+            for c in RemotePlatforms(read_projects=False).plateforms
+            if not c.is_hidden()
+        }
         registry = QgsApplication.instance().dataItemProviderRegistry()
         provider = registry.provider(IdgProvider().name())
-        self.task = DownloadAllConfigFilesAsync(items) # Download non-hidden idg
+        self.task = DownloadAllIdgFilesAsync(items)  # Download non-hidden idg
         self.task.finished.connect(provider.root.refresh)
         self.task.start()
         if __debug__:
@@ -176,7 +186,11 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # dump default settings into QgsSettings
         self.plg_settings.save_from_object(default_settings)
         self.load_settings()
-        provider = QgsApplication.instance().dataItemProviderRegistry().provider("IDG Provider")
+        provider = (
+            QgsApplication.instance()
+            .dataItemProviderRegistry()
+            .provider("IDG Provider")
+        )
         provider.root.refresh()
 
 

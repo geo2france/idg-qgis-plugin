@@ -13,11 +13,7 @@ from .network_manager import NetworkRequestsManager
 class DownloadDefaultIdgListAsync(QThread):
     finished = pyqtSignal()
 
-    def __init__(
-        self,
-        url="https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/dev/plugin/idg/config"
-        "/default_idg.json",
-    ):
+    def __init__(self, url=PluginGlobals.instance().DEFAULT_CONFIG_FILE_URL):
         super(QThread, self).__init__()
         self.url = url
 
@@ -25,12 +21,12 @@ class DownloadDefaultIdgListAsync(QThread):
         qntwk = NetworkRequestsManager()
         qntwk.download_file(
             self.url,
-            os.path.join(PluginGlobals.instance().config_dir_path, "default_idg.json"),
+            os.path.join(PluginGlobals.instance().config_file_path),
         )
         self.finished.emit()
 
 
-class DownloadAllConfigFilesAsync(QThread):
+class DownloadAllIdgFilesAsync(QThread):
     finished = pyqtSignal()
 
     def __init__(self, idgs):

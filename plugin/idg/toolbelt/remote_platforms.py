@@ -10,9 +10,7 @@ from idg.toolbelt import PlgOptionsManager, PluginGlobals
 class RemotePlatforms:
     def __init__(self, read_projects=True):
         self.plateforms = []
-        with open(
-            os.path.join(PluginGlobals.instance().config_dir_path, "default_idg.json")
-        ) as f:  # Télécharger si non existant ?
+        with open(PluginGlobals.instance().config_file_path) as f:
             self.stock_idgs = json.load(f)
         self.custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(",")
         self.custom_idg.remove("")
@@ -37,9 +35,7 @@ class RemotePlatforms:
 
 
 class Plateform:
-    def __init__(
-        self, url, idg_id, read_project=True
-    ):
+    def __init__(self, url, idg_id, read_project=True):
         self.url = url
         self.idg_id = idg_id
         if read_project:
