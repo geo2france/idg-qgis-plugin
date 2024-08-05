@@ -45,7 +45,7 @@ class IdgProvider(QgsDataItemProvider):
         QgsDataItemProvider.__init__(self)
 
     def name(self):
-        return "IDG Provider"
+        return PluginGlobals.instance().BROWSER_PROVIDER_NAME
 
     def capabilities(self):
         return QgsDataProvider.Net

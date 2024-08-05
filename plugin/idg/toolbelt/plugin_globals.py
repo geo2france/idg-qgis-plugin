@@ -23,6 +23,7 @@ class PluginGlobals:
         "https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/dev/plugin/"
         f"idg/config/{DEFAULT_CONFIG_FILE_NAME}"
     )
+    BROWSER_PROVIDER_NAME = "IDG Provider"
 
     def __init__(self):
         self.default_qsettings = {"CONFIG_FILE_NAMES": self.CONFIG_FILE_NAMES}
