@@ -7,7 +7,6 @@ Plugin settings form integrated into QGIS 'Options' menu.
 # standard
 from functools import partial
 from pathlib import Path
-import os.path
 import json
 
 # PyQGIS

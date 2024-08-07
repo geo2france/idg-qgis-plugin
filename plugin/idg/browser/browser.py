@@ -1,4 +1,3 @@
-import os.path
 import webbrowser
 
 from qgis.core import (
@@ -17,14 +16,12 @@ from qgis.core import (
 )
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.Qt import QWidget
 from qgis.PyQt.QtWidgets import QAction, QMenu
 from qgis.utils import iface
 
 from idg.plugin_globals import PluginGlobals
-from idg.__about__ import __title__
+from idg.__about__ import __title__, DIR_PLUGIN_ROOT
 from idg.browser.remote_platforms import RemotePlatforms
-from idg.toolbelt import PlgLogger
 
 
 def find_catalog_url(metadata: QgsAbstractMetadataBase):
@@ -62,12 +59,10 @@ class RootCollection(QgsDataCollectionItem):
     def __init__(self, iface: QgisInterface, parent):
         self.iface = iface
         QgsDataCollectionItem.__init__(self, parent, "IDG", "/IDG")
-        self.setIcon(
-            QIcon(
-                PluginGlobals.instance().plugin_path
-                + "/resources/images/layers-svgrepo-com.svg"
-            )
-        )
+
+        plugin_path = DIR_PLUGIN_ROOT.resolve()
+        icon_path = plugin_path / "resources" / "images" / "layers-svgrepo-com.svg"
+        self.setIcon(QIcon(str(icon_path.resolve())))
 
     def actions(self, parent):
         actions = list()
@@ -175,7 +170,7 @@ class PlatformCollection(QgsDataCollectionItem):
 
 class GroupItem(QgsDataCollectionItem):
     def __init__(self, parent, name, group):
-        self.path = os.path.join(parent.path, group.name())
+        self.path = parent.path + "/" + group.name()
         self.group = group
         QgsDataCollectionItem.__init__(self, parent, name, self.path)
         self.setIcon(QIcon(QgsApplication.iconPath("mIconFolder.svg")))
@@ -200,7 +195,7 @@ class LayerItem(QgsDataItem):
     def __init__(self, parent, name, layer):
         self.layer = layer
         self.catalog_url = find_catalog_url(layer.metadata())
-        self.path = os.path.join(parent.path, layer.id())
+        self.path = parent.path + "/" + layer.id()
         QgsDataItem.__init__(self, QgsDataItem.Custom, parent, name, self.path)
         self.setState(QgsDataItem.Populated)  # no children
         self.setToolTip(self.layer.metadata().abstract())

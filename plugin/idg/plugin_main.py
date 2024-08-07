@@ -26,7 +26,6 @@ from idg.browser import (
     DownloadDefaultIdgListAsync,
 )
 
-import os
 import json
 
 # ############################################################################
@@ -51,9 +50,6 @@ class IdgPlugin:
             QCoreApplication.installTranslator(translator)
         self.tr = plg_translation_mngr.tr
 
-        PluginGlobals.instance().set_plugin_path(
-            os.path.dirname(os.path.abspath(__file__))
-        )
         # PluginGlobals.instance().set_plugin_iface(self.iface)
         PluginGlobals.instance().reload_globals_from_qgis_settings()
 
@@ -88,7 +84,7 @@ class IdgPlugin:
         - the user wants it to be downloading at plugin start up
         - the file is currently missing
         """
-        config_file_exists = os.path.isfile(PluginGlobals.instance().config_file_path)
+        config_file_exists = PluginGlobals.instance().config_file_path.is_file()
 
         return (
             PluginGlobals.instance().DOWNLOAD_FILES_AT_STARTUP > 0

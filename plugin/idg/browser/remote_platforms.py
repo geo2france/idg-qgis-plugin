@@ -46,7 +46,7 @@ class Plateform:
         p = QgsProject()
         if (
             p.read(
-                self.qgis_project_filepath(),
+                str(self.qgis_project_filepath()),
                 QgsProject.ReadFlags()
                 | QgsProject.FlagDontResolveLayers
                 | QgsProject.FlagDontLoadLayouts,
@@ -58,10 +58,9 @@ class Plateform:
 
     def qgis_project_filepath(self):
         suffix = os.path.splitext(os.path.basename(self.url))[-1]  # .qgs ou .qgz
-        local_file_name = os.path.join(
-            PluginGlobals.instance().config_dir_path, self.idg_id + suffix
-        )
-        return local_file_name
+        local_file_name = self.idg_id + suffix
+        local_file_path = PluginGlobals.instance().config_dir_path / local_file_name
+        return local_file_path
 
     def is_custom(self):
         # Comparer avec les pf stock
@@ -93,11 +92,9 @@ class Plateform:
         for link in self.project.metadata().links():
             if link.name.lower().strip() == "icon":
                 icon_suffix = os.path.splitext(os.path.basename(link.url))[-1]
+                icon_file_name = str(self.idg_id) + icon_suffix
                 return QIcon(
-                    os.path.join(
-                        PluginGlobals.instance().config_dir_path,
-                        str(self.idg_id) + icon_suffix,
-                    )
+                    str(PluginGlobals.instance().config_dir_path / icon_file_name)
                 )
         return None
 

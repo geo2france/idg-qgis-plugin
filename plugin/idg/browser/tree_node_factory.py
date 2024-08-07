@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import os
+from pathlib import Path
 
 from qgis.core import QgsProject
 
@@ -21,7 +21,7 @@ class DownloadDefaultIdgListAsync(QThread):
         qntwk = NetworkRequestsManager()
         qntwk.download_file(
             self.url,
-            os.path.join(PluginGlobals.instance().config_file_path),
+            str(PluginGlobals.instance().config_file_path),
         )
         self.finished.emit()
 
@@ -39,28 +39,25 @@ class DownloadAllIdgFilesAsync(QThread):
         for idg_id, url in self.idgs.items():
             # continue si l'IDG est masquée
             idg_id = str(idg_id)
-            suffix = os.path.splitext(os.path.basename(url))[-1]
-            local_file_name = qntwk.download_file(
-                url,
-                os.path.join(PluginGlobals.instance().config_dir_path, idg_id + suffix),
-            )
-            if local_file_name:
+            suffix = Path(url).suffix
+            local_file_name = idg_id + suffix
+            local_file_path = PluginGlobals.instance().config_dir_path / local_file_name
+            local_file = qntwk.download_file(url, str(local_file_path))
+            if local_file:
                 project = QgsProject()
                 project.read(
-                    local_file_name,
+                    local_file,
                     QgsProject.ReadFlags()
                     | QgsProject.FlagDontResolveLayers
                     | QgsProject.FlagDontLoadLayouts,
                 )
                 for link in project.metadata().links():
                     if link.name.lower().strip() == "icon":
-                        suffix = os.path.splitext(os.path.basename(link.url))[-1]
-                        qntwk.download_file(
-                            link.url,
-                            os.path.join(
-                                PluginGlobals.instance().config_dir_path,
-                                idg_id + suffix,
-                            ),
+                        icon_suffix = Path(link.url).suffix
+                        icon_file_name = idg_id + icon_suffix
+                        icon_file_path = (
+                            PluginGlobals.instance().config_dir_path / icon_file_name
                         )
+                        qntwk.download_file(link.url, str(icon_file_path))
                         break
         self.finished.emit()

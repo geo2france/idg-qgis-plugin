@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import os
-from qgis.PyQt.QtCore import QSettings
-
 from idg.toolbelt.singleton import Singleton
 from idg.toolbelt.preferences import PlgOptionsManager
+from idg.__about__ import DIR_PLUGIN_ROOT
 
 
 @Singleton
@@ -33,35 +31,21 @@ class PluginGlobals:
         self.images_dir_path = None
         self.logo_file_path = None
 
-    def set_plugin_path(self, plugin_path):
-        self.plugin_path = plugin_path
-
     def reload_globals_from_qgis_settings(self):
         """
         Reloads the global variables of the plugin
         """
 
         # Read the qgis plugin settings
-        s = QSettings()
-        self.DOWNLOAD_FILES_AT_STARTUP = (
-            False
-            if s.value(
-                "{0}/download_files_at_startup".format(self.PLUGIN_TAG),
-                self.DOWNLOAD_FILES_AT_STARTUP,
-            )
-            is False
-            else True
-        )
+        from idg.toolbelt import PlgOptionsManager
 
-        self.CONFIG_DIR_NAME = s.value(
-            "{0}/config_dir_name".format(self.PLUGIN_TAG), self.CONFIG_DIR_NAME
-        )
+        self.plg_settings = PlgOptionsManager()
+        settings = self.plg_settings.get_plg_settings()
+        self.DOWNLOAD_FILES_AT_STARTUP = settings.download_files_at_startup
 
-        self.CONFIG_FILE_NAMES = s.value(
-            "{0}/config_file_names".format(self.PLUGIN_TAG), self.CONFIG_FILE_NAMES
-        )
+        plugin_path = DIR_PLUGIN_ROOT.resolve()
 
-        self.config_dir_path = os.path.join(self.plugin_path, self.CONFIG_DIR_NAME)
-        self.config_file_path = os.path.join(
-            self.config_dir_path, self.DEFAULT_CONFIG_FILE_NAME
-        )
+        self.config_dir_path = (plugin_path / self.CONFIG_DIR_NAME).resolve()
+        self.config_file_path = (
+            self.config_dir_path / self.DEFAULT_CONFIG_FILE_NAME
+        ).resolve()
