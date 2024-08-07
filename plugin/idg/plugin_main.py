@@ -72,10 +72,10 @@ class IdgPlugin:
         self.task1 = DownloadDefaultIdgListAsync()
         self.task2 = DownloadAllIdgFilesAsync(items)
         self.task1.finished.connect(self.task2.start)
-        self.task2.finished.connect(lambda: self.registry.addProvider(self.provider))
 
         if self.need_download_tree_config_file():
             self.task1.start()
+        self.registry.addProvider(self.provider)
 
     def need_download_tree_config_file(self):
         """
