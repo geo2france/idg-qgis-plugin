@@ -6,8 +6,8 @@ from qgis.core import QgsProject
 
 from qgis.PyQt.QtCore import QThread, pyqtSignal
 
-from idg.toolbelt import PluginGlobals
-from .network_manager import NetworkRequestsManager
+from idg.plugin_globals import PluginGlobals
+from . import NetworkRequestsManager
 
 
 class DownloadDefaultIdgListAsync(QThread):

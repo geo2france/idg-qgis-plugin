@@ -27,15 +27,10 @@ from idg.__about__ import (
     __uri_tracker__,
     __version__,
 )
-from idg.toolbelt import (
-    PlgLogger,
-    PlgOptionsManager,
-    PluginGlobals,
-    RemotePlatforms,
-    IdgProvider,
-)
+from idg.toolbelt import PlgLogger, PlgOptionsManager
+from idg.browser import RemotePlatforms, IdgProvider, DownloadAllIdgFilesAsync
+from idg.plugin_globals import PluginGlobals
 from idg.toolbelt.preferences import PlgSettingsStructure
-from idg.toolbelt.tree_node_factory import DownloadAllIdgFilesAsync
 
 # ############################################################################
 # ########## Globals ###############

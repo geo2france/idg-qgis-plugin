@@ -1,3 +1,6 @@
+import os.path
+import webbrowser
+
 from qgis.core import (
     Qgis,
     QgsDataItemProvider,
@@ -15,13 +18,13 @@ from qgis.core import (
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.Qt import QWidget
-from idg.toolbelt import PluginGlobals
-from .remote_platforms import RemotePlatforms
-from idg.__about__ import __title__
 from qgis.PyQt.QtWidgets import QAction, QMenu
 from qgis.utils import iface
-import os.path
-import webbrowser
+
+from idg.plugin_globals import PluginGlobals
+from idg.__about__ import __title__
+from idg.browser.remote_platforms import RemotePlatforms
+from idg.toolbelt import PlgLogger
 
 
 def find_catalog_url(metadata: QgsAbstractMetadataBase):
@@ -51,7 +54,7 @@ class IdgProvider(QgsDataItemProvider):
         return QgsDataProvider.Net
 
     def createDataItem(self, path, parentItem):
-        self.root = RootCollection(self.iface, parent = parentItem)
+        self.root = RootCollection(self.iface, parent=parentItem)
         return self.root
 
 
@@ -100,7 +103,11 @@ class RootCollection(QgsDataCollectionItem):
 
     def createChildren(self):
         children = []
-        for pfc in [PlatformCollection(plateform=pf, parent=self) for pf in RemotePlatforms().plateforms if not pf.is_hidden()]:
+        for pfc in [
+            PlatformCollection(plateform=pf, parent=self)
+            for pf in RemotePlatforms().plateforms
+            if not pf.is_hidden()
+        ]:
             children.append(pfc)
         return children
 

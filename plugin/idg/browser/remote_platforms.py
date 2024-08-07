@@ -4,7 +4,8 @@ import os.path
 from qgis.core import QgsProject
 from qgis.PyQt.QtGui import QIcon
 
-from idg.toolbelt import PlgOptionsManager, PluginGlobals
+from idg.toolbelt import PlgOptionsManager
+from idg.plugin_globals import PluginGlobals
 
 
 class RemotePlatforms:

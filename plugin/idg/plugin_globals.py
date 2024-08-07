@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import os
-from .singleton import Singleton
-from .preferences import PlgOptionsManager
 from qgis.PyQt.QtCore import QSettings
+
+from idg.toolbelt.singleton import Singleton
+from idg.toolbelt.preferences import PlgOptionsManager
 
 
 @Singleton

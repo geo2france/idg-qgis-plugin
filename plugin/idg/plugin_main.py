@@ -18,10 +18,10 @@ from idg.gui.dlg_settings import PlgOptionsFactory
 
 from idg.toolbelt import PlgLogger, PlgTranslator
 
-
-from idg.toolbelt import PluginGlobals, IdgProvider
-from idg.toolbelt.remote_platforms import RemotePlatforms
-from idg.toolbelt.tree_node_factory import (
+from idg.plugin_globals import PluginGlobals
+from idg.browser import (
+    RemotePlatforms,
+    IdgProvider,
     DownloadAllIdgFilesAsync,
     DownloadDefaultIdgListAsync,
 )
