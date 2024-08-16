@@ -29,8 +29,6 @@ class PlgSettingsStructure:
     version: str = __version__
     configs_folder: str = ""
     download_files_at_startup: bool = True
-    hide_empty_groups: bool = True
-    hide_resources_with_warn_status: bool = True
     custom_idgs: str = ""
     hidden_idgs: str = ""
 
