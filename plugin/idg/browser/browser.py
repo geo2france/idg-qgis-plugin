@@ -1,7 +1,6 @@
 import webbrowser
 
 from qgis.core import (
-    Qgis,
     QgsDataItemProvider,
     QgsDataCollectionItem,
     QgsDataItem,

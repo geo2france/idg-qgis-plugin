@@ -7,19 +7,16 @@ Plugin settings form integrated into QGIS 'Options' menu.
 # standard
 from functools import partial
 from pathlib import Path
-import json
 
 # PyQGIS
-from qgis.core import QgsApplication, Qgis
+from qgis.core import QgsApplication
 from qgis.gui import QgsOptionsPageWidget, QgsOptionsWidgetFactory
-from qgis.utils import iface
 from qgis.PyQt import uic, QtWidgets
-from qgis.PyQt.Qt import QUrl, QWidget
+from qgis.PyQt.Qt import QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
 
 # project
 from idg.__about__ import (
-    DIR_PLUGIN_ROOT,
     __icon_path__,
     __title__,
     __uri_homepage__,

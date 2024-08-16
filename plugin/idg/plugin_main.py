@@ -26,7 +26,6 @@ from idg.browser import (
     DownloadDefaultIdgListAsync,
 )
 
-import json
 
 # ############################################################################
 # ########## Classes ###############
@@ -52,9 +51,6 @@ class IdgPlugin:
 
         # PluginGlobals.instance().set_plugin_iface(self.iface)
         PluginGlobals.instance().reload_globals_from_qgis_settings()
-
-        config_struct = None
-        config_string = ""
 
         self.registry = QgsApplication.instance().dataItemProviderRegistry()
         self.provider = IdgProvider(self.iface)
