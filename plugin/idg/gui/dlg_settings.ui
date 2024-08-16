@@ -109,7 +109,7 @@
    <item>
     <widget class="QToolButton" name="btn_addrow">
      <property name="text">
-      <string notr="true" extracomment="Add row">...</string>
+      <string notr="true" extracomment="Add row">…</string>
      </property>
     </widget>
    </item>
@@ -152,7 +152,7 @@
          <locale language="English" country="UnitedStates"/>
         </property>
         <property name="text">
-         <string>Help</string>
+         <string>Help…</string>
         </property>
        </widget>
       </item>
@@ -202,7 +202,7 @@
          <locale language="English" country="UnitedStates"/>
         </property>
         <property name="text">
-         <string>Report an issue</string>
+         <string>Report an issue…</string>
         </property>
        </widget>
       </item>

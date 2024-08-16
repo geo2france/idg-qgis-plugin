@@ -4,9 +4,9 @@
 <context>
     <name>@default</name>
     <message>
-        <location filename="../../toolbelt/browser.py" line="51"/>
-        <source>Settings...</source>
-        <translation type="obsolete">Paramètres...</translation>
+        <location filename="../../browser/browser.py" line="69"/>
+        <source>Settings…</source>
+        <translation type="obsolete">Paramètres…</translation>
     </message>
 </context>
 <context>
@@ -23,18 +23,18 @@
     </message>
     <message>
         <location filename="../../gui/dlg_settings.ui" line="205"/>
-        <source>Report an issue</source>
-        <translation>Signaler un bug</translation>
+        <source>Report an issue…</source>
+        <translation>Signaler un bug…</translation>
     </message>
     <message>
         <location filename="../../gui/dlg_settings.ui" line="149"/>
         <source>Version used to save settings:</source>
-        <translation type="obsolete">Version utilisées pour sauvegarder la configuration:</translation>
+        <translation type="obsolete">Version utilisée pour sauvegarder la configuration :</translation>
     </message>
     <message>
         <location filename="../../gui/dlg_settings.ui" line="155"/>
-        <source>Help</source>
-        <translation>Aide</translation>
+        <source>Help…</source>
+        <translation>Aide…</translation>
     </message>
     <message>
         <location filename="../../gui/dlg_settings.ui" line="180"/>
@@ -44,7 +44,7 @@
     <message>
         <location filename="../../gui/dlg_settings.ui" line="66"/>
         <source>Default plateforms</source>
-        <translation>Plateformes IDG</translation>
+        <translation>Plateformes par défaut</translation>
     </message>
     <message>
         <location filename="../../gui/dlg_settings.ui" line="73"/>
@@ -55,33 +55,33 @@
 <context>
     <name>IdgPlugin</name>
     <message>
-        <location filename="../../plugin_main.py" line="89"/>
-        <source>Help</source>
-        <translation>Aide</translation>
+        <location filename="../../plugin_main.py" line="99"/>
+        <source>Help…</source>
+        <translation>Aide…</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="98"/>
-        <source>Settings</source>
-        <translation>Paramètres</translation>
+        <location filename="../../plugin_main.py" line="108"/>
+        <source>Settings…</source>
+        <translation>Paramètres…</translation>
     </message>
 </context>
 <context>
     <name>LayerItem</name>
     <message>
-        <location filename="../../toolbelt/browser.py" line="195"/>
-        <source>Show metadata</source>
-        <translation>Voir les métadonnées</translation>
+        <location filename="../../browser/browser.py" line="232"/>
+        <source>Show metadata…</source>
+        <translation>Afficher les métadonnées…</translation>
     </message>
     <message>
-        <location filename="../../toolbelt/browser.py" line="201"/>
-        <source>Display layer</source>
-        <translation>Afficher la couche</translation>
+        <location filename="../../browser/browser.py" line="238"/>
+        <source>Add layer to map</source>
+        <translation>Ajouter la couche à la carte</translation>
     </message>
 </context>
 <context>
     <name>PlatformCollection</name>
     <message>
-        <location filename="../../toolbelt/browser.py" line="134"/>
+        <location filename="../../browser/browser.py" line="165"/>
         <source>Hide</source>
         <translation>Masquer</translation>
     </message>
@@ -89,17 +89,17 @@
 <context>
     <name>RootCollection</name>
     <message>
-        <location filename="../../toolbelt/browser.py" line="55"/>
-        <source>Settings...</source>
-        <translation>Paramètres...</translation>
+        <location filename="../../browser/browser.py" line="69"/>
+        <source>Settings…</source>
+        <translation>Paramètres…</translation>
     </message>
     <message>
-        <location filename="../../toolbelt/browser.py" line="65"/>
+        <location filename="../../browser/browser.py" line="79"/>
         <source>Plateforms</source>
         <translation>Plateformes</translation>
     </message>
     <message>
-        <location filename="../../toolbelt/browser.py" line="72"/>
+        <location filename="../../browser/browser.py" line="91"/>
         <source>Add URL</source>
         <translation>Ajouter une URL</translation>
     </message>

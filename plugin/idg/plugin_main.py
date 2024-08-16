@@ -96,7 +96,7 @@ class IdgPlugin:
         # -- Actions
         self.action_help = QAction(
             QIcon(":/images/themes/default/mActionHelpContents.svg"),
-            self.tr("Help", context="IdgPlugin"),
+            self.tr("Help…", context="IdgPlugin"),
             self.iface.mainWindow(),
         )
         self.action_help.triggered.connect(
@@ -105,7 +105,7 @@ class IdgPlugin:
 
         self.action_settings = QAction(
             QgsApplication.getThemeIcon("console/iconSettingsConsole.svg"),
-            self.tr("Settings"),
+            self.tr("Settings…"),
             self.iface.mainWindow(),
         )
         self.action_settings.triggered.connect(

@@ -66,7 +66,7 @@ class RootCollection(QgsDataCollectionItem):
 
     def actions(self, parent):
         actions = list()
-        add_idg_action = QAction(QIcon(), self.tr("Settings..."), parent)
+        add_idg_action = QAction(QIcon(), self.tr("Settings…"), parent)
         add_idg_action.triggered.connect(
             lambda: self.iface.showOptionsDialog(
                 currentPage="mOptionsPage{}".format(__title__)
@@ -229,13 +229,13 @@ class LayerItem(QgsDataItem):
         QgsProject.instance().addMapLayer(self.layer)
 
     def actions(self, parent):
-        ac_open_meta = QAction(self.tr("Show metadata"), parent)
+        ac_open_meta = QAction(self.tr("Show metadata…"), parent)
         if self.catalog_url is not None:
             ac_open_meta.triggered.connect(self.openUrl)
         else:
             ac_open_meta.setEnabled(False)
 
-        ac_show_layer = QAction(self.tr("Display layer"), parent)
+        ac_show_layer = QAction(self.tr("Add layer to map"), parent)
         ac_show_layer.triggered.connect(self.addLayer)
 
         actions = [
