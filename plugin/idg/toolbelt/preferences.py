@@ -155,4 +155,4 @@ class PlgOptionsManager:
 
         from idg.plugin_globals import PluginGlobals
 
-        PluginGlobals.instance().reload_globals_from_qgis_settings()
+        PluginGlobals.init_constants()

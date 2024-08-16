@@ -44,7 +44,7 @@ class IdgProvider(QgsDataItemProvider):
         QgsDataItemProvider.__init__(self)
 
     def name(self):
-        return PluginGlobals.instance().BROWSER_PROVIDER_NAME
+        return PluginGlobals.BROWSER_PROVIDER_NAME
 
     def capabilities(self):
         return QgsDataProvider.Net
@@ -57,7 +57,8 @@ class IdgProvider(QgsDataItemProvider):
 class RootCollection(QgsDataCollectionItem):
     def __init__(self, iface: QgisInterface, parent):
         self.iface = iface
-        QgsDataCollectionItem.__init__(self, parent, "IDG", "/IDG")
+        plugin_tag = PluginGlobals.PLUGIN_TAG
+        QgsDataCollectionItem.__init__(self, parent, plugin_tag, f"/{plugin_tag}")
 
         plugin_path = DIR_PLUGIN_ROOT.resolve()
         icon_path = plugin_path / "resources" / "images" / "layers-svgrepo-com.svg"

@@ -11,7 +11,7 @@ from idg.plugin_globals import PluginGlobals
 class RemotePlatforms:
     def __init__(self, read_projects=True):
         self.plateforms = []
-        with open(PluginGlobals.instance().config_file_path) as f:
+        with open(PluginGlobals.CONFIG_FILE_PATH) as f:
             self.stock_idgs = json.load(f)
         self.custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(",")
         self.custom_idg.remove("")
@@ -59,7 +59,7 @@ class Plateform:
     def qgis_project_filepath(self):
         suffix = os.path.splitext(os.path.basename(self.url))[-1]  # .qgs ou .qgz
         local_file_name = self.idg_id + suffix
-        local_file_path = PluginGlobals.instance().config_dir_path / local_file_name
+        local_file_path = PluginGlobals.CONFIG_DIR_PATH / local_file_name
         return local_file_path
 
     def is_custom(self):
@@ -94,7 +94,7 @@ class Plateform:
                 icon_suffix = os.path.splitext(os.path.basename(link.url))[-1]
                 icon_file_name = str(self.idg_id) + icon_suffix
                 return QIcon(
-                    str(PluginGlobals.instance().config_dir_path / icon_file_name)
+                    str(PluginGlobals.CONFIG_DIR_PATH / icon_file_name)
                 )
         return None
 

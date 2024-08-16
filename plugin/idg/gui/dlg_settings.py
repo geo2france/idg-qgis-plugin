@@ -180,7 +180,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         provider = (
             QgsApplication.instance()
             .dataItemProviderRegistry()
-            .provider(PluginGlobals.instance().BROWSER_PROVIDER_NAME)
+            .provider(PluginGlobals.BROWSER_PROVIDER_NAME)
         )
         provider.root.refresh()
 

@@ -16,6 +16,7 @@ from qgis.utils import showPluginHelp
 from idg.__about__ import __title__
 from idg.gui.dlg_settings import PlgOptionsFactory
 
+from idg.toolbelt import PlgOptionsManager
 from idg.toolbelt import PlgLogger, PlgTranslator
 
 from idg.plugin_globals import PluginGlobals
@@ -49,8 +50,7 @@ class IdgPlugin:
             QCoreApplication.installTranslator(translator)
         self.tr = plg_translation_mngr.tr
 
-        # PluginGlobals.instance().set_plugin_iface(self.iface)
-        PluginGlobals.instance().reload_globals_from_qgis_settings()
+        PluginGlobals.init_constants()
 
         self.registry = QgsApplication.instance().dataItemProviderRegistry()
         self.provider = IdgProvider(self.iface)
@@ -80,12 +80,11 @@ class IdgPlugin:
         - the user wants it to be downloading at plugin start up
         - the file is currently missing
         """
-        config_file_exists = PluginGlobals.instance().config_file_path.is_file()
+        config_file_exists = PluginGlobals.CONFIG_FILE_PATH.is_file()
 
-        return (
-            PluginGlobals.instance().DOWNLOAD_FILES_AT_STARTUP > 0
-            or not config_file_exists
-        )
+        settings = PlgOptionsManager().get_plg_settings()
+
+        return settings.download_files_at_startup > 0 or not config_file_exists
 
     def initGui(self):
         """Set up plugin UI elements."""

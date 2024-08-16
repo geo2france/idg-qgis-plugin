@@ -13,7 +13,7 @@ from . import NetworkRequestsManager
 class DownloadDefaultIdgListAsync(QThread):
     finished = pyqtSignal()
 
-    def __init__(self, url=PluginGlobals.instance().DEFAULT_CONFIG_FILE_URL):
+    def __init__(self, url=PluginGlobals.DEFAULT_CONFIG_FILE_URL):
         super(QThread, self).__init__()
         self.url = url
 
@@ -21,7 +21,7 @@ class DownloadDefaultIdgListAsync(QThread):
         qntwk = NetworkRequestsManager()
         qntwk.download_file(
             self.url,
-            str(PluginGlobals.instance().config_file_path),
+            str(PluginGlobals.CONFIG_FILE_PATH),
         )
         self.finished.emit()
 
@@ -41,7 +41,7 @@ class DownloadAllIdgFilesAsync(QThread):
             idg_id = str(idg_id)
             suffix = Path(url).suffix
             local_file_name = idg_id + suffix
-            local_file_path = PluginGlobals.instance().config_dir_path / local_file_name
+            local_file_path = PluginGlobals.CONFIG_DIR_PATH / local_file_name
             local_file = qntwk.download_file(url, str(local_file_path))
             if local_file:
                 project = QgsProject()
@@ -56,7 +56,7 @@ class DownloadAllIdgFilesAsync(QThread):
                         icon_suffix = Path(link.url).suffix
                         icon_file_name = idg_id + icon_suffix
                         icon_file_path = (
-                            PluginGlobals.instance().config_dir_path / icon_file_name
+                            PluginGlobals.CONFIG_DIR_PATH / icon_file_name
                         )
                         qntwk.download_file(link.url, str(icon_file_path))
                         break
