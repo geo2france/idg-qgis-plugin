@@ -66,12 +66,20 @@ class RootCollection(QgsDataCollectionItem):
 
     def actions(self, parent):
         actions = list()
-        add_idg_action = QAction(QIcon(), self.tr("Settings…"), parent)
+
+        # Settings action
+        add_idg_action = QAction(
+            QgsApplication.getThemeIcon("console/iconSettingsConsole.svg"),
+            self.tr("Settings…"),
+            parent,
+        )
+
         add_idg_action.triggered.connect(
             lambda: self.iface.showOptionsDialog(
                 currentPage="mOptionsPage{}".format(__title__)
             )
         )
+
         actions.append(add_idg_action)
         return actions
 
