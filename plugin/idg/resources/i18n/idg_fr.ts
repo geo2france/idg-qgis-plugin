@@ -17,50 +17,50 @@
         <translation>Formulaire</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="128"/>
-        <source>Miscellaneous</source>
-        <translation>Divers</translation>
-    </message>
-    <message>
-        <location filename="../../gui/dlg_settings.ui" line="205"/>
+        <location filename="../../gui/dlg_settings.ui" line="197"/>
         <source>Report an issue…</source>
         <translation>Signaler un bug…</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="149"/>
+        <location filename="../../gui/dlg_settings.ui" line="84"/>
         <source>Version used to save settings:</source>
-        <translation type="obsolete">Version utilisée pour sauvegarder la configuration :</translation>
+        <translation type="unfinished">Version utilisée pour sauvegarder la configuration :</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="155"/>
+        <location filename="../../gui/dlg_settings.ui" line="184"/>
         <source>Help…</source>
         <translation>Aide…</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="180"/>
+        <location filename="../../gui/dlg_settings.ui" line="223"/>
         <source>Reset setttings to factory defaults</source>
         <translation>Réinitialiser les paramètres par défaut</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="66"/>
+        <location filename="../../gui/dlg_settings.ui" line="113"/>
         <source>Default plateforms</source>
         <translation>Plateformes par défaut</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="73"/>
+        <location filename="../../gui/dlg_settings.ui" line="123"/>
         <source>Custom plateforms</source>
         <translation>Plateformes supplémentaires</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_settings.ui" line="91"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>IdgPlugin</name>
     <message>
-        <location filename="../../plugin_main.py" line="99"/>
+        <location filename="../../plugin_main.py" line="97"/>
         <source>Help…</source>
         <translation>Aide…</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="108"/>
+        <location filename="../../plugin_main.py" line="106"/>
         <source>Settings…</source>
         <translation>Paramètres…</translation>
     </message>
@@ -100,8 +100,8 @@
     </message>
     <message>
         <location filename="../../browser/browser.py" line="91"/>
-        <source>Add URL</source>
-        <translation>Ajouter une URL</translation>
+        <source>Add URL…</source>
+        <translation>Ajouter une URL…</translation>
     </message>
 </context>
 </TS>

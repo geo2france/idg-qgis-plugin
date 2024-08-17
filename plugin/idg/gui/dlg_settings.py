@@ -159,6 +159,8 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
     def load_settings(self):
         """Load options from QgsSettings into UI form."""
         settings = self.plg_settings.get_plg_settings()
+
+        # Hidden IDGs
         hidden_idg = settings.hidden_idgs.split(",")
         for c in self.checkboxes:
             if c.text() in hidden_idg:
@@ -169,6 +171,9 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         listToTablewidget(
             settings.custom_idgs.split(","), self.idgs_list, column_index=0
         )
+
+        # Verison of the plugin used to save the settings
+        self.lbl_version_saved_value.setText(settings.version)
 
     def reset_settings(self):
         """Reset settings to default values (set in preferences.py module)."""

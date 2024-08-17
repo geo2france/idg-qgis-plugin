@@ -90,7 +90,7 @@ class RootCollection(QgsDataCollectionItem):
         menu.addSeparator()
         menu.addAction(
             QAction(
-                self.tr("Add URL"),
+                self.tr("Add URL…"),
                 menu,
             )
         )  # TODO Liens vers le panneau Options de QGIS
