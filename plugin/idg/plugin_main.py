@@ -16,13 +16,13 @@ from qgis.utils import showPluginHelp
 from idg.__about__ import __title__
 from idg.gui.dlg_settings import PlgOptionsFactory
 
-from idg.toolbelt import PlgOptionsManager
 from idg.toolbelt import PlgLogger, PlgTranslator
-
+from idg.toolbelt import PlgOptionsManager
 from idg.plugin_globals import PluginGlobals
-from idg.browser import (
-    RemotePlatforms,
-    IdgProvider,
+from idg.plugin_actions import PluginActions
+from idg.browser.remote_platforms import RemotePlatforms
+from idg.browser.browser import IdgProvider
+from idg.browser.tree_node_factory import (
     DownloadAllIdgFilesAsync,
     DownloadDefaultIdgListAsync,
 )
@@ -60,58 +60,40 @@ class IdgPlugin:
 
     def post_ui_init(self):
         """Run after plugin's UI has been initialized."""
-        items = {
-            c.idg_id: c.url
-            for c in RemotePlatforms(read_projects=False).plateforms
-            if not c.is_hidden()
-        }
-        self.task1 = DownloadDefaultIdgListAsync()
-        self.task2 = DownloadAllIdgFilesAsync(items)
-        self.task1.finished.connect(self.task2.start)
-
-        if self.need_download_tree_config_file():
-            self.task1.start()
         self.registry.addProvider(self.provider)
 
-    def need_download_tree_config_file(self):
-        """
-        Do we need to download a new version of the resources tree file?
-        2 possible reasons:
-        - the user wants it to be downloading at plugin start up
-        - the file is currently missing
-        """
-        config_file_exists = PluginGlobals.CONFIG_FILE_PATH.is_file()
-
-        settings = PlgOptionsManager().get_plg_settings()
-
-        return settings.download_files_at_startup > 0 or not config_file_exists
+        self.download_all_config_files()
 
     def initGui(self):
         """Set up plugin UI elements."""
 
         # settings page within the QGIS preferences menu
-        self.options_factory = PlgOptionsFactory()
+        self.options_factory = PlgOptionsFactory(self.settings_updated_slot)
         self.iface.registerOptionsWidgetFactory(self.options_factory)
 
         # -- Actions
-        self.action_help = QAction(
+        PluginActions.action_show_help = QAction(
             QIcon(":/images/themes/default/mActionHelpContents.svg"),
             self.tr("Help…", context="IdgPlugin"),
             self.iface.mainWindow(),
         )
-        self.action_help.triggered.connect(
+        PluginActions.action_show_help.triggered.connect(
             lambda: showPluginHelp(filename="resources/help/index")
         )
 
-        self.action_settings = QAction(
+        PluginActions.action_show_settings = QAction(
             QgsApplication.getThemeIcon("console/iconSettingsConsole.svg"),
             self.tr("Settings…"),
             self.iface.mainWindow(),
         )
-        self.action_settings.triggered.connect(
-            lambda: self.iface.showOptionsDialog(
-                currentPage="mOptionsPage{}".format(__title__)
-            )
+        PluginActions.action_show_settings.triggered.connect(self.show_settings_dialog)
+
+        PluginActions.action_reload_idgs = QAction(
+            self.tr("Reload files"),
+            self.iface.mainWindow(),
+        )
+        PluginActions.action_reload_idgs.triggered.connect(
+            self.download_all_config_files
         )
 
         # -- Menu
@@ -119,18 +101,22 @@ class IdgPlugin:
         # Create a menu
         self.createPluginMenu()
 
+    def show_settings_dialog(self):
+        self.iface.showOptionsDialog(currentPage="mOptionsPage{}".format(__title__))
+
     def unload(self):
         """Cleans up when plugin is disabled/uninstalled."""
         # -- Clean up menu
-        self.iface.removePluginMenu(__title__, self.action_help)
-        self.iface.removePluginMenu(__title__, self.action_settings)
+        self.iface.removePluginMenu(__title__, PluginActions.action_show_help)
+        self.iface.removePluginMenu(__title__, PluginActions.action_show_settings)
 
         # -- Clean up preferences panel in QGIS settings
         self.iface.unregisterOptionsWidgetFactory(self.options_factory)
 
         # remove actions
-        del self.action_settings
-        del self.action_help
+        del PluginActions.action_show_settings
+        del PluginActions.action_reload_idgs
+        del PluginActions.action_show_help
         """
         Removes the plugin menu
         """
@@ -147,5 +133,62 @@ class IdgPlugin:
         self.plugin_menu = QMenu(__title__, plugin_menu)
         plugin_menu.addMenu(self.plugin_menu)
 
-        self.plugin_menu.addAction(self.action_settings)
-        self.plugin_menu.addAction(self.action_help)
+        self.plugin_menu.addAction(PluginActions.action_show_settings)
+        self.plugin_menu.addAction(PluginActions.action_reload_idgs)
+        self.plugin_menu.addAction(PluginActions.action_show_help)
+
+    def settings_updated_slot(self):
+        """Slot receiveing the signal emitted on settings update"""
+
+        self.download_all_config_files()
+
+    def _get_active_remote_plateforms(self):
+        """Get the list of the active platforms (non-hidden ones)."""
+        active_platforms = {
+            pf.idg_id: pf.url
+            for pf in RemotePlatforms(read_projects=False).plateforms
+            if not pf.is_hidden()
+        }
+
+        return active_platforms
+
+    def _need_download_tree_config_file(self):
+        """
+        Do we need to download a new version of the resources tree file?
+        2 possible reasons:
+        - the user wants it to be downloading at plugin start up
+        - the file is currently missing
+        """
+        config_file_exists = PluginGlobals.CONFIG_FILE_PATH.is_file()
+
+        settings = PlgOptionsManager().get_plg_settings()
+
+        return settings.download_files_at_startup > 0 or not config_file_exists
+
+    def download_all_config_files(self):
+        """Download the plugin config file and all the files of the active platforms.
+        Hidden platform files are not downloaded."""
+
+        self.log(
+            message="DEBUG - prepare threads for downloading files...",
+            log_level=4,
+        )
+
+        active_platforms = self._get_active_remote_plateforms()
+
+        self.task1 = DownloadDefaultIdgListAsync()
+        self.task2 = DownloadAllIdgFilesAsync(active_platforms)
+        self.task1.finished.connect(self.task2.start)
+        self.task2.finished.connect(self.refresh_data_provider)
+
+        self.task1.start()
+
+    def refresh_data_provider(self):
+        if __debug__:
+            self.log(
+                message="DEBUG - refresh_data_provider.",
+                log_level=4,
+            )
+
+        if self.provider and self.provider.root:
+            self.provider.root.refresh()

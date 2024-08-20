@@ -19,7 +19,9 @@ from qgis.PyQt.QtWidgets import QAction, QMenu
 from qgis.utils import iface
 
 from idg.plugin_globals import PluginGlobals
-from idg.__about__ import __title__, DIR_PLUGIN_ROOT
+from idg.plugin_actions import PluginActions
+from idg.__about__ import DIR_PLUGIN_ROOT
+
 from idg.browser.remote_platforms import RemotePlatforms
 
 
@@ -41,6 +43,7 @@ def project_custom_icon_url(metadata: QgsAbstractMetadataBase):
 class IdgProvider(QgsDataItemProvider):
     def __init__(self, iface=iface):
         self.iface = iface
+        self.root = None
         QgsDataItemProvider.__init__(self)
 
     def name(self):
@@ -68,19 +71,11 @@ class RootCollection(QgsDataCollectionItem):
         actions = list()
 
         # Settings action
-        add_idg_action = QAction(
-            QgsApplication.getThemeIcon("console/iconSettingsConsole.svg"),
-            self.tr("Settings…"),
-            parent,
-        )
+        actions.append(PluginActions.action_show_settings)
 
-        add_idg_action.triggered.connect(
-            lambda: self.iface.showOptionsDialog(
-                currentPage="mOptionsPage{}".format(__title__)
-            )
-        )
+        # Download and reload all files action
+        actions.append(PluginActions.action_reload_idgs)
 
-        actions.append(add_idg_action)
         return actions
 
     def menus(self, parent):
@@ -101,7 +96,7 @@ class RootCollection(QgsDataCollectionItem):
                 self.tr("Add URL…"),
                 menu,
             )
-        )  # TODO Liens vers le panneau Options de QGIS
+        )
         return [menu]
 
     def createChildren(self):

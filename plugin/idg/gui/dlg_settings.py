@@ -14,6 +14,7 @@ from qgis.gui import QgsOptionsPageWidget, QgsOptionsWidgetFactory
 from qgis.PyQt import uic, QtWidgets
 from qgis.PyQt.Qt import QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
+from qgis.PyQt.QtCore import pyqtSignal
 
 # project
 from idg.__about__ import (
@@ -24,7 +25,9 @@ from idg.__about__ import (
     __version__,
 )
 from idg.toolbelt import PlgLogger, PlgOptionsManager
-from idg.browser import RemotePlatforms, IdgProvider, DownloadAllIdgFilesAsync
+from idg.browser.remote_platforms import RemotePlatforms
+from idg.browser.browser import IdgProvider
+from idg.browser.tree_node_factory import DownloadAllIdgFilesAsync
 from idg.plugin_globals import PluginGlobals
 from idg.toolbelt.preferences import PlgSettingsStructure
 
@@ -67,11 +70,12 @@ def listToTablewidget(
 class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
     """Settings form embedded into QGIS 'options' menu."""
 
+    settings_updated = pyqtSignal()
+
     def __init__(self, parent):
         super().__init__(parent)
         self.log = PlgLogger().log
         self.plg_settings = PlgOptionsManager()
-        settings = self.plg_settings.get_plg_settings()
 
         # load UI and set objectName
         self.setupUi(self)
@@ -140,21 +144,13 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
             settings
         )  # Les variables globales ne sont peut être pas MAJ ici
 
-        items = {
-            c.idg_id: c.url
-            for c in RemotePlatforms(read_projects=False).plateforms
-            if not c.is_hidden()
-        }
-        registry = QgsApplication.instance().dataItemProviderRegistry()
-        provider = registry.provider(IdgProvider().name())
-        self.task = DownloadAllIdgFilesAsync(items)  # Download non-hidden idg
-        self.task.finished.connect(provider.root.refresh)
-        self.task.start()
         if __debug__:
             self.log(
                 message="DEBUG - Settings successfully saved.",
                 log_level=4,
             )
+
+        self.settings_updated.emit()
 
     def load_settings(self):
         """Load options from QgsSettings into UI form."""
@@ -193,9 +189,10 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
 class PlgOptionsFactory(QgsOptionsWidgetFactory):
     """Factory for options widget."""
 
-    def __init__(self):
+    def __init__(self, settings_updated_receiver=None):
         """Constructor."""
         super().__init__()
+        self.settings_updated_receiver = settings_updated_receiver
 
     def icon(self) -> QIcon:
         """Returns plugin icon, used to as tab icon in QGIS options tab widget.
@@ -214,7 +211,10 @@ class PlgOptionsFactory(QgsOptionsWidgetFactory):
         :return: options page for tab widget
         :rtype: ConfigOptionsPage
         """
-        return ConfigOptionsPage(parent)
+        options_page = ConfigOptionsPage(parent)
+        if self.settings_updated_receiver:
+            options_page.settings_updated.connect(self.settings_updated_receiver)
+        return options_page
 
     def title(self) -> str:
         """Returns plugin title, used to name the tab in QGIS options tab widget.
