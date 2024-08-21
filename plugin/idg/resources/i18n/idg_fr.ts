@@ -24,7 +24,7 @@
     <message>
         <location filename="../../gui/dlg_settings.ui" line="84"/>
         <source>Version used to save settings:</source>
-        <translation type="unfinished">Version utilisée pour sauvegarder la configuration :</translation>
+        <translation>Version utilisée pour sauvegarder la configuration :</translation>
     </message>
     <message>
         <location filename="../../gui/dlg_settings.ui" line="184"/>
@@ -55,25 +55,30 @@
 <context>
     <name>IdgPlugin</name>
     <message>
-        <location filename="../../plugin_main.py" line="97"/>
+        <location filename="../../plugin_main.py" line="75"/>
         <source>Help…</source>
         <translation>Aide…</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="106"/>
+        <location filename="../../plugin_main.py" line="84"/>
         <source>Settings…</source>
         <translation>Paramètres…</translation>
+    </message>
+    <message>
+        <location filename="../../plugin_main.py" line="91"/>
+        <source>Reload files</source>
+        <translation>Recharger les fichiers</translation>
     </message>
 </context>
 <context>
     <name>LayerItem</name>
     <message>
-        <location filename="../../browser/browser.py" line="232"/>
+        <location filename="../../browser/browser.py" line="235"/>
         <source>Show metadata…</source>
         <translation>Afficher les métadonnées…</translation>
     </message>
     <message>
-        <location filename="../../browser/browser.py" line="238"/>
+        <location filename="../../browser/browser.py" line="241"/>
         <source>Add layer to map</source>
         <translation>Ajouter la couche à la carte</translation>
     </message>
@@ -81,7 +86,7 @@
 <context>
     <name>PlatformCollection</name>
     <message>
-        <location filename="../../browser/browser.py" line="165"/>
+        <location filename="../../browser/browser.py" line="168"/>
         <source>Hide</source>
         <translation>Masquer</translation>
     </message>
@@ -91,15 +96,15 @@
     <message>
         <location filename="../../browser/browser.py" line="69"/>
         <source>Settings…</source>
-        <translation>Paramètres…</translation>
+        <translation type="obsolete">Paramètres…</translation>
     </message>
     <message>
-        <location filename="../../browser/browser.py" line="79"/>
+        <location filename="../../browser/browser.py" line="82"/>
         <source>Plateforms</source>
         <translation>Plateformes</translation>
     </message>
     <message>
-        <location filename="../../browser/browser.py" line="91"/>
+        <location filename="../../browser/browser.py" line="94"/>
         <source>Add URL…</source>
         <translation>Ajouter une URL…</translation>
     </message>
