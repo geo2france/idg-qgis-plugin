@@ -26,8 +26,6 @@ from idg.__about__ import (
 )
 from idg.toolbelt import PlgLogger, PlgOptionsManager
 from idg.browser.remote_platforms import RemotePlatforms
-from idg.browser.browser import IdgProvider
-from idg.browser.tree_node_factory import DownloadAllIdgFilesAsync
 from idg.plugin_globals import PluginGlobals
 from idg.toolbelt.preferences import PlgSettingsStructure
 
