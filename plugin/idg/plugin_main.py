@@ -73,7 +73,7 @@ class IdgPlugin:
 
         # -- Actions
         PluginActions.action_show_help = QAction(
-            QIcon(":/images/themes/default/mActionHelpContents.svg"),
+            QgsApplication.getThemeIcon("mActionHelpContents.svg"),
             self.tr("Help…", context="IdgPlugin"),
             self.iface.mainWindow(),
         )
@@ -89,6 +89,7 @@ class IdgPlugin:
         PluginActions.action_show_settings.triggered.connect(self.show_settings_dialog)
 
         PluginActions.action_reload_idgs = QAction(
+            QgsApplication.getThemeIcon("mActionRefresh.svg"),
             self.tr("Reload files"),
             self.iface.mainWindow(),
         )
