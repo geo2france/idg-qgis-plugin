@@ -68,7 +68,9 @@ class IdgPlugin:
         """Set up plugin UI elements."""
 
         # settings page within the QGIS preferences menu
-        self.options_factory = PlgOptionsFactory(self.settings_updated_slot)
+        self.options_factory = PlgOptionsFactory(
+            self.settings_updated_slot, self.download_tree_config_file_slot
+        )
         self.iface.registerOptionsWidgetFactory(self.options_factory)
 
         # -- Actions
@@ -139,7 +141,7 @@ class IdgPlugin:
         self.plugin_menu.addAction(PluginActions.action_show_help)
 
     def settings_updated_slot(self):
-        """Slot receiveing the signal emitted on settings update"""
+        """Function called when the settings are updated"""
 
         self.download_all_config_files()
 
@@ -166,7 +168,7 @@ class IdgPlugin:
 
         return settings.download_files_at_startup > 0 or not config_file_exists
 
-    def download_all_config_files(self):
+    def download_all_config_files(self, end_slot=None):
         """Download the plugin config file and all the files of the active platforms.
         Hidden platform files are not downloaded."""
 
@@ -177,10 +179,36 @@ class IdgPlugin:
 
         active_platforms = self._get_active_remote_plateforms()
 
-        self.task1 = DownloadDefaultIdgListAsync()
+        settings = PlgOptionsManager().get_plg_settings()
+        config_file_url = settings.config_file_url
+
+        if not end_slot:
+            end_slot = self.refresh_data_provider
+
+        self.task1 = DownloadDefaultIdgListAsync(url=config_file_url)
         self.task2 = DownloadAllIdgFilesAsync(active_platforms)
         self.task1.finished.connect(self.task2.start)
-        self.task2.finished.connect(self.refresh_data_provider)
+        self.task2.finished.connect(end_slot)
+
+        self.task1.start()
+
+    def download_tree_config_file_slot(self, end_slot=None):
+        """Download the plugin config file.
+        Platform files are not downloaded."""
+
+        self.log(
+            message="DEBUG - prepare thread for downloading plugin config file...",
+            log_level=4,
+        )
+
+        settings = PlgOptionsManager().get_plg_settings()
+        config_file_url = settings.config_file_url
+
+        if not end_slot:
+            end_slot = self.refresh_data_provider
+
+        self.task1 = DownloadDefaultIdgListAsync(url=config_file_url)
+        self.task1.finished.connect(end_slot)
 
         self.task1.start()
 

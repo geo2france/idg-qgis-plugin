@@ -88,7 +88,7 @@
      <item>
       <widget class="QLabel" name="lbl_version_saved_value">
        <property name="text">
-        <string>TextLabel</string>
+        <string>version x.y.z</string>
        </property>
       </widget>
      </item>
@@ -104,6 +104,27 @@
         </size>
        </property>
       </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="config_file_layout">
+     <item>
+      <widget class="QLabel" name="lbl_config_file_url">
+       <property name="text">
+        <string>URL of the plugin configuration file:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="le_config_file_url"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_config_file_reload">
+       <property name="text">
+        <string>Reload</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -171,7 +192,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="button_layout">
+    <layout class="QHBoxLayout" name="misc_layout">
      <item>
       <widget class="QPushButton" name="btn_help">
        <property name="enabled">

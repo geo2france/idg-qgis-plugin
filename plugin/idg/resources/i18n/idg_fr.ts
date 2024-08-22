@@ -17,7 +17,7 @@
         <translation>Formulaire</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="197"/>
+        <location filename="../../gui/dlg_settings.ui" line="218"/>
         <source>Report an issue…</source>
         <translation>Signaler un bug…</translation>
     </message>
@@ -27,29 +27,39 @@
         <translation>Version utilisée pour sauvegarder la configuration :</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="184"/>
+        <location filename="../../gui/dlg_settings.ui" line="205"/>
         <source>Help…</source>
         <translation>Aide…</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="223"/>
+        <location filename="../../gui/dlg_settings.ui" line="244"/>
         <source>Reset setttings to factory defaults</source>
         <translation>Réinitialiser les paramètres par défaut</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="113"/>
+        <location filename="../../gui/dlg_settings.ui" line="134"/>
         <source>Default plateforms</source>
         <translation>Plateformes par défaut</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="123"/>
+        <location filename="../../gui/dlg_settings.ui" line="144"/>
         <source>Custom plateforms</source>
         <translation>Plateformes supplémentaires</translation>
     </message>
     <message>
+        <location filename="../../gui/dlg_settings.ui" line="115"/>
+        <source>URL of the plugin configuration file:</source>
+        <translation>URL du fichier de configuration du plugin :</translation>
+    </message>
+    <message>
         <location filename="../../gui/dlg_settings.ui" line="91"/>
-        <source>TextLabel</source>
+        <source>version x.y.z</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_settings.ui" line="125"/>
+        <source>Reload</source>
+        <translation>Recharger</translation>
     </message>
 </context>
 <context>

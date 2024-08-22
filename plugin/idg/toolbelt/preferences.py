@@ -14,6 +14,7 @@ from qgis.PyQt.QtCore import QVariant
 # package
 import idg.toolbelt
 from idg.__about__ import __title__, __version__
+from idg.plugin_globals import PluginGlobals
 
 # ############################################################################
 # ########## Classes ###############
@@ -31,6 +32,7 @@ class PlgSettingsStructure:
     download_files_at_startup: bool = True
     custom_idgs: str = ""
     hidden_idgs: str = ""
+    config_file_url: str = PluginGlobals.DEFAULT_CONFIG_FILE_URL
 
 
 class PlgOptionsManager:
