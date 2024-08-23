@@ -192,7 +192,7 @@ class IdgPlugin:
 
         self.task1.start()
 
-    def download_tree_config_file_slot(self, end_slot=None):
+    def download_tree_config_file_slot(self, file_url=None, end_slot=None):
         """Download the plugin config file.
         Platform files are not downloaded."""
 
@@ -202,7 +202,7 @@ class IdgPlugin:
         )
 
         settings = PlgOptionsManager().get_plg_settings()
-        config_file_url = settings.config_file_url
+        config_file_url = file_url or settings.config_file_url
 
         if not end_slot:
             end_slot = self.refresh_data_provider

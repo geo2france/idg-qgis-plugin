@@ -180,7 +180,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
 
     def btn_config_file_reload_clicked(self):
         # Call download function
-        self.download_tree_config_file(end_slot=self.plugin_config_file_reloaded)
+        self.download_tree_config_file(file_url=self.le_config_file_url.text(), end_slot=self.plugin_config_file_reloaded)
 
     def plugin_config_file_reloaded(self):
         self._update_default_idgs_list()
