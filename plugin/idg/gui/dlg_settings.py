@@ -85,7 +85,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         )
 
         self.btn_report.setIcon(
-            QgsApplication.getThemeIcon("iconSyntaxErrorConsole.svg")
+            QIcon(":images/themes/default/console/iconSyntaxErrorConsole.svg")
         )
         self.btn_report.pressed.connect(
             partial(QDesktopServices.openUrl, QUrl(f"{__uri_tracker__}"))
