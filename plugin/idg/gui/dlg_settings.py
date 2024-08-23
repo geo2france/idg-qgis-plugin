@@ -14,7 +14,6 @@ from qgis.gui import QgsOptionsPageWidget, QgsOptionsWidgetFactory
 from qgis.PyQt import uic, QtWidgets
 from qgis.PyQt.Qt import QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
-from qgis.PyQt.QtCore import pyqtSignal
 
 # project
 from idg.__about__ import (
@@ -66,8 +65,6 @@ def listToTablewidget(
 
 class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
     """Settings form embedded into QGIS 'options' menu."""
-
-    settings_updated = pyqtSignal()
 
     def __init__(self, parent):
         super().__init__(parent)
