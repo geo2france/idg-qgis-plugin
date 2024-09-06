@@ -152,7 +152,3 @@ class PlgOptionsManager:
             cls.set_value_from_key(k, v)
 
         settings.endGroup()
-
-        from idg.plugin_globals import PluginGlobals
-
-        PluginGlobals.init_constants()
