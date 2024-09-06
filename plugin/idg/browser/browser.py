@@ -79,25 +79,28 @@ class RootCollection(QgsDataCollectionItem):
         return actions
 
     def menus(self, parent):
-        menu = QMenu(title=self.tr("Plateforms"), parent=parent)
-        menu.setEnabled(False)  # dev
-        for pf, checked in zip(
-            ["DataGrandEst", "GeoBretagne", "Geo2France", "Indigeo"],
-            [True, False, True, False],
-        ):  # pour maquette TODO boucler sur une variable de conf
-            action = QAction(pf, menu, checkable=True)
-            action.setChecked(checked)
-            menu.addAction(
-                action
-            )  # TODO l'action permet d'activer/désactiver une plateforme. La désactivation supprime le DataCollectionItem et désactive le download du fichier de conf
-        menu.addSeparator()
-        menu.addAction(
-            QAction(
-                self.tr("Add URL…"),
-                menu,
-            )
-        )
-        return [menu]
+        # todo: reactivate this menu and make it operational
+        # menu = QMenu(title=self.tr("Plateforms"), parent=parent)
+        # menu.setEnabled(False)  # dev
+        # for pf, checked in zip(
+        #     ["DataGrandEst", "GeoBretagne", "Geo2France", "Indigeo"],
+        #     [True, False, True, False],
+        # ):  # pour maquette TODO boucler sur une variable de conf
+        #     action = QAction(pf, menu, checkable=True)
+        #     action.setChecked(checked)
+        #     menu.addAction(
+        #         action
+        #     )  # TODO l'action permet d'activer/désactiver une plateforme. La désactivation supprime le DataCollectionItem et désactive le download du fichier de conf
+        # menu.addSeparator()
+        # menu.addAction(
+        #     QAction(
+        #         self.tr("Add URL…"),
+        #         menu,
+        #     )
+        # )
+        # return [menu]
+
+        return list()
 
     def createChildren(self):
         children = []
