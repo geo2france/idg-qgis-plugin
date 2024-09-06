@@ -63,7 +63,7 @@
    <item>
     <layout class="QHBoxLayout" name="version_used_layout">
      <item>
-      <spacer name="horizontalSpacer_3">
+      <spacer name="sp_horizontal_header_left">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -93,7 +93,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_2">
+      <spacer name="sp_horizontal_header_right">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -118,14 +118,14 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="lbl_custom_platforms">
      <property name="text">
       <string>Custom plateforms</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QTableWidget" name="idgs_list">
+    <widget class="QTableWidget" name="tbl_platforms_list">
      <property name="enabled">
       <bool>false</bool>
      </property>
@@ -157,14 +157,27 @@
     </widget>
    </item>
    <item>
-    <widget class="QToolButton" name="btn_addrow">
+    <widget class="QToolButton" name="btn_add_platform">
      <property name="text">
       <string notr="true" extracomment="Add row">…</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line">
+    <spacer name="sp_vertical_spacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="Line" name="ln_horizontal_line_1">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -199,7 +212,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer">
+      <spacer name="sp_horizontal_button_bar">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -227,7 +240,7 @@
     </layout>
    </item>
    <item>
-    <widget class="Line" name="line_2">
+    <widget class="Line" name="ln_horizontal_line_2">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>

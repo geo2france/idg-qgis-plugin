@@ -94,15 +94,23 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.btn_reset.setIcon(QgsApplication.getThemeIcon("mActionUndo.svg"))
         self.btn_reset.pressed.connect(self.reset_settings)
 
+        # Hide non operational widgets
+        # todo: make them work
+        self.lbl_custom_platforms.hide()
+        self.tbl_platforms_list.hide()
+        self.btn_add_platform.hide()
+
         # Custom IDGs list
-        self.idgs_list.horizontalHeader().setSectionResizeMode(
+        self.tbl_platforms_list.horizontalHeader().setSectionResizeMode(
             QtWidgets.QHeaderView.Stretch
         )  # Stretch the column in order to use the full width of the table
 
         # Button to add a custom IDG
-        self.btn_addrow.setIcon(QgsApplication.getThemeIcon("symbologyAdd.svg"))
-        self.btn_addrow.clicked.connect(
-            lambda: self.idgs_list.setRowCount(self.idgs_list.rowCount() + 1)
+        self.btn_add_platform.setIcon(QgsApplication.getThemeIcon("symbologyAdd.svg"))
+        self.btn_add_platform.clicked.connect(
+            lambda: self.tbl_platforms_list.setRowCount(
+                self.tbl_platforms_list.rowCount() + 1
+            )
         )
 
         self.vbox = QtWidgets.QVBoxLayout()
@@ -113,7 +121,6 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.load_settings()
 
     def _update_default_idgs_list(self):
-
         self.checkboxes = []
 
         # Clear content of layout
@@ -143,7 +150,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
 
         # Misc
         settings.version = __version__
-        settings.custom_idgs = ",".join(tablewidgetToList(self.idgs_list, 0))
+        settings.custom_idgs = ",".join(tablewidgetToList(self.tbl_platforms_list, 0))
 
         # Default IDG list
         hidden__idgs_arr = []
@@ -177,9 +184,9 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self._update_default_idgs_list()
 
         # Custom IDG list
-        self.idgs_list.setRowCount(len(settings.custom_idgs.split(",")) + 1)
+        self.tbl_platforms_list.setRowCount(len(settings.custom_idgs.split(",")) + 1)
         listToTablewidget(
-            settings.custom_idgs.split(","), self.idgs_list, column_index=0
+            settings.custom_idgs.split(","), self.tbl_platforms_list, column_index=0
         )
 
         # Version of the plugin used to save the settings
