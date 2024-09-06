@@ -19,7 +19,7 @@ from idg.gui.dlg_settings import PlgOptionsFactory
 from idg.toolbelt import PlgLogger, PlgTranslator
 from idg.toolbelt import PlgOptionsManager
 from idg.plugin_globals import PluginGlobals
-from idg.plugin_actions import PluginActions
+from idg.gui.actions import PluginActions
 from idg.browser.remote_platforms import RemotePlatforms
 from idg.browser.browser import IdgProvider
 from idg.browser.tree_node_factory import (

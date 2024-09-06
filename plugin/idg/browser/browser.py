@@ -19,7 +19,7 @@ from qgis.PyQt.QtWidgets import QAction, QMenu
 from qgis.utils import iface
 
 from idg.plugin_globals import PluginGlobals
-from idg.plugin_actions import PluginActions
+from idg.gui.actions import PluginActions
 from idg.__about__ import DIR_PLUGIN_ROOT
 
 from idg.browser.remote_platforms import RemotePlatforms
