@@ -145,7 +145,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         settings.version = __version__
         settings.custom_idgs = ",".join(tablewidgetToList(self.idgs_list, 0))
 
-        # Dafault IDG list
+        # Default IDG list
         hidden__idgs_arr = []
         for cb in self.checkboxes:
             print(cb.text(), cb.checkState())
