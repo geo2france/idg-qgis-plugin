@@ -32,7 +32,10 @@ class PlgSettingsStructure:
     download_files_at_startup: bool = True
     custom_idgs: str = ""
     hidden_idgs: str = ""
-    config_file_url: str = PluginGlobals.DEFAULT_CONFIG_FILE_URL
+    config_file_url: str = (
+        "https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/"
+        "dev/plugin/idg/config/default_idg.json"
+    )
 
 
 class PlgOptionsManager:

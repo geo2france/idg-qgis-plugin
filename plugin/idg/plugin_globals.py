@@ -10,10 +10,6 @@ class PluginGlobals:
     PLUGIN_TAG: str = "IDG"
     CONFIG_DIR_NAME: str = "config"
     DEFAULT_CONFIG_FILE_NAME: str = "default_idg.json"
-    DEFAULT_CONFIG_FILE_URL: str = (
-        "https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/dev/plugin/"
-        f"idg/config/{DEFAULT_CONFIG_FILE_NAME}"
-    )
     BROWSER_PROVIDER_NAME: str = "IDG Provider"
     CONFIG_DIR_PATH: Path
     CONFIG_FILE_PATH: Path

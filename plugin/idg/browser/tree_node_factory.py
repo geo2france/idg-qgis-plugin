@@ -13,7 +13,7 @@ from idg.browser.network_manager import NetworkRequestsManager
 class DownloadDefaultIdgListAsync(QThread):
     finished = pyqtSignal()
 
-    def __init__(self, url=PluginGlobals.DEFAULT_CONFIG_FILE_URL):
+    def __init__(self, url: str):
         super(QThread, self).__init__()
         self.url = url
 
