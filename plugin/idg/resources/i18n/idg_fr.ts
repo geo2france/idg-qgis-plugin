@@ -17,7 +17,7 @@
         <translation>Formulaire</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="218"/>
+        <location filename="../../gui/dlg_settings.ui" line="197"/>
         <source>Report an issue…</source>
         <translation>Signaler un bug…</translation>
     </message>
@@ -27,55 +27,45 @@
         <translation>Version utilisée pour sauvegarder la configuration :</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="205"/>
+        <location filename="../../gui/dlg_settings.ui" line="184"/>
         <source>Help…</source>
         <translation>Aide…</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="244"/>
+        <location filename="../../gui/dlg_settings.ui" line="223"/>
         <source>Reset setttings to factory defaults</source>
         <translation>Réinitialiser les paramètres par défaut</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="134"/>
+        <location filename="../../gui/dlg_settings.ui" line="113"/>
         <source>Default plateforms</source>
         <translation>Plateformes par défaut</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="144"/>
+        <location filename="../../gui/dlg_settings.ui" line="123"/>
         <source>Custom plateforms</source>
         <translation>Plateformes supplémentaires</translation>
-    </message>
-    <message>
-        <location filename="../../gui/dlg_settings.ui" line="115"/>
-        <source>URL of the plugin configuration file:</source>
-        <translation>URL du fichier de configuration du plugin :</translation>
     </message>
     <message>
         <location filename="../../gui/dlg_settings.ui" line="91"/>
         <source>version x.y.z</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../../gui/dlg_settings.ui" line="125"/>
-        <source>Reload</source>
-        <translation>Recharger</translation>
-    </message>
 </context>
 <context>
     <name>IdgPlugin</name>
     <message>
-        <location filename="../../plugin_main.py" line="75"/>
+        <location filename="../../plugin_main.py" line="77"/>
         <source>Help…</source>
         <translation>Aide…</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="84"/>
+        <location filename="../../plugin_main.py" line="86"/>
         <source>Settings…</source>
         <translation>Paramètres…</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="91"/>
+        <location filename="../../plugin_main.py" line="93"/>
         <source>Reload files</source>
         <translation>Recharger les fichiers</translation>
     </message>

@@ -94,12 +94,6 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.btn_reset.setIcon(QgsApplication.getThemeIcon("mActionUndo.svg"))
         self.btn_reset.pressed.connect(self.reset_settings)
 
-        # Config file URL
-        self.btn_config_file_reload.pressed.connect(self.btn_config_file_reload_clicked)
-        self.btn_config_file_reload.setIcon(
-            QgsApplication.getThemeIcon("mActionRefresh.svg")
-        )
-
         # Custom IDGs list
         self.idgs_list.horizontalHeader().setSectionResizeMode(
             QtWidgets.QHeaderView.Stretch
@@ -151,9 +145,6 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         settings.version = __version__
         settings.custom_idgs = ",".join(tablewidgetToList(self.idgs_list, 0))
 
-        # URL of the plugin config file
-        settings.config_file_url = self.le_config_file_url.text()
-
         # Dafault IDG list
         hidden__idgs_arr = []
         for cb in self.checkboxes:
@@ -175,19 +166,12 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # Send signal to plugin
         self.settings_updated()
 
-    def btn_config_file_reload_clicked(self):
-        # Call download function
-        self.download_tree_config_file(file_url=self.le_config_file_url.text(), end_slot=self.plugin_config_file_reloaded)
-
     def plugin_config_file_reloaded(self):
         self._update_default_idgs_list()
 
     def load_settings(self):
         """Load options from QgsSettings into UI form."""
         settings = self.plg_settings.get_plg_settings()
-
-        # URL of the plugin config file
-        self.le_config_file_url.setText(settings.config_file_url)
 
         # Default IDG list
         self._update_default_idgs_list()
