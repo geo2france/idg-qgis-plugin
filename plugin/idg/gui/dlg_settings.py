@@ -204,6 +204,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.download_tree_config_file(end_slot=self.plugin_config_file_reloaded)
 
 
+
 class PlgOptionsFactory(QgsOptionsWidgetFactory):
     """Factory for options widget."""
 
