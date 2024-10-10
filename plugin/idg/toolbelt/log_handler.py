@@ -129,7 +129,7 @@ class PlgLogger(logging.Handler):
                 notification = iface.messageBar().createMessage(
                     title=application, text=message
                 )
-                widget_button = QPushButton(button_text or "More...")
+                widget_button = QPushButton(button_text or "More…")
                 if button_connect:
                     widget_button.clicked.connect(button_connect)
                 else:

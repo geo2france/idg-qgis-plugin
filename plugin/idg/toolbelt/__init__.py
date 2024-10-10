@@ -2,8 +2,3 @@
 from .log_handler import PlgLogger  # noqa: F401
 from .preferences import PlgOptionsManager  # noqa: F401
 from .translator import PlgTranslator  # noqa: F401
-from .plugin_globals import PluginGlobals
-from .singleton import Singleton
-from .browser import IdgProvider
-from .remote_platforms import RemotePlatforms
-from .network_manager import NetworkRequestsManager  # noqa: F401

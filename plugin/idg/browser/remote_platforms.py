@@ -4,15 +4,14 @@ import os.path
 from qgis.core import QgsProject
 from qgis.PyQt.QtGui import QIcon
 
-from idg.toolbelt import PlgOptionsManager, PluginGlobals
+from idg.toolbelt import PlgOptionsManager
+from idg.plugin_globals import PluginGlobals
 
 
 class RemotePlatforms:
     def __init__(self, read_projects=True):
         self.plateforms = []
-        with open(
-            os.path.join(PluginGlobals.instance().config_dir_path, "default_idg.json")
-        ) as f:  # Télécharger si non existant ?
+        with open(PluginGlobals.CONFIG_FILE_PATH) as f:
             self.stock_idgs = json.load(f)
         self.custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(",")
         self.custom_idg.remove("")
@@ -37,9 +36,7 @@ class RemotePlatforms:
 
 
 class Plateform:
-    def __init__(
-        self, url, idg_id, read_project=True
-    ):
+    def __init__(self, url, idg_id, read_project=True):
         self.url = url
         self.idg_id = idg_id
         if read_project:
@@ -49,7 +46,7 @@ class Plateform:
         p = QgsProject()
         if (
             p.read(
-                self.qgis_project_filepath(),
+                str(self.qgis_project_filepath()),
                 QgsProject.ReadFlags()
                 | QgsProject.FlagDontResolveLayers
                 | QgsProject.FlagDontLoadLayouts,
@@ -61,10 +58,9 @@ class Plateform:
 
     def qgis_project_filepath(self):
         suffix = os.path.splitext(os.path.basename(self.url))[-1]  # .qgs ou .qgz
-        local_file_name = os.path.join(
-            PluginGlobals.instance().config_dir_path, self.idg_id + suffix
-        )
-        return local_file_name
+        local_file_name = self.idg_id + suffix
+        local_file_path = PluginGlobals.CONFIG_DIR_PATH / local_file_name
+        return local_file_path
 
     def is_custom(self):
         # Comparer avec les pf stock
@@ -96,11 +92,9 @@ class Plateform:
         for link in self.project.metadata().links():
             if link.name.lower().strip() == "icon":
                 icon_suffix = os.path.splitext(os.path.basename(link.url))[-1]
+                icon_file_name = str(self.idg_id) + icon_suffix
                 return QIcon(
-                    os.path.join(
-                        PluginGlobals.instance().config_dir_path,
-                        str(self.idg_id) + icon_suffix,
-                    )
+                    str(PluginGlobals.CONFIG_DIR_PATH / icon_file_name)
                 )
         return None
 

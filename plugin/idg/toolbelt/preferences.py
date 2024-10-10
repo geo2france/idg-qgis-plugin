@@ -1,20 +1,20 @@
 #! python3  # noqa: E265
 
 """
-    Plugin settings.
+Plugin settings.
 """
 
 # standard
 from dataclasses import asdict, dataclass, fields
-import json
 
 # PyQGIS
 from qgis.core import QgsSettings
 from qgis.PyQt.QtCore import QVariant
 
 # package
-import idg.toolbelt.log_handler as log_hdlr
+import idg.toolbelt
 from idg.__about__ import __title__, __version__
+from idg.plugin_globals import PluginGlobals
 
 # ############################################################################
 # ########## Classes ###############
@@ -29,11 +29,13 @@ class PlgSettingsStructure:
     debug_mode: bool = False
     version: str = __version__
     configs_folder: str = ""
-    config_files_download_at_startup: bool = False
-    hide_empty_groups: bool = True
-    hide_resources_with_warn_status: bool = True
+    download_files_at_startup: bool = True
     custom_idgs: str = ""
     hidden_idgs: str = ""
+    config_file_url: str = (
+        "https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/"
+        "dev/plugin/idg/config/default_idg.json"
+    )
 
 
 class PlgOptionsManager:
@@ -76,7 +78,7 @@ class PlgOptionsManager:
         :return: plugin settings value matching key
         """
         if not hasattr(PlgSettingsStructure, key):
-            log_hdlr.PlgLogger.log(
+            idg.toolbelt.log_handler.PlgLogger.log(
                 message="Bad settings key. Must be one of: {}".format(
                     ",".join(PlgSettingsStructure._fields)  # A fixer
                 ),
@@ -90,7 +92,7 @@ class PlgOptionsManager:
         try:
             out_value = settings.value(key=key, defaultValue=default, type=exp_type)
         except Exception as err:
-            log_hdlr.PlgLogger.log(
+            idg.toolbelt.log_handler.PlgLogger.log(
                 message="Error occurred trying to get settings: {}.Trace: {}".format(
                     key, err
                 )
@@ -113,7 +115,7 @@ class PlgOptionsManager:
         :rtype: bool
         """
         if not hasattr(PlgSettingsStructure, key):
-            log_hdlr.PlgLogger.log(
+            idg.toolbelt.log_handler.PlgLogger.log(
                 message="Bad settings key. Must be one of: {}".format(
                     ",".join(PlgSettingsStructure._fields)
                 ),
@@ -128,7 +130,7 @@ class PlgOptionsManager:
             settings.setValue(key, value)
             out_value = True
         except Exception as err:
-            log_hdlr.PlgLogger.log(
+            idg.toolbelt.log_handler.PlgLogger.log(
                 message="Error occurred trying to set settings: {}.Trace: {}".format(
                     key, err
                 )

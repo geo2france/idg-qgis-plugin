@@ -1,35 +1,31 @@
 #! python3  # noqa: E265
 
 """
-    Plugin settings form integrated into QGIS 'Options' menu.
+Plugin settings form integrated into QGIS 'Options' menu.
 """
 
 # standard
 from functools import partial
 from pathlib import Path
-import os.path
-import json
 
 # PyQGIS
-from qgis.core import QgsApplication, Qgis
+from qgis.core import QgsApplication
 from qgis.gui import QgsOptionsPageWidget, QgsOptionsWidgetFactory
-from qgis.utils import iface
 from qgis.PyQt import uic, QtWidgets
-from qgis.PyQt.Qt import QUrl, QWidget
+from qgis.PyQt.Qt import QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
 
 # project
 from idg.__about__ import (
-    DIR_PLUGIN_ROOT,
     __icon_path__,
     __title__,
     __uri_homepage__,
     __uri_tracker__,
     __version__,
 )
-from idg.toolbelt import PlgLogger, PlgOptionsManager, PluginGlobals, RemotePlatforms, IdgProvider
+from idg.toolbelt import PlgLogger, PlgOptionsManager
+from idg.browser.remote_platforms import RemotePlatforms
 from idg.toolbelt.preferences import PlgSettingsStructure
-from idg.toolbelt.tree_node_factory import DownloadAllConfigFilesAsync
 
 # ############################################################################
 # ########## Globals ###############
@@ -74,7 +70,6 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         super().__init__(parent)
         self.log = PlgLogger().log
         self.plg_settings = PlgOptionsManager()
-        settings = self.plg_settings.get_plg_settings()
 
         # load UI and set objectName
         self.setupUi(self)
@@ -84,41 +79,68 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.lbl_title.setText(f"{__title__} - Version {__version__}")
 
         # customization
-        self.btn_help.setIcon(QIcon(QgsApplication.iconPath("mActionHelpContents.svg")))
+        self.btn_help.setIcon(QgsApplication.getThemeIcon("mActionHelpContents.svg"))
         self.btn_help.pressed.connect(
             partial(QDesktopServices.openUrl, QUrl(__uri_homepage__))
         )
 
         self.btn_report.setIcon(
-            QIcon(QgsApplication.iconPath("console/iconSyntaxErrorConsole.svg"))
+            QIcon(":images/themes/default/console/iconSyntaxErrorConsole.svg")
         )
         self.btn_report.pressed.connect(
             partial(QDesktopServices.openUrl, QUrl(f"{__uri_tracker__}"))
         )
 
-        self.btn_reset.setIcon(QIcon(QgsApplication.iconPath("mActionUndo.svg")))
+        self.btn_reset.setIcon(QgsApplication.getThemeIcon("mActionUndo.svg"))
         self.btn_reset.pressed.connect(self.reset_settings)
 
-        # table widget
-        self.idgs_list.horizontalHeader().setSectionResizeMode(
+        # Hide non operational widgets
+        # todo: make them work
+        self.lbl_custom_platforms.hide()
+        self.tbl_platforms_list.hide()
+        self.btn_add_platform.hide()
+
+        # Custom IDGs list
+        self.tbl_platforms_list.horizontalHeader().setSectionResizeMode(
             QtWidgets.QHeaderView.Stretch
-        )  # Etirer la colonne à 100% du tableau
-        self.btn_addrow.setIcon(QIcon(":images/themes/default/symbologyAdd.svg"))
-        self.btn_addrow.clicked.connect(
-            lambda: self.idgs_list.setRowCount(self.idgs_list.rowCount() + 1)
+        )  # Stretch the column in order to use the full width of the table
+
+        # Button to add a custom IDG
+        self.btn_add_platform.setIcon(QgsApplication.getThemeIcon("symbologyAdd.svg"))
+        self.btn_add_platform.clicked.connect(
+            lambda: self.tbl_platforms_list.setRowCount(
+                self.tbl_platforms_list.rowCount() + 1
+            )
         )
 
-        # Lire la config pour voir quels sont les PF masquées
         self.vbox = QtWidgets.QVBoxLayout()
         self.checkboxes = []
         self.groupBox_stock.setLayout(self.vbox)
-        for k in RemotePlatforms(read_projects=False).stock_idgs.keys():
-            cb = QtWidgets.QCheckBox(k)
-            self.vbox.addWidget(cb)
-            self.checkboxes.append(cb)
 
         # load previously saved settings
         self.load_settings()
+
+    def _update_default_idgs_list(self):
+        self.checkboxes = []
+
+        # Clear content of layout
+        for i in reversed(range(self.vbox.count())):
+            self.vbox.itemAt(i).widget().setParent(None)
+
+        # Create checkboxes
+        for pf_name in RemotePlatforms(read_projects=False).stock_idgs.keys():
+            cb = QtWidgets.QCheckBox(pf_name)
+            self.vbox.addWidget(cb)
+            self.checkboxes.append(cb)
+
+        # Set values to checkboxes
+        settings = self.plg_settings.get_plg_settings()
+        hidden_idg = settings.hidden_idgs.split(",")
+        for cb in self.checkboxes:
+            if cb.text() in hidden_idg:
+                cb.setChecked(False)
+            else:
+                cb.setChecked(True)
 
     def apply(self):
         """Called to permanently apply the settings shown in the options page (e.g. \
@@ -126,10 +148,11 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         dialog is accepted."""
         settings = self.plg_settings.get_plg_settings()
 
-        # misc
+        # Misc
         settings.version = __version__
-        settings.custom_idgs = ",".join(tablewidgetToList(self.idgs_list, 0))
+        settings.custom_idgs = ",".join(tablewidgetToList(self.tbl_platforms_list, 0))
 
+        # Default IDG list
         hidden__idgs_arr = []
         for cb in self.checkboxes:
             print(cb.text(), cb.checkState())
@@ -138,54 +161,58 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
                 # Add to hidden PF
         settings.hidden_idgs = ",".join(hidden__idgs_arr)
 
-        # dump new settings into QgsSettings
-        self.plg_settings.save_from_object(
-            settings
-        )  # Les variables globales ne sont peut être pas MAJ ici
+        # Dump new settings into QgsSettings
+        self.plg_settings.save_from_object(settings)
 
-        items = {c.idg_id : c.url for c in RemotePlatforms(read_projects=False).plateforms if not c.is_hidden()}
-        registry = QgsApplication.instance().dataItemProviderRegistry()
-        provider = registry.provider(IdgProvider().name())
-        self.task = DownloadAllConfigFilesAsync(items) # Download non-hidden idg
-        self.task.finished.connect(provider.root.refresh)
-        self.task.start()
         if __debug__:
             self.log(
                 message="DEBUG - Settings successfully saved.",
                 log_level=4,
             )
 
+        # Send signal to plugin
+        self.settings_updated()
+
+    def plugin_config_file_reloaded(self):
+        self._update_default_idgs_list()
+
     def load_settings(self):
         """Load options from QgsSettings into UI form."""
         settings = self.plg_settings.get_plg_settings()
-        hidden_idg = settings.hidden_idgs.split(",")
-        for c in self.checkboxes:
-            if c.text() in hidden_idg:
-                c.setChecked(False)
-            else:
-                c.setChecked(True)
-        self.idgs_list.setRowCount(len(settings.custom_idgs.split(",")) + 1)
+
+        # Default IDG list
+        self._update_default_idgs_list()
+
+        # Custom IDG list
+        self.tbl_platforms_list.setRowCount(len(settings.custom_idgs.split(",")) + 1)
         listToTablewidget(
-            settings.custom_idgs.split(","), self.idgs_list, column_index=0
+            settings.custom_idgs.split(","), self.tbl_platforms_list, column_index=0
         )
+
+        # Version of the plugin used to save the settings
+        self.lbl_version_saved_value.setText(settings.version)
 
     def reset_settings(self):
         """Reset settings to default values (set in preferences.py module)."""
         default_settings = PlgSettingsStructure()
 
-        # dump default settings into QgsSettings
+        # Dump default settings into QgsSettings
         self.plg_settings.save_from_object(default_settings)
         self.load_settings()
-        provider = QgsApplication.instance().dataItemProviderRegistry().provider("IDG Provider")
-        provider.root.refresh()
+
+        # Call download function
+        self.download_tree_config_file(end_slot=self.plugin_config_file_reloaded)
+
 
 
 class PlgOptionsFactory(QgsOptionsWidgetFactory):
     """Factory for options widget."""
 
-    def __init__(self):
+    def __init__(self, settings_updated=None, download_tree_config_file=None):
         """Constructor."""
         super().__init__()
+        self.settings_updated = settings_updated
+        self.download_tree_config_file = download_tree_config_file
 
     def icon(self) -> QIcon:
         """Returns plugin icon, used to as tab icon in QGIS options tab widget.
@@ -204,7 +231,15 @@ class PlgOptionsFactory(QgsOptionsWidgetFactory):
         :return: options page for tab widget
         :rtype: ConfigOptionsPage
         """
-        return ConfigOptionsPage(parent)
+        options_page = ConfigOptionsPage(parent)
+
+        # Plugin functions to be called on dlg_settings events
+        if self.settings_updated:
+            options_page.settings_updated = self.settings_updated
+        if self.download_tree_config_file:
+            options_page.download_tree_config_file = self.download_tree_config_file
+
+        return options_page
 
     def title(self) -> str:
         """Returns plugin title, used to name the tab in QGIS options tab widget.

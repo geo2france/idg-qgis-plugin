@@ -1,5 +1,6 @@
+import webbrowser
+
 from qgis.core import (
-    Qgis,
     QgsDataItemProvider,
     QgsDataCollectionItem,
     QgsDataItem,
@@ -14,14 +15,14 @@ from qgis.core import (
 )
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.Qt import QWidget
-from idg.toolbelt import PluginGlobals
-from .remote_platforms import RemotePlatforms
-from idg.__about__ import __title__
 from qgis.PyQt.QtWidgets import QAction, QMenu
 from qgis.utils import iface
-import os.path
-import webbrowser
+
+from idg.plugin_globals import PluginGlobals
+from idg.gui.actions import PluginActions
+from idg.__about__ import DIR_PLUGIN_ROOT
+
+from idg.browser.remote_platforms import RemotePlatforms
 
 
 def find_catalog_url(metadata: QgsAbstractMetadataBase):
@@ -42,65 +43,72 @@ def project_custom_icon_url(metadata: QgsAbstractMetadataBase):
 class IdgProvider(QgsDataItemProvider):
     def __init__(self, iface=iface):
         self.iface = iface
+        self.root = None
         QgsDataItemProvider.__init__(self)
 
     def name(self):
-        return "IDG Provider"
+        return PluginGlobals.BROWSER_PROVIDER_NAME
 
     def capabilities(self):
         return QgsDataProvider.Net
 
     def createDataItem(self, path, parentItem):
-        self.root = RootCollection(self.iface, parent = parentItem)
+        self.root = RootCollection(self.iface, parent=parentItem)
         return self.root
 
 
 class RootCollection(QgsDataCollectionItem):
     def __init__(self, iface: QgisInterface, parent):
         self.iface = iface
-        QgsDataCollectionItem.__init__(self, parent, "IDG", "/IDG")
-        self.setIcon(
-            QIcon(
-                PluginGlobals.instance().plugin_path
-                + "/resources/images/layers-svgrepo-com.svg"
-            )
-        )
+        plugin_tag = PluginGlobals.PLUGIN_TAG
+        QgsDataCollectionItem.__init__(self, parent, plugin_tag, f"/{plugin_tag}")
+
+        plugin_path = DIR_PLUGIN_ROOT.resolve()
+        icon_path = plugin_path / "resources" / "images" / "layers-svgrepo-com.svg"
+        self.setIcon(QIcon(str(icon_path.resolve())))
 
     def actions(self, parent):
         actions = list()
-        add_idg_action = QAction(QIcon(), self.tr("Settings..."), parent)
-        add_idg_action.triggered.connect(
-            lambda: self.iface.showOptionsDialog(
-                currentPage="mOptionsPage{}".format(__title__)
-            )
-        )
-        actions.append(add_idg_action)
+
+        # Settings action
+        actions.append(PluginActions.action_show_settings)
+
+        # Download and reload all files action
+        actions.append(PluginActions.action_reload_idgs)
+
         return actions
 
     def menus(self, parent):
-        menu = QMenu(title=self.tr("Plateforms"), parent=parent)
-        menu.setEnabled(False)  # dev
-        for pf, checked in zip(
-            ["DataGrandEst", "GeoBretagne", "Geo2France", "Indigeo"],
-            [True, False, True, False],
-        ):  # pour maquette TODO boucler sur une variable de conf
-            action = QAction(pf, menu, checkable=True)
-            action.setChecked(checked)
-            menu.addAction(
-                action
-            )  # TODO l'action permet d'activer/désactiver une plateforme. La désactivation supprime le DataCollectionItem et désactive le download du fichier de conf
-        menu.addSeparator()
-        menu.addAction(
-            QAction(
-                self.tr("Add URL"),
-                menu,
-            )
-        )  # TODO Liens vers le panneau Options de QGIS
-        return [menu]
+        # todo: reactivate this menu and make it operational
+        # menu = QMenu(title=self.tr("Plateforms"), parent=parent)
+        # menu.setEnabled(False)  # dev
+        # for pf, checked in zip(
+        #     ["DataGrandEst", "GeoBretagne", "Geo2France", "Indigeo"],
+        #     [True, False, True, False],
+        # ):  # pour maquette TODO boucler sur une variable de conf
+        #     action = QAction(pf, menu, checkable=True)
+        #     action.setChecked(checked)
+        #     menu.addAction(
+        #         action
+        #     )  # TODO l'action permet d'activer/désactiver une plateforme. La désactivation supprime le DataCollectionItem et désactive le download du fichier de conf
+        # menu.addSeparator()
+        # menu.addAction(
+        #     QAction(
+        #         self.tr("Add URL…"),
+        #         menu,
+        #     )
+        # )
+        # return [menu]
+
+        return list()
 
     def createChildren(self):
         children = []
-        for pfc in [PlatformCollection(plateform=pf, parent=self) for pf in RemotePlatforms().plateforms if not pf.is_hidden()]:
+        for pfc in [
+            PlatformCollection(plateform=pf, parent=self)
+            for pf in RemotePlatforms().plateforms
+            if not pf.is_hidden()
+        ]:
             children.append(pfc)
         return children
 
@@ -168,7 +176,7 @@ class PlatformCollection(QgsDataCollectionItem):
 
 class GroupItem(QgsDataCollectionItem):
     def __init__(self, parent, name, group):
-        self.path = os.path.join(parent.path, group.name())
+        self.path = parent.path + "/" + group.name()
         self.group = group
         QgsDataCollectionItem.__init__(self, parent, name, self.path)
         self.setIcon(QIcon(QgsApplication.iconPath("mIconFolder.svg")))
@@ -193,7 +201,7 @@ class LayerItem(QgsDataItem):
     def __init__(self, parent, name, layer):
         self.layer = layer
         self.catalog_url = find_catalog_url(layer.metadata())
-        self.path = os.path.join(parent.path, layer.id())
+        self.path = parent.path + "/" + layer.id()
         QgsDataItem.__init__(self, QgsDataItem.Custom, parent, name, self.path)
         self.setState(QgsDataItem.Populated)  # no children
         self.setToolTip(self.layer.metadata().abstract())
@@ -227,13 +235,13 @@ class LayerItem(QgsDataItem):
         QgsProject.instance().addMapLayer(self.layer)
 
     def actions(self, parent):
-        ac_open_meta = QAction(self.tr("Show metadata"), parent)
+        ac_open_meta = QAction(self.tr("Show metadata…"), parent)
         if self.catalog_url is not None:
             ac_open_meta.triggered.connect(self.openUrl)
         else:
             ac_open_meta.setEnabled(False)
 
-        ac_show_layer = QAction(self.tr("Display layer"), parent)
+        ac_show_layer = QAction(self.tr("Add layer to map"), parent)
         ac_show_layer.triggered.connect(self.addLayer)
 
         actions = [

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>715</width>
-    <height>561</height>
+    <height>560</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -61,21 +61,71 @@
     </widget>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="version_used_layout">
+     <item>
+      <spacer name="sp_horizontal_header_left">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbl_version_saved">
+       <property name="locale">
+        <locale language="English" country="UnitedStates"/>
+       </property>
+       <property name="text">
+        <string>Version used to save settings:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbl_version_saved_value">
+       <property name="text">
+        <string>version x.y.z</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="sp_horizontal_header_right">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="QGroupBox" name="groupBox_stock">
      <property name="title">
       <string>Default plateforms</string>
      </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="lbl_custom_platforms">
      <property name="text">
       <string>Custom plateforms</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QTableWidget" name="idgs_list">
+    <widget class="QTableWidget" name="tbl_platforms_list">
      <property name="enabled">
       <bool>false</bool>
      </property>
@@ -107,106 +157,93 @@
     </widget>
    </item>
    <item>
-    <widget class="QToolButton" name="btn_addrow">
+    <widget class="QToolButton" name="btn_add_platform">
      <property name="text">
-      <string notr="true" extracomment="Add row">...</string>
+      <string notr="true" extracomment="Add row">…</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="grp_misc">
-     <property name="minimumSize">
+    <spacer name="sp_vertical_spacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
       <size>
-       <width>0</width>
-       <height>100</height>
+       <width>20</width>
+       <height>40</height>
       </size>
      </property>
-     <property name="locale">
-      <locale language="English" country="UnitedStates"/>
+    </spacer>
+   </item>
+   <item>
+    <widget class="Line" name="ln_horizontal_line_1">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="title">
-      <string>Miscellaneous</string>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="misc_layout">
+     <item>
+      <widget class="QPushButton" name="btn_help">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="locale">
+        <locale language="English" country="UnitedStates"/>
+       </property>
+       <property name="text">
+        <string>Help…</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_report">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="locale">
+        <locale language="English" country="UnitedStates"/>
+       </property>
+       <property name="text">
+        <string>Report an issue…</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="sp_horizontal_button_bar">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_reset">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Reset setttings to factory defaults</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="ln_horizontal_line_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="flat">
-      <bool>false</bool>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QPushButton" name="btn_help">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>200</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>500</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="locale">
-         <locale language="English" country="UnitedStates"/>
-        </property>
-        <property name="text">
-         <string>Help</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QPushButton" name="btn_reset">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>200</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="autoFillBackground">
-         <bool>true</bool>
-        </property>
-        <property name="text">
-         <string>Reset setttings to factory defaults</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="btn_report">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>200</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>500</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="locale">
-         <locale language="English" country="UnitedStates"/>
-        </property>
-        <property name="text">
-         <string>Report an issue</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </item>
   </layout>
