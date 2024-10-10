@@ -25,4 +25,11 @@ qgisMaximumVersion=3.99
 
 # versioning
 version=0.2.5
-changelog=Bugfix, Amélioration performances
+changelog= - Ajout d'un paramètre pour activer/désactiver le téléchargement du fichier de configuration au lancement (par défaut True) (config_files_download_at_startup)
+           - Ajout d'un bouton pour forcer le rechargement des fichiers distants
+           - Retrait des éléments non fonctionnels du panneau de configuration (plateformes custom)
+           - Suppression des paramètres obsolètes du plugin (qui étaient accessibles via la fenêtre des paramètres de QGIS)
+           - Réorganisation du code en vue d'une maintenance plus facile
+           - Amélioration de l'organisation des éléments dans la fenêtre de paramétrage du plugin
+           - Affichage de la liste des IDG dans l'ordre alphabétique (dans la fenêtre de paramétrage)
+           - Utilisation de la bonne orthographe pour "Géo2France"
