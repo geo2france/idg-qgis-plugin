@@ -1,7 +1,7 @@
 {
   "DataGrandEst": "https://www.datagrandest.fr/tools/plugin-qgis-datagrandest/config-plugin-idg-datagrandest.qgz",
   "Géo2France": "https://raw.githubusercontent.com/geo2france/idg-qgis-plugin-g2f/main/geo2france.qgz",
-  "GéoBretagne": "https://geobretagne.fr/pub/plugin-qgis/config-idg-geobretagne.qgz",
+  "GéoBretagne": "https://raw.githubusercontent.com/geobretagne/idg-plugin/refs/heads/main/config-idg-geobretagne.qgz",
   "Géoplateforme": "https://raw.githubusercontent.com/Geoplateforme/plugin_idg_gpf/master/projet_idg_gpf.qgz",
   "OPenIG": "https://raw.githubusercontent.com/openig/Plugin-QGIS3-OPenIG/master/OPenIG_qgis_plugin.qgs"
 }
