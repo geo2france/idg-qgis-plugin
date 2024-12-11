@@ -13,6 +13,7 @@ Accès aux données des plateformes :
 - [Géo2France](https://geo2france.fr)
 - [OPenIG](https://openig.org)
 - [Géoplateforme](https://www.ign.fr/geoplateforme/la-geoplateforme-en-bref)
+- [GéoPaysdeBrest](https://geo.brest-metropole.fr/portal/apps/sites/#/geopaysdebrest)
 
 ## Installation
 
