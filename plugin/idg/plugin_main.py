@@ -55,6 +55,7 @@ class IdgPlugin:
         self.registry = QgsApplication.instance().dataItemProviderRegistry()
         self.provider = IdgProvider(self.iface)
 
+        PluginGlobals.REMOTE_DIR_PATH.mkdir(exist_ok=True) # Create remote dir if no exists
         # self.iface.initializationCompleted.connect(self.post_ui_init)
         self.post_ui_init()
 

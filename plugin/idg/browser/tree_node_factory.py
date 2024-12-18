@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import shutil
 from pathlib import Path
 
 from qgis.core import QgsProject, Qgis, QgsTask, QgsMessageLog
@@ -24,7 +24,7 @@ class DownloadDefaultIdgListAsync(QgsTask):
         qntwk = NetworkRequestsManager()
         qntwk.download_file(
             self.url,
-            str(PluginGlobals.CONFIG_FILE_PATH),
+            str(PluginGlobals.REMOTE_DIR_PATH / PluginGlobals.DEFAULT_CONFIG_FILE_NAME),
         )
         self.setProgress(100)
         return True
@@ -51,9 +51,11 @@ class DownloadAllIdgFilesAsync(QgsTask):
             idg_id = str(idg_id)
             suffix = Path(url).suffix
             local_file_name = idg_id + suffix
-            local_file_path = PluginGlobals.CONFIG_DIR_PATH / local_file_name
+            local_file_path = PluginGlobals.REMOTE_DIR_PATH / idg_id
+            shutil.rmtree(local_file_path, ignore_errors=True)
+            local_file_path.mkdir(exist_ok=True)
             self.log(f'Downloading {idg_id}... ({url})', log_level=Qgis.Info)
-            local_file = qntwk.download_file(url, str(local_file_path))
+            local_file = qntwk.download_file(url, str(local_file_path / local_file_name))
             if local_file:
                 self.log(self.tr(f'Reading {idg_id}...'), log_level=Qgis.Info)
                 project = QgsProject()
@@ -68,7 +70,7 @@ class DownloadAllIdgFilesAsync(QgsTask):
                         icon_suffix = Path(link.url).suffix
                         icon_file_name = idg_id + icon_suffix
                         icon_file_path = (
-                            PluginGlobals.CONFIG_DIR_PATH / icon_file_name
+                            PluginGlobals.REMOTE_DIR_PATH / idg_id / icon_file_name
                         )
                         qntwk.download_file(link.url, str(icon_file_path))
                         break
