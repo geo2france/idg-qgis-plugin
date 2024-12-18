@@ -172,10 +172,8 @@ class IdgPlugin:
         """Download the plugin config file and all the files of the active platforms.
         Hidden platform files are not downloaded."""
 
-        self.log(
-            message="DEBUG - prepare threads for downloading files...",
-            log_level=4,
-        )
+        self.log(self.tr("Reloading all remote files.."), log_level=Qgis.Info, push=True)
+
 
         active_platforms = self._get_active_remote_plateforms()
 
@@ -192,7 +190,7 @@ class IdgPlugin:
         self.taskManager.addTask(self.task2)
 
         def all_finished():
-            QgsMessageLog.logMessage('IDG : All tasks finished', level=Qgis.Info)
+            self.log(self.tr('All tasks finished'), log_level=Qgis.Success, push=True)
             self.taskManager.allTasksFinished.disconnect(all_finished)
 
         self.taskManager.allTasksFinished.connect(all_finished)

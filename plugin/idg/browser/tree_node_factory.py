@@ -4,7 +4,7 @@ from pathlib import Path
 
 from qgis.core import QgsProject, Qgis, QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import QThread, pyqtSignal
-
+from idg.toolbelt import PlgLogger
 from idg.plugin_globals import PluginGlobals
 from idg.browser.network_manager import NetworkRequestsManager
 
@@ -14,10 +14,11 @@ class DownloadDefaultIdgListAsync(QgsTask):
     def __init__(self, url: str):
         super(QgsTask, self).__init__()
         self.url = url
-        self.setDescription("Plugin IDG : Downloading IDG index")
+        self.setDescription(self.tr("Plugin IDG : Download platforms index"))
+        self.log = PlgLogger().log
 
     def finished(self, result):
-        QgsMessageLog.logMessage(f'IDG : Downloading IDG index Finished', level=Qgis.Info)
+        self.log(self.tr(f'Platforms index download completed'), log_level=Qgis.Info)
 
     def run(self):
         qntwk = NetworkRequestsManager()
@@ -34,10 +35,11 @@ class DownloadAllIdgFilesAsync(QgsTask):
     def __init__(self, idgs): # A typer
         super(QgsTask, self).__init__()
         self.idgs = idgs
-        self.setDescription("IDG : Downloading plateforms project's")
+        self.setDescription(self.tr("Download platforms projects"))
+        self.log = PlgLogger().log
 
     def finished(self, result):
-        QgsMessageLog.logMessage("IDG : Downloading plateforms project's finished", level=Qgis.Info)
+        pass
 
     def run(self):
         qntwk = NetworkRequestsManager()
@@ -50,10 +52,10 @@ class DownloadAllIdgFilesAsync(QgsTask):
             suffix = Path(url).suffix
             local_file_name = idg_id + suffix
             local_file_path = PluginGlobals.CONFIG_DIR_PATH / local_file_name
-            QgsMessageLog.logMessage(f'Downloading {idg_id}... ({url})', level=Qgis.Info)
+            self.log(f'Downloading {idg_id}... ({url})', log_level=Qgis.Info)
             local_file = qntwk.download_file(url, str(local_file_path))
             if local_file:
-                QgsMessageLog.logMessage(f'Reading {idg_id}...', level=Qgis.Info)
+                self.log(self.tr(f'Reading {idg_id}...'), log_level=Qgis.Info)
                 project = QgsProject()
                 project.read(
                     local_file,
@@ -71,7 +73,7 @@ class DownloadAllIdgFilesAsync(QgsTask):
                         qntwk.download_file(link.url, str(icon_file_path))
                         break
                 project.clear() # Sinon, le nettoyage de la task est trop long
-                QgsMessageLog.logMessage(f'{idg_id} OK', level= Qgis.Info)
+                self.log(self.tr(f'{idg_id} OK'), log_level=Qgis.Info, push=False)
             self.setProgress((iteration / nb_items) * 100)
 
         self.setProgress(100)
