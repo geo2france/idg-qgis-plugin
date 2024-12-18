@@ -11,8 +11,14 @@ from idg.plugin_globals import PluginGlobals
 class RemotePlatforms:
     def __init__(self, read_projects=True):
         self.plateforms = []
-        with open(PluginGlobals.CONFIG_FILE_PATH) as f:
-            self.stock_idgs = json.load(f)
+
+        try:
+            with open(PluginGlobals.REMOTE_DIR_PATH / PluginGlobals.DEFAULT_CONFIG_FILE_NAME) as f: # Ouvrir le fichier dans remote s'il existe et > à 0 octets
+                self.stock_idgs = json.load(f)
+        except  (json.JSONDecodeError, FileNotFoundError ): # Fichier remote non trouvé
+            with open(PluginGlobals.CONFIG_FILE_PATH) as f:
+                self.stock_idgs = json.load(f)
+
         self.custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(",")
         self.custom_idg.remove("")
         for k, v in self.stock_idgs.items():

@@ -9,9 +9,11 @@ class PluginGlobals:
 
     PLUGIN_TAG: str = "IDG"
     CONFIG_DIR_NAME: str = "config"
+    REMOTE_DIR_NAME: str = "remote"
     DEFAULT_CONFIG_FILE_NAME: str = "default_idg.json"
     BROWSER_PROVIDER_NAME: str = "IDG Provider"
     CONFIG_DIR_PATH: Path
+    REMOTE_DIR_PATH: Path
     CONFIG_FILE_PATH: Path
     PLUGIN_PATH: Path
 
@@ -31,4 +33,8 @@ class PluginGlobals:
         ).resolve()
         PluginGlobals.CONFIG_FILE_PATH = (
             PluginGlobals.CONFIG_DIR_PATH / PluginGlobals.DEFAULT_CONFIG_FILE_NAME
+        ).resolve()
+
+        PluginGlobals.REMOTE_DIR_PATH = (
+                PluginGlobals.PLUGIN_PATH / PluginGlobals.REMOTE_DIR_NAME
         ).resolve()
