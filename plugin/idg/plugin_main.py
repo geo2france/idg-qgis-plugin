@@ -5,7 +5,7 @@ Main plugin module.
 """
 
 # PyQGIS
-from qgis.core import QgsApplication
+from qgis.core import QgsApplication, Qgis, QgsMessageLog
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QIcon
@@ -172,10 +172,8 @@ class IdgPlugin:
         """Download the plugin config file and all the files of the active platforms.
         Hidden platform files are not downloaded."""
 
-        self.log(
-            message="DEBUG - prepare threads for downloading files...",
-            log_level=4,
-        )
+        self.log(self.tr("Reloading all remote files..."), log_level=Qgis.Info, push=True)
+
 
         active_platforms = self._get_active_remote_plateforms()
 
@@ -184,13 +182,19 @@ class IdgPlugin:
 
         if not end_slot:
             end_slot = self.refresh_data_provider
+        self.taskManager = QgsApplication.taskManager()
 
         self.task1 = DownloadDefaultIdgListAsync(url=config_file_url)
         self.task2 = DownloadAllIdgFilesAsync(active_platforms)
-        self.task1.finished.connect(self.task2.start)
-        self.task2.finished.connect(end_slot)
+        self.taskManager.addTask(self.task1)
+        self.taskManager.addTask(self.task2)
 
-        self.task1.start()
+        def all_finished():
+            self.log(self.tr('All tasks finished'), log_level=Qgis.Success, push=True)
+            self.taskManager.allTasksFinished.disconnect(all_finished)
+
+        self.taskManager.allTasksFinished.connect(all_finished)
+
 
     def download_tree_config_file_slot(self, file_url=None, end_slot=None):
         """Download the plugin config file.

@@ -17,7 +17,7 @@
         <translation>Formulaire</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="197"/>
+        <location filename="../../gui/dlg_settings.ui" line="210"/>
         <source>Report an issue…</source>
         <translation>Signaler un bug…</translation>
     </message>
@@ -27,12 +27,12 @@
         <translation>Version utilisée pour sauvegarder la configuration :</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="184"/>
+        <location filename="../../gui/dlg_settings.ui" line="197"/>
         <source>Help…</source>
         <translation>Aide…</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_settings.ui" line="223"/>
+        <location filename="../../gui/dlg_settings.ui" line="236"/>
         <source>Reset setttings to factory defaults</source>
         <translation>Réinitialiser les paramètres par défaut</translation>
     </message>
@@ -69,16 +69,26 @@
         <source>Reload files</source>
         <translation>Recharger les fichiers</translation>
     </message>
+    <message>
+        <location filename="../../plugin_main.py" line="175"/>
+        <source>Reloading all remote files...</source>
+        <translation>Rechargement des fichiers distants...</translation>
+    </message>
+    <message>
+        <location filename="../../plugin_main.py" line="193"/>
+        <source>All tasks finished</source>
+        <translation>Toutes les tâches sont terminées</translation>
+    </message>
 </context>
 <context>
     <name>LayerItem</name>
     <message>
-        <location filename="../../browser/browser.py" line="235"/>
+        <location filename="../../browser/browser.py" line="238"/>
         <source>Show metadata…</source>
         <translation>Afficher les métadonnées…</translation>
     </message>
     <message>
-        <location filename="../../browser/browser.py" line="241"/>
+        <location filename="../../browser/browser.py" line="244"/>
         <source>Add layer to map</source>
         <translation>Ajouter la couche à la carte</translation>
     </message>
@@ -86,7 +96,7 @@
 <context>
     <name>PlatformCollection</name>
     <message>
-        <location filename="../../browser/browser.py" line="168"/>
+        <location filename="../../browser/browser.py" line="171"/>
         <source>Hide</source>
         <translation>Masquer</translation>
     </message>
@@ -101,12 +111,12 @@
     <message>
         <location filename="../../browser/browser.py" line="82"/>
         <source>Plateforms</source>
-        <translation>Plateformes</translation>
+        <translation type="obsolete">Plateformes</translation>
     </message>
     <message>
         <location filename="../../browser/browser.py" line="94"/>
         <source>Add URL…</source>
-        <translation>Ajouter une URL…</translation>
+        <translation type="obsolete">Ajouter une URL…</translation>
     </message>
 </context>
 </TS>
