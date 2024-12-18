@@ -65,7 +65,7 @@ class Plateform:
     def qgis_project_filepath(self):
         suffix = os.path.splitext(os.path.basename(self.url))[-1]  # .qgs ou .qgz
         local_file_name = self.idg_id + suffix
-        local_file_path = PluginGlobals.CONFIG_DIR_PATH / local_file_name
+        local_file_path = PluginGlobals.REMOTE_DIR_PATH / self.idg_id / local_file_name
         return local_file_path
 
     def is_custom(self):
@@ -100,7 +100,7 @@ class Plateform:
                 icon_suffix = os.path.splitext(os.path.basename(link.url))[-1]
                 icon_file_name = str(self.idg_id) + icon_suffix
                 return QIcon(
-                    str(PluginGlobals.CONFIG_DIR_PATH / icon_file_name)
+                    str(PluginGlobals.REMOTE_DIR_PATH / self.idg_id / icon_file_name)
                 )
         return None
 
