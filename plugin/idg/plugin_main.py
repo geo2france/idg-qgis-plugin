@@ -172,7 +172,7 @@ class IdgPlugin:
         """Download the plugin config file and all the files of the active platforms.
         Hidden platform files are not downloaded."""
 
-        self.log(self.tr("Reloading all remote files.."), log_level=Qgis.Info, push=True)
+        self.log(self.tr("Reloading all remote files..."), log_level=Qgis.Info, push=True)
 
 
         active_platforms = self._get_active_remote_plateforms()
