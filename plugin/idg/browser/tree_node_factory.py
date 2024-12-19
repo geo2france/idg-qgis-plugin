@@ -63,7 +63,7 @@ class DownloadAllIdgFilesAsync(QgsTask):
                     local_file,
                     QgsProject.ReadFlags()
                     | QgsProject.FlagDontResolveLayers
-                    | QgsProject.FlagDontLoadLayouts,
+                    | QgsProject.FlagDontLoadLayouts | QgsProject.FlagDontStoreOriginalStyles | QgsProject.FlagTrustLayerMetadata,
                 )
                 for link in project.metadata().links():
                     if link.name.lower().strip() == "icon":
