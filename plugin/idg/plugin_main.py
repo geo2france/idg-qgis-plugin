@@ -144,7 +144,7 @@ class IdgPlugin:
     def settings_updated_slot(self):
         """Function called when the settings are updated"""
 
-        self.download_all_config_files()
+        self.download_all_config_files() # Provoque aussi le refresh du browser
 
     def _get_active_remote_plateforms(self):
         """Get the list of the active platforms (non-hidden ones)."""
@@ -192,6 +192,7 @@ class IdgPlugin:
 
         def all_finished():
             self.log(self.tr('All tasks finished'), log_level=Qgis.Success, push=True)
+            self.refresh_data_provider()
             self.taskManager.allTasksFinished.disconnect(all_finished)
 
         self.taskManager.allTasksFinished.connect(all_finished)
