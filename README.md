@@ -53,9 +53,9 @@ Une fois installé, le plugin ajoute les éléments suivants à l'interface grap
 
 Dans le panneau _Explorateur_ de QGIS, le contenu de l'entrée _IDG_ pour dérouler son contenu. Il s'agit d'une liste arborescente qui présente les couches de données proposées par plateforme et organisées par thématiques et sous-thématiques.
 
-<div style="text-align:center">
-   <img src="repo/screenshot_browser_1.png" alt="QGIS Browser" />
-</div>
+<p align="center">
+  <img src="repo/screenshot_browser_1.png" alt="QGIS Browser" />
+</p>
 
 #### Naviguer dans l'arborescence de données
 
@@ -75,7 +75,7 @@ Une fois que vous avez ajouté une couche à votre projet QGIS, vous êtes libre
 
 > [!NOTE]
 > Une fois que cette copie est réalisée, une modification ultérieure de la définition de la couche par la plateforme ne sera pas répercutée sur votre projet. Par exemple :
-> 
+>
 > - si l'administrateur de la plateforme met à jour le style de la couche de données, votre projet conservera le style qui a été appliqué lors d'intégration de la couche dans votre projet ou bien le style particulier que vous avez choisi si vous lui avez appliqué une personnalisation
 > - si l'administrateur de la plateforme met à jour l'URL de la couche de données, votre projet conservera l'ancienne URL (qui pourrait ne plus fonctionner donc)
 > - si l'administrateur de la plateforme supprime la couche de données, votre projet conservera cette couche de données (qui pourrait ne plus fonctionner également)
@@ -101,11 +101,11 @@ Depuis les paramètres du plugin, vous avez la possibilité d'afficher/masquer l
 
 > [!NOTE]
 > **Temps de chargement d'une plateforme**
-> 
+>
 > Le temps de chargement/mise à jour de l'entrée _IDG_ dans l'_Explorateur_ est conséquent (cela peut aller jusqu'à plusieurs dizaines de secondes) car la description des données de chaque plateforme est constituée d'un projet QGIS potentiellement très volumineux dont le contenu doit être contrôlé par QGIS. Lors de l'activation ou la désactivation d'une plateforme, vous devriez faire l'expérience de ce temps de chargement long. Une fois que ces fichiers sont chargés par QGIS l'exploitation du plugin est fluide.
-> 
+>
 > Nous vous recommandons donc :
-> 
+>
 > - d'être patient par rapport au temps de chargement de ces fichiers
 > - de limiter l'affichage des plateformes à celles dont vous avez réellement besoin
 
@@ -116,7 +116,7 @@ Créer un nouveau projet et y ajouter les couches que vous souhaitez diffuser.
 > [!WARNING]
 > Les couches doivent pouvoir être accessibles depuis n'importe où (fichiers distants, flux WMS/WFS, etc.) ; il ne doit **pas** s'agir de fichiers locaux.
 
-Il est recommandé d'[organiser les couches en groupes et sous-groupes]https://docs.qgis.org/3.34/fr/docs/user_manual/introduction/general_tools.html#group-layers-interact).
+Il est recommandé d'[organiser les couches en groupes et sous-groupes]<https://docs.qgis.org/3.34/fr/docs/user_manual/introduction/general_tools.html#group-layers-interact>).
 
 Dans les propriétés du projet, remplissez les champs suivants :
 
