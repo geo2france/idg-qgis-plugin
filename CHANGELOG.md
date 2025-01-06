@@ -89,7 +89,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ajout des plateformes OPenIG et DataGrandEst
 - Possibilité de masquer les plateformes stock du plugin
 - Différenciation des plateformes stock (inclues dans le plugin) et des plateformes custom (url ajoutées par l'utilisateur)
-- Ajout d'un timeout pour éviter les crash lors du téléchargements des fichiers projets
+- Ajout d'un timeout pour éviter les crashs lors du téléchargement des fichiers des plateformes
 - Tooltip avec la description des plateformes
 
 ### Removed
