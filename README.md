@@ -13,8 +13,6 @@ Ses principaux intérêts par rapport aux anciens plugins :
 
 Canal de discussions : <https://matrix.to/#/!DqHgKIoltGIikFRreo:matrix.org>
 
-![QGIS Browser](repo/screenshot_browser_1.png)
-
 Accès aux données des plateformes :
 
 - [DataGrandEst](https://datagrandest.fr/)
@@ -53,7 +51,11 @@ Une fois installé, le plugin ajoute les éléments suivants à l'interface grap
 
 ### Utiliser le plugin
 
-Dans le panneau _Explorateur_ de QGIS, le contenu de l'entrée _IDG_ pour dérouler son contenu. Il s'agit d'une liste arborescente qui présente une liste de couches de données proposées par plateforme de données et organisées par thématiques et sous-thématiques.
+Dans le panneau _Explorateur_ de QGIS, le contenu de l'entrée _IDG_ pour dérouler son contenu. Il s'agit d'une liste arborescente qui présente les couches de données proposées par plateforme et organisées par thématiques et sous-thématiques.
+
+<div style="text-align:center">
+   <img src="repo/screenshot_browser_1.png" alt="QGIS Browser" />
+</div>
 
 #### Naviguer dans l'arborescence de données
 
