@@ -24,12 +24,12 @@ qgisMinimumVersion=3.00
 qgisMaximumVersion=3.99
 
 # versioning
-version=0.2.5
-changelog= - Ajout d'un paramètre pour activer/désactiver le téléchargement du fichier de configuration au lancement (par défaut True) (config_files_download_at_startup)
-           - Ajout d'un bouton pour forcer le rechargement des fichiers distants
-           - Retrait des éléments non fonctionnels du panneau de configuration (plateformes custom)
-           - Suppression des paramètres obsolètes du plugin (qui étaient accessibles via la fenêtre des paramètres de QGIS)
-           - Réorganisation du code en vue d'une maintenance plus facile
-           - Amélioration de l'organisation des éléments dans la fenêtre de paramétrage du plugin
-           - Affichage de la liste des IDG dans l'ordre alphabétique (dans la fenêtre de paramétrage)
-           - Utilisation de la bonne orthographe pour "Géo2France"
+version=1.0.0
+changelog= 1.0.0 - Amélioration des performances ; meilleure intégration à QGIS ; réorganisation de l'arborescence des fichiers téléchargés ; Ajout de GeoPaysdeBrest
+           0.2.5 - Ajout d'une option pour télécharger ou non les fichiers des plateformes au lancement ; amélioration de la mise en page de la fenêtre des paramètres
+           0.2.4a - Ne télécharge plus les fichiers des plateformes non activées ; correction d'une anomalie qui masquait les plateformes
+           0.2.3 - Ajout de la Géoplateforme de l'IGN ; téléchargement asynchrone des fichiers ; amélioration des performances ; plusieurs corrections
+           0.2.2 - Amélioration significatives des performances
+           0.2.1 - Ajout de la plateforme GéoBretagne ; correction d'un bug qui modifiait le timeout de QGIS
+           0.2.0 - Possibilité de gérer plusieurs plateformes ; ajout des plateformes OPenIG et DataGrandEst ; ajout d'un timeout pour les requêtes de téléchargement
+           0.1.0 - Première version testable du plugin
