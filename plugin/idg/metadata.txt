@@ -19,7 +19,7 @@ tracker=https://github.com/geo2france/idg-qgis-plugin/issues
 
 # experimental flag
 deprecated=False
-experimental=True
+experimental=False
 qgisMinimumVersion=3.28
 qgisMaximumVersion=3.99
 
