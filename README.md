@@ -68,13 +68,15 @@ Pour ajouter une couche de données présente dans cette arborescence à la cart
 
 Une fois que vous avez ajouté une couche à votre projet QGIS, vous êtes libre d'y apporter les personnalisations dont vous avez besoin, que ce soit en matière de filtre et d'apparence.
 
-Ces couches de données sont des ressources en lignes. Lorsque vous ajoutez une couche à votre carte, QGIS fait une copie de sa définition dans votre projet QGIS ; il ne réalise pas une copie des données. Intégrer une de ces couches dans votre projet n'en fait des données gérées en local. Vous n'avez donc, en général, pas la possibilité d'en modifier le contenu.
+> [!NOTE]
+> Ces couches de données sont des ressources en lignes. Lorsque vous ajoutez une couche à votre carte, QGIS fait une copie de sa définition dans votre projet QGIS ; il ne réalise pas une copie des données. Intégrer une de ces couches dans votre projet n'en fait des données gérées en local. Vous n'avez donc, en général, pas la possibilité d'en modifier le contenu.
 
-Une fois que cette copie est réalisée, une modification ultérieure de la définition de la couche par la plateforme ne sera pas répercutée sur votre projet. Par exemple :
-
-- si l'administrateur de la plateforme met à jour le style de la couche de données, votre projet conservera le style qui a été appliqué lors d'intégration de la couche dans votre projet ou bien le style particulier que vous avez choisi si vous lui avez appliqué une personnalisation
-- si l'administrateur de la plateforme met à jour l'URL de la couche de données, votre projet conservera l'ancienne URL (qui pourrait ne plus fonctionner donc)
-- si l'administrateur de la plateforme supprime la couche de données, votre projet conservera cette couche de données (qui pourrait ne plus fonctionner également)
+> [!NOTE]
+> Une fois que cette copie est réalisée, une modification ultérieure de la définition de la couche par la plateforme ne sera pas répercutée sur votre projet. Par exemple :
+> 
+> - si l'administrateur de la plateforme met à jour le style de la couche de données, votre projet conservera le style qui a été appliqué lors d'intégration de la couche dans votre projet ou bien le style particulier que vous avez choisi si vous lui avez appliqué une personnalisation
+> - si l'administrateur de la plateforme met à jour l'URL de la couche de données, votre projet conservera l'ancienne URL (qui pourrait ne plus fonctionner donc)
+> - si l'administrateur de la plateforme supprime la couche de données, votre projet conservera cette couche de données (qui pourrait ne plus fonctionner également)
 
 Il est donc possible que, en raison de modifications opérées par les administrateurs des plateformes, vous deviez mettre à jour votre projet QGIS en supprimant des couches et en les remplaçant par d’autres dont les définitions ont été mises à jour.
 
@@ -95,19 +97,21 @@ L'organisation de ces couches de données a été définie pour chaque plateform
 La liste des plateformes visibles dans l'entrée _IDG_ de l'explorateur peut être personnalisée. Pour cela, rendez-vous dans la fenêtre des options du plugin (par exemple via le menu _Extensions > IDG > Paramètres_). En cochant/décochant une plateforme, vous l'affichez ou la masquez dans le panneau _Explorateur_ de QGIS (une fois que vos changements sont validés en cliquant sur le bouton _OK_)
 Depuis les paramètres du plugin, vous avez la possibilité d'afficher/masquer les plateformes.
 
-#### Temps de chargement d'une plateforme
-
-Le temps de chargement/mise à jour de l'entrée _IDG_ dans l'_Explorateur_ est conséquent (cela peut aller jusqu'à plusieurs dizaines de secondes) car la description des données de chaque plateforme est constituée d'un projet QGIS potentiellement très volumineux dont le contenu doit être contrôlé par QGIS. Lors de l'activation ou la désactivation d'une plateforme, vous devriez faire l'expérience de ce temps de chargement long. Une fois que ces fichiers sont chargés par QGIS l'exploitation du plugin est fluide.
-
-Nous vous recommandons donc :
-
-- d'être patient par rapport au temps de chargement de ces fichiers
-- de limiter l'affichage des plateformes à celles dont vous avez réellement besoin
+> [!NOTE]
+> **Temps de chargement d'une plateforme**
+> 
+> Le temps de chargement/mise à jour de l'entrée _IDG_ dans l'_Explorateur_ est conséquent (cela peut aller jusqu'à plusieurs dizaines de secondes) car la description des données de chaque plateforme est constituée d'un projet QGIS potentiellement très volumineux dont le contenu doit être contrôlé par QGIS. Lors de l'activation ou la désactivation d'une plateforme, vous devriez faire l'expérience de ce temps de chargement long. Une fois que ces fichiers sont chargés par QGIS l'exploitation du plugin est fluide.
+> 
+> Nous vous recommandons donc :
+> 
+> - d'être patient par rapport au temps de chargement de ces fichiers
+> - de limiter l'affichage des plateformes à celles dont vous avez réellement besoin
 
 ### Référencer une plateforme
 
 Créer un nouveau projet et y ajouter les couches que vous souhaitez diffuser.
-> **Warning**
+
+> [!WARNING]
 > Les couches doivent pouvoir être accessibles depuis n'importe où (fichiers distants, flux WMS/WFS, etc.) ; il ne doit **pas** s'agir de fichiers locaux.
 
 Il est recommandé d'[organiser les couches en groupes et sous-groupes]https://docs.qgis.org/3.34/fr/docs/user_manual/introduction/general_tools.html#group-layers-interact).
