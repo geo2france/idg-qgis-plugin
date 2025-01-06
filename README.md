@@ -1,6 +1,15 @@
 # IDG
 
-Plugin pour QGIS 3 fournissant un accès simple aux données de l'ensemble des Infrastructure de Données Géographiques (IDG) et d'autres ressources nationales géographiques utiles.
+Plugin pour QGIS 3 fournissant un accès simple aux données d'Infrastructures de Données Géographiques (IDG) et d'autres ressources nationales géographiques utiles.
+Il s'agit du remplaçant des extensions historiques de Géo2France, DataGrandEst, GéoBretagne, indigeo.... Le plugin IDG vise à les remplacer au sein d'un outil unifié et modernisé.
+
+Ses principaux intérêts par rapport aux anciens plugins :
+
+- Un plugin personnalisable
+- Un plugin unifié pour faciliter les opérations de maintenance
+- Le support de toutes les sources de données reconnues par QGIS
+- La possibilité pour les plateformes d'intégrer des styles évolués
+- Une meilleure intégration dans QGIS (dans son Explorateur et sa fenêtre de préférences notamment)
 
 Canal de discussions : <https://matrix.to/#/!DqHgKIoltGIikFRreo:matrix.org>
 
@@ -15,65 +24,116 @@ Accès aux données des plateformes :
 - [Géoplateforme](https://www.ign.fr/geoplateforme/la-geoplateforme-en-bref)
 - [GéoPaysdeBrest](https://geo.brest-metropole.fr/portal/apps/sites/#/geopaysdebrest)
 
-## Installation
+## Mise en œuvre
+
+## Installer le plugin
 
 Pré-requis :
 
 - QGIS version LTR [3.28] ou supérieure
-- Une connexion Internet
-- Installation depuis le dépot QGIS : dans le gestionnaire d'exentions (Extensions > Installer/Gérer les extensions), activer les extensions expérimentales et rechercher le plugin _IDG_
-- Installation depuis le fichier zip : télécharger depuis la derniere [release](https://github.com/geo2france/idg-qgis-plugin/releases) depuis le dépot github.
+- Une connexion Internet (les ressources mises à disposition via le plugin sont accessibles en ligne uniquement)
 
-## Utilisation
+Depuis le dépôt QGIS officiel :
 
-### Administrateur
+- se rendre dans le gestionnaire d'extensions de QGIS (Extensions > Installer/Gérer les extensions)
+- rechercher le plugin _IDG_
+
+Depuis un fichier ZIP :
+
+- télécharger le fichier ZIP de la dernière version du plugin sur la page [release](https://github.com/geo2france/idg-qgis-plugin/releases) du projet Github
+- se rendre dans le gestionnaire d'extensions de QGIS (Extensions > Installer/Gérer les extensions)
+- sélectionner l'entrée _Installer depuis un ZIP_
+- sélectionner le fichier téléchargé et lancer l'installation
+
+Une fois installé, le plugin ajoute les éléments suivants à l'interface graphique de QGIS :
+
+- le menu Extensions > IDG
+- une entrée _IDG_ dans le panneau _Explorateur_ de QGIS
+- une entrée _IDG_ dans la fenêtre des options de QGIS (fenêtre accessible via le menu Préférences > Options)
+
+### Utiliser le plugin
+
+Dans le panneau _Explorateur_ de QGIS, le contenu de l'entrée _IDG_ pour dérouler son contenu. Il s'agit d'une liste arborescente qui présente une liste de couches de données proposées par plateforme de données et organisées par thématiques et sous-thématiques.
+
+#### Naviguer dans l'arborescence de données
+
+L'entrée _IDG_ de l'_Explorateur_ de QGIS contient une vue arborescente de l'ensemble des couches de données partagées par les plateformes de données qui contribuent au plugin. Pour explorer cette arborescence, il suffit de doublecliquer sur un répertoire de cette arborescence ou de cliquer sur le petit triangle situé à sa gauche, comme pour toute autre partie de l'_Explorateur_ QGIS.
+
+#### Ajouter une couche de données à la carte
+
+Pour ajouter une couche de données présente dans cette arborescence à la carte, vous avez deux possibilités :
+
+- Doublecliquer sur la couche de données dans l'_Explorateur_ de QGIS
+- Faire un clic droit sur la couche de données et sélectionner l'entrée _Ajouter la couche à la carte_ du menu contextuel
+
+Une fois que vous avez ajouté une couche à votre projet QGIS, vous êtes libre d'y apporter les personnalisations dont vous avez besoin, que ce soit en matière de filtre et d'apparence.
+
+Ces couches de données sont des ressources en lignes. Lorsque vous ajoutez une couche à votre carte, QGIS fait une copie de sa définition dans votre projet QGIS ; il ne réalise pas une copie des données. Intégrer une de ces couches dans votre projet n'en fait des données gérées en local. Vous n'avez donc, en général, pas la possibilité d'en modifier le contenu.
+
+Une fois que cette copie est réalisée, une modification ultérieure de la définition de la couche par la plateforme ne sera pas répercutée sur votre projet. Par exemple :
+
+- si l'administrateur de la plateforme met à jour le style de la couche de données, votre projet conservera le style qui a été appliqué lors d'intégration de la couche dans votre projet ou bien le style particulier que vous avez choisi si vous lui avez appliqué une personnalisation
+- si l'administrateur de la plateforme met à jour l'URL de la couche de données, votre projet conservera l'ancienne URL (qui pourrait ne plus fonctionner donc)
+- si l'administrateur de la plateforme supprime la couche de données, votre projet conservera cette couche de données (qui pourrait ne plus fonctionner également)
+
+Il est donc possible que, en raison de modifications opérées par les administrateurs des plateformes, vous deviez mettre à jour votre projet QGIS en supprimant des couches et en les remplaçant par d’autres dont les définitions ont été mises à jour.
+
+#### Accéder aux métadonnées d'une couche de données
+
+Pour accéder aux métadonnées d'une couche depuis l'_Explorateur de QGIS :
+
+- faites un clic droit sur la couche de données
+- sélectionnez _Afficher les métadonnées..._ dans le menu contextuel
+- QGIS devrait ouvrir la fiche de métadonnées dans votre navigateur internet
+
+Cette fonction n'est accessible que pour les jeux de données pour lesquels le lien de métadonnées a été correctement renseigné par l'administrateur de la plateforme.
+
+#### Activer et déactiver une plateforme
+
+L'organisation de ces couches de données a été définie pour chaque plateforme par son administrateur de données. Le plugin n'impose pas de règles communes ; aucune homogénéité n'est attendue pour leur classement.
+
+La liste des plateformes visibles dans l'entrée _IDG_ de l'explorateur peut être personnalisée. Pour cela, rendez-vous dans la fenêtre des options du plugin (par exemple via le menu _Extensions > IDG > Paramètres_). En cochant/décochant une plateforme, vous l'affichez ou la masquez dans le panneau _Explorateur_ de QGIS (une fois que vos changements sont validés en cliquant sur le bouton _OK_)
+Depuis les paramètres du plugin, vous avez la possibilité d'afficher/masquer les plateformes.
+
+#### Temps de chargement d'une plateforme
+
+Le temps de chargement/mise à jour de l'entrée _IDG_ dans l'_Explorateur_ est conséquent (cela peut aller jusqu'à plusieurs dizaines de secondes) car la description des données de chaque plateforme est constituée d'un projet QGIS potentiellement très volumineux dont le contenu doit être contrôlé par QGIS. Lors de l'activation ou la désactivation d'une plateforme, vous devriez faire l'expérience de ce temps de chargement long. Une fois que ces fichiers sont chargés par QGIS l'exploitation du plugin est fluide.
+
+Nous vous recommandons donc :
+
+- d'être patient par rapport au temps de chargement de ces fichiers
+- de limiter l'affichage des plateformes à celles dont vous avez réellement besoin
+
+### Référencer une plateforme
 
 Créer un nouveau projet et y ajouter les couches que vous souhaitez diffuser.
 > **Warning**
-> Les couches doivent pouvoir être accessibles depuis n'importe où (fichiers distants, flux WMS/WFS, etc.), il ne doit **pas** s'agir de fichiers locaux.
+> Les couches doivent pouvoir être accessibles depuis n'importe où (fichiers distants, flux WMS/WFS, etc.) ; il ne doit **pas** s'agir de fichiers locaux.
 
-Il est recommandé d'[organiser les couches en groupes et sous-groupes](https://docs.qgis.org/3.22/fr/docs/user_manual/introduction/general_tools.html#group-layers-interact).
+Il est recommandé d'[organiser les couches en groupes et sous-groupes]https://docs.qgis.org/3.34/fr/docs/user_manual/introduction/general_tools.html#group-layers-interact).
 
-Dans les propriétés du projets, remplir les champs suivants :
+Dans les propriétés du projet, remplissez les champs suivants :
 
-- **Métadonnées > Identification > Titre** : Le nom de la plateforme qui sera visible par l'utilisateur (ex : Geo2France)
+- **Métadonnées > Identification > Titre** : Le nom de la plateforme qui sera visible par l'utilisateur (ex : Géo2France)
 - **Métadonnées > Identification > Résumé** : Facultatif, une brève présentation qui sera visible au survol
 - **Métadonnées > Liens** : Vous pouvez ajouter ici des liens vers les différents services de votre plateforme (ex : contact, catalogue, etc.)
-   Ceux-ci seront accessibles à l'utilisateur via un clic droit sur le nom de la plateforme. Ajoutez un lien nommé `icon` pour ajouter une icône personnalisée à la plateforme (png ou svg)
+   Ceux-ci seront accessibles à l'utilisateur via un clic droit sur le nom de la plateforme. Ajoutez un lien nommé `icon` pour ajouter une icône personnalisée à la plateforme (ou format PNG ou SVG)
 
 Pour chaque couche, vous pouvez définir :
 
 - **Métadonnées > Identification > Titre & Réumé** Un titre et un résumé
-- **Métadonnées > Identification > Liens** créer un lien nommé "Metadata" vers la fiche de métadonnées
+- **Métadonnées > Identification > Liens** Créer un lien nommé "Metadata" vers la fiche de métadonnées
 - Une symbologie (style, étiquettes, formulaires, etc.)
 
-Enregistrez le fichier projet (qgs ou qgz) et **déposez le sur un un serveur web** accessible depuis l'exterieur (serveur HTTP, Github, cloud, etc.).
+Enregistrez le fichier projet (au format QGS ou QGZ) et **déposez-le sur un un serveur web** accessible pour tous les utilisateurs (serveur HTTP, Github, cloud, etc.).
 
-Pour proposer l'ajout d'une plateforme dans le plugin : **éditez le fichier [default_idg.json](plugin/idg/config/default_idg.json)**
-et faites une _pull request_.
+Pour proposer l'ajout d'une plateforme dans le plugin : **éditez le fichier [default_idg.json](plugin/idg/config/default_idg.json)** et faites une _pull request_.
 
-### Utilisateur
+## Auteurs
 
-Dans le panneau _navigateur_ sur la gauche, double-cliquez sur l'icone **IDG** : cela déroulera les différentes plateformes disponibles.
-
-Depuis les paramètres du plugin, vous avez la possibilité d'afficher/masquer les plateformes.
-
-## Conception
-
-### Auteurs
-
-- Benjamin Chartier, Jean-Baptiste Desbas
-
-### Source d'inspiration
-
-- Nicolas Damiens
-
-### Contributeurs
-
-[TODO]
-
-### Autres remerciements
-
+- Développeurs : [jbdesbas](https://github.com/jbdesbas), [bchartier](https://github.com/bchartier), [juliepierson](https://github.com/juliepierson)
+- Source d'inspiration : [ndamiens](https://github.com/ndamiens)
+- Autres contributeurs : [vfabry](https://github.com/vfabry), [Doctor-Who](https://github.com/Doctor-Who), [smevel](https://github.com/smevel), [lecault](https://github.com/lecault), [tbrunelle9](https://github.com/tbrunelle9)
 - [Julien Moura](https://github.com/Guts) (Oslandia) pour le [template](https://oslandia.gitlab.io/qgis/template-qgis-plugin/) du plugin.
 - Auteurs des icônes de QGIS, reprises dans l'arbre des ressources
 
