@@ -11,7 +11,7 @@ tags=opendata,sdi,DataGrandEst,Géo2France,GéoBretagne,OPenIG,Géoplateforme,cr
 tags[fr]=opendata,idg,DataGrandEst,Géo2France,GéoBretagne,OPenIG,Géoplateforme,crige
 
 # credits and contact
-author=Benjamin CHARTIER, Jean-Baptiste DESBAS
+author=Benjamin CHARTIER, Jean-Baptiste DESBAS, Julie PIERSON
 email=contact@geo2france.fr
 homepage=https://github.com/geo2france/idg-qgis-plugin
 repository=https://github.com/geo2france/idg-qgis-plugin
