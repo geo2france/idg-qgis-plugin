@@ -137,10 +137,10 @@ Pour proposer l'ajout d'une plateforme dans le plugin : **éditez le fichier [de
 
 ## Auteurs
 
-- Développeurs : [jbdesbas](https://github.com/jbdesbas), [bchartier](https://github.com/bchartier), [juliepierson](https://github.com/juliepierson)
-- Source d'inspiration : [ndamiens](https://github.com/ndamiens)
-- Autres contributeurs : [vfabry](https://github.com/vfabry), [Doctor-Who](https://github.com/Doctor-Who), [smevel](https://github.com/smevel), [lecault](https://github.com/lecault), [tbrunelle9](https://github.com/tbrunelle9)
-- [Julien Moura](https://github.com/Guts) (Oslandia) pour le [template](https://oslandia.gitlab.io/qgis/template-qgis-plugin/) du plugin.
+- Développeurs : [Jean-Baptiste Desbas - Région Hauts-de-France](https://github.com/jbdesbas), [Benjamin Chartier - Optéos](https://github.com/bchartier), [Julie Pierson - UMR LETG](https://github.com/juliepierson)
+- Source d'inspiration : [Nicloas Damiens - Picardie Nature](https://github.com/ndamiens)
+- Autres contributeurs : [Viencent Fabry - Région Hauts-de-France](https://github.com/vfabry), [Nicolas Rochard - Région Hauts-de-France](https://github.com/Doctor-Who), [Stéphane Mével-Viannay](https://github.com/smevel), [Loïc Écault](https://github.com/lecault), [Tom Brunelle - OPenIG](https://github.com/tbrunelle9)
+- [Julien Moura - Oslandia](https://github.com/Guts) pour le [template](https://oslandia.gitlab.io/qgis/template-qgis-plugin/) du plugin.
 - Auteurs des icônes de QGIS, reprises dans l'arbre des ressources
 
 ## Licence
