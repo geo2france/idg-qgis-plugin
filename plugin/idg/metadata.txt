@@ -25,10 +25,10 @@ qgisMaximumVersion=3.99
 
 # versioning
 version=1.0.0
-changelog= 1.0.0 - Amélioration des performances ; meilleure intégration à QGIS ; réorganisation de l'arborescence des fichiers téléchargés ; Ajout de GeoPaysdeBrest
+changelog= 1.0.0 - Ajout de GeoPaysdeBrest ; meilleure intégration à QGIS ; amélioration des performances ; réorganisation de l'arborescence des fichiers téléchargés
            0.2.5 - Ajout d'une option pour télécharger ou non les fichiers des plateformes au lancement ; amélioration de la mise en page de la fenêtre des paramètres
            0.2.4a - Ne télécharge plus les fichiers des plateformes non activées ; correction d'une anomalie qui masquait les plateformes
-           0.2.3 - Ajout de la Géoplateforme de l'IGN ; téléchargement asynchrone des fichiers ; amélioration des performances ; plusieurs corrections
+           0.2.3 - Ajout de la Géoplateforme de l'IGN ; amélioration des performances ; téléchargement asynchrone des fichiers ; plusieurs corrections
            0.2.2 - Amélioration significatives des performances
            0.2.1 - Ajout de la plateforme GéoBretagne ; correction d'un bug qui modifiait le timeout de QGIS
            0.2.0 - Possibilité de gérer plusieurs plateformes ; ajout des plateformes OPenIG et DataGrandEst ; ajout d'un timeout pour les requêtes de téléchargement
