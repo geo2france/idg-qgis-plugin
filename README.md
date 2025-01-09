@@ -140,7 +140,7 @@ Pour proposer l'ajout d'une plateforme dans le plugin : **éditez le fichier [de
 Grand merci pour :
 
 - Les développeurs : [@jbdesbas](https://github.com/jbdesbas), [@bchartier](https://github.com/bchartier), [@juliepierson](https://github.com/juliepierson)
-- Le soutien de la Région Hauts-de-France
+- Le soutien de la Région Hauts-de-France, de Géo2France
 - La source d'inspiration : [@ndamiens](https://github.com/ndamiens)
 - Les personnes impliquées dans la mise en place, les tests et les échanges de la communauté : [@vfabry](https://github.com/vfabry), [@Doctor-Who](https://github.com/Doctor-Who), [@smevel](https://github.com/smevel), [@lecault](https://github.com/lecault), [@tbrunelle9](https://github.com/tbrunelle9)
 - Les auteurs de [QGIS Plugin Templater](https://oslandia.gitlab.io/qgis/template-qgis-plugin/) ayant servi de base au plugin.
