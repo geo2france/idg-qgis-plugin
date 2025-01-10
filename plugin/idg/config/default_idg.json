@@ -6,5 +6,5 @@
   "Géoplateforme": "https://raw.githubusercontent.com/Geoplateforme/plugin_idg_gpf/master/projet_idg_gpf.qgz",
   "OPenIG": "https://raw.githubusercontent.com/openig/Plugin-QGIS3-OPenIG/master/OPenIG_qgis_plugin.qgs",
   "BRGM": "https://gitlab.huma-num.fr/sthery/idg_supplementary_resources/-/raw/main/QGIS3_projects/BRGM.qgz",
-  "SHOM": "https://gitlab.huma-num.fr/sthery/idg_supplementary_resources/-/raw/main/QGIS3_projects/SHOM.qgz",
+  "SHOM": "https://gitlab.huma-num.fr/sthery/idg_supplementary_resources/-/raw/main/QGIS3_projects/SHOM.qgz"
 }
