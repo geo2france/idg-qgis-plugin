@@ -9,3 +9,4 @@ plugin/idg/config/*.qgs
 
 # PyCharm
 .idea/
+/plugin/idg/config/default_idg.json_tmp
