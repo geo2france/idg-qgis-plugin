@@ -20,8 +20,8 @@ Pré-requis :
 
 - QGIS version LTR [3.28] ou supérieure
 - Une connexion Internet
-- Installation depuis le dépot QGIS : dans le gestionnaire d'exentions (Extensions > Installer/Gérer les extensions), activer les extensions expérimentales et rechercher le plugin _IDG_
-- Installation depuis le fichier zip : télécharger depuis la derniere [release](https://github.com/geo2france/idg-qgis-plugin/releases) depuis le dépot github.
+- Installation depuis le dépot QGIS : dans le gestionnaire d'extensions (Extensions > Installer/Gérer les extensions), activer les extensions expérimentales et rechercher le plugin _IDG_
+- Installation depuis le fichier zip : télécharger depuis la dernière [release](https://github.com/geo2france/idg-qgis-plugin/releases) depuis le dépot github.
 
 ## Utilisation
 
@@ -33,7 +33,7 @@ Créer un nouveau projet et y ajouter les couches que vous souhaitez diffuser.
 
 Il est recommandé d'[organiser les couches en groupes et sous-groupes](https://docs.qgis.org/3.22/fr/docs/user_manual/introduction/general_tools.html#group-layers-interact).
 
-Dans les propriétés du projets, remplir les champs suivants :
+Dans les propriétés du projet, remplir les champs suivants :
 
 - **Métadonnées > Identification > Titre** : Le nom de la plateforme qui sera visible par l'utilisateur (ex : Geo2France)
 - **Métadonnées > Identification > Résumé** : Facultatif, une brève présentation qui sera visible au survol
@@ -42,11 +42,11 @@ Dans les propriétés du projets, remplir les champs suivants :
 
 Pour chaque couche, vous pouvez définir :
 
-- **Métadonnées > Identification > Titre & Réumé** Un titre et un résumé
-- **Métadonnées > Identification > Liens** créer un lien nommé "Metadata" vers la fiche de métadonnées
+- **Métadonnées > Identification > Titre & Réumé** : Un titre et un résumé
+- **Métadonnées > Identification > Liens** : Créer un lien nommé "Metadata" vers la fiche de métadonnées
 - Une symbologie (style, étiquettes, formulaires, etc.)
 
-Enregistrez le fichier projet (qgs ou qgz) et **déposez le sur un un serveur web** accessible depuis l'exterieur (serveur HTTP, Github, cloud, etc.).
+Enregistrez le fichier projet (qgs ou qgz) et **déposez le sur un serveur web** accessible depuis l'extérieur (serveur HTTP, Github, cloud, etc.).
 
 Pour proposer l'ajout d'une plateforme dans le plugin : **éditez le fichier [default_idg.json](plugin/idg/config/default_idg.json)**
 et faites une _pull request_.

@@ -24,7 +24,7 @@ qgisMinimumVersion=3.00
 qgisMaximumVersion=3.99
 
 # versioning
-version=0.2.5
+version=0.2.6
 changelog= - Ajout d'un paramètre pour activer/désactiver le téléchargement du fichier de configuration au lancement (par défaut True) (config_files_download_at_startup)
            - Ajout d'un bouton pour forcer le rechargement des fichiers distants
            - Retrait des éléments non fonctionnels du panneau de configuration (plateformes custom)
