@@ -68,10 +68,10 @@ Pour ajouter une couche de données présente dans cette arborescence à la cart
 - Doublecliquer sur la couche de données dans l'_Explorateur_ de QGIS
 - Faire un clic droit sur la couche de données et sélectionner l'entrée _Ajouter la couche à la carte_ du menu contextuel
 
-Une fois que vous avez ajouté une couche à votre projet QGIS, vous êtes libre d'y apporter les personnalisations dont vous avez besoin, que ce soit en matière de filtre et d'apparence.
+Une fois que vous avez ajouté une couche à votre projet QGIS, vous êtes libre d'y apporter les personnalisations dont vous avez besoin, qu'il s'agisse des filtres appliqués aux données ou de leurs styles.
 
 > [!NOTE]
-> Ces couches de données sont des ressources en lignes. Lorsque vous ajoutez une couche à votre carte, QGIS fait une copie de sa définition dans votre projet QGIS ; il ne réalise pas une copie des données. Intégrer une de ces couches dans votre projet n'en fait des données gérées en local. Vous n'avez donc, en général, pas la possibilité d'en modifier le contenu.
+> Ces couches de données sont des ressources en lignes. Lorsque vous ajoutez une couche à votre carte, QGIS fait une copie de sa définition dans votre projet QGIS ; il ne réalise pas une copie des données. Intégrer une de ces couches dans votre projet n'en fait des données gérées en local. En général, vous n'avez donc pas la possibilité d'en modifier le contenu.
 
 > [!NOTE]
 > Une fois que cette copie est réalisée, une modification ultérieure de la définition de la couche par la plateforme ne sera pas répercutée sur votre projet. Par exemple :
@@ -84,7 +84,7 @@ Il est donc possible que, en raison de modifications opérées par les administr
 
 #### Accéder aux métadonnées d'une couche de données
 
-Pour accéder aux métadonnées d'une couche depuis l'_Explorateur de QGIS :
+Pour accéder aux métadonnées d'une couche depuis l'_Explorateur_ de QGIS :
 
 - faites un clic droit sur la couche de données
 - sélectionnez _Afficher les métadonnées..._ dans le menu contextuel
@@ -102,7 +102,7 @@ Depuis les paramètres du plugin, vous avez la possibilité d'afficher/masquer l
 > [!NOTE]
 > **Temps de chargement d'une plateforme**
 >
-> Le temps de chargement/mise à jour de l'entrée _IDG_ dans l'_Explorateur_ est conséquent (cela peut aller jusqu'à plusieurs dizaines de secondes) car la description des données de chaque plateforme est constituée d'un projet QGIS potentiellement très volumineux dont le contenu doit être contrôlé par QGIS. Lors de l'activation ou la désactivation d'une plateforme, vous devriez faire l'expérience de ce temps de chargement long. Une fois que ces fichiers sont chargés par QGIS l'exploitation du plugin est fluide.
+> Le chargement/mise à jour de l'entrée _IDG_ dans l'_Explorateur_ peut être très long (cela peut aller jusqu'à plusieurs dizaines de secondes) car la description des données de chaque plateforme est constituée d'un projet QGIS potentiellement très volumineux dont le contenu doit être contrôlé par QGIS. Lors de l'activation ou la désactivation d'une plateforme, vous devriez faire l'expérience de ce temps de chargement long. Une fois que ces fichiers sont chargés par QGIS l'exploitation du plugin est fluide.
 >
 > Nous vous recommandons donc :
 >
