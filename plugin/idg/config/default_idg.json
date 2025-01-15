@@ -1,8 +1,26 @@
-{
-  "DataGrandEst": "https://www.datagrandest.fr/tools/plugin-qgis-datagrandest/config-plugin-idg-datagrandest.qgz",
-  "Géo2France": "https://raw.githubusercontent.com/geo2france/idg-qgis-plugin-g2f/main/geo2france.qgz",
-  "GéoBretagne": "https://raw.githubusercontent.com/geobretagne/idg-plugin/refs/heads/main/config-idg-geobretagne.qgz",
-  "GéoPaysdeBrest": "https://echanges.brest-metropole.fr/VIPDU72/GeoPaysdeBrest/PluginQGIS/GeoPaysdeBrest.qgs",
-  "Géoplateforme": "https://raw.githubusercontent.com/Geoplateforme/plugin_idg_gpf/master/projet_idg_gpf.qgz",
-  "OPenIG": "https://raw.githubusercontent.com/openig/Plugin-QGIS3-OPenIG/master/OPenIG_qgis_plugin.qgs"
-}
+[
+    {
+        "name":"DataGrandEst",
+        "url":"https://www.datagrandest.fr/tools/plugin-qgis-datagrandest/config-plugin-idg-datagrandest.qgz"
+    },
+    {
+        "name":"Géo2France",
+        "url":"https://raw.githubusercontent.com/geo2france/idg-qgis-plugin-g2f/main/geo2france.qgz"
+    },
+    {
+        "name":"GéoBretagne",
+        "url":"https://raw.githubusercontent.com/geobretagne/idg-plugin/refs/heads/main/config-idg-geobretagne.qgz"
+    },
+    {
+        "name":"GéoPaysdeBrest",
+        "url":"https://echanges.brest-metropole.fr/VIPDU72/GeoPaysdeBrest/PluginQGIS/GeoPaysdeBrest.qgs"
+    },
+    {
+        "name":"Géoplateforme",
+        "url":"https://raw.githubusercontent.com/Geoplateforme/plugin_idg_gpf/master/projet_idg_gpf.qgz"
+    },
+    {
+        "name":"OPenIG",
+        "url":"https://raw.githubusercontent.com/openig/Plugin-QGIS3-OPenIG/master/OPenIG_qgis_plugin.qgs"
+    }
+]
