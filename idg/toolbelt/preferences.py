@@ -34,7 +34,7 @@ class PlgSettingsStructure:
     hidden_idgs: str = ""
     config_file_url: str = (
         "https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/"
-        "dev/plugin/idg/config/default_idg.json"
+        "dev/idg/config/default_idg.json"
     )
 
 
