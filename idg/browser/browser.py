@@ -106,7 +106,7 @@ class RootCollection(QgsDataCollectionItem):
         children = []
         for pfc in [
             PlatformCollection(plateform=pf, parent=self)
-            for pf in RemotePlatforms().plateforms
+            for pf in RemotePlatforms(read_projects=False).plateforms
             if not pf.is_hidden()
         ]:
             children.append(pfc)
@@ -115,6 +115,8 @@ class RootCollection(QgsDataCollectionItem):
 
 class PlatformCollection(QgsDataCollectionItem):
     def __init__(self, plateform, parent):
+        if plateform.project is None :
+            plateform.read_project()
         self.url = plateform.url
         self.path = "/IDG/" + plateform.idg_id.lower()
         self.parent = parent
