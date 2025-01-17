@@ -5,12 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - unreleased / work in progress
+## [0.3.0] - 2025-01-17
 
 ### Changed
 
 - Mise à jour de la plateforme GéoBretagne
 - Réorganisation de l'arborescence des fichiers téléchargés par le plugin
+- Changement de la structure du fichier de l'index des plateforme (default_idg.json)
 - Meilleure intégration à QGIS en utilisant QgsTask et QgsTaskManager
 - Amélioration des performances de chargement des fichiers projet des plateformes
 
