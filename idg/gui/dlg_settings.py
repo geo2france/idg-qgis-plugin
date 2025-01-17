@@ -128,8 +128,8 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
             self.vbox.itemAt(i).widget().setParent(None)
 
         # Create checkboxes
-        for pf_name in RemotePlatforms(read_projects=False).stock_idgs.keys():
-            cb = QtWidgets.QCheckBox(pf_name)
+        for pf in RemotePlatforms(read_projects=False).plateforms:
+            cb = QtWidgets.QCheckBox(pf.idg_id)
             self.vbox.addWidget(cb)
             self.checkboxes.append(cb)
 
