@@ -1,11 +1,14 @@
 import json
 import os.path
 
-from qgis.core import QgsProject
+from qgis.core import QgsProject, Qgis
 from qgis.PyQt.QtGui import QIcon
 
-from idg.toolbelt import PlgOptionsManager
+from idg.toolbelt import PlgOptionsManager, PlgLogger
+
 from idg.plugin_globals import PluginGlobals
+
+log = PlgLogger().log
 
 
 class RemotePlatforms:
@@ -22,9 +25,13 @@ class RemotePlatforms:
         self.custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(",")
         self.custom_idg.remove("")
         for e in self.stock_idgs:
-            self.plateforms.append(
-                Plateform(url=e['url'], idg_id=e['name'], read_project=read_projects)
-            )
+            try :
+                self.plateforms.append(
+                    Plateform(url=e['url'], idg_id=e['name'], read_project=read_projects)
+                )
+            except TypeError:
+                log(f'Error reading default_idj.json, please reload all remote files', log_level=Qgis.Warning, push=False)
+                # Probably use old style default_idg.json structure
 
     def url_all(self):
         return self.url_stock() + self.url_custom()
