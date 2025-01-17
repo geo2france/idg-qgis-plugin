@@ -21,9 +21,9 @@ class RemotePlatforms:
 
         self.custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(",")
         self.custom_idg.remove("")
-        for k, v in self.stock_idgs.items():
+        for e in self.stock_idgs:
             self.plateforms.append(
-                Plateform(url=v, idg_id=k, read_project=read_projects)
+                Plateform(url=e['url'], idg_id=e['name'], read_project=read_projects)
             )
 
     def url_all(self):
