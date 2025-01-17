@@ -1,11 +1,6 @@
 __pycache__/
 
-# Project specific files
-plugin/idg/config/*.png
-plugin/idg/config/*.jpg
-plugin/idg/config/*.jpeg
-plugin/idg/config/*.qgz
-plugin/idg/config/*.qgs
-
+# Remote file (index + projects)
+plugin/idg/remote
 # PyCharm
 .idea/

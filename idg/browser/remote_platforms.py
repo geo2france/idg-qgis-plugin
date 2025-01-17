@@ -1,24 +1,37 @@
 import json
 import os.path
 
-from qgis.core import QgsProject
+from qgis.core import QgsProject, Qgis
 from qgis.PyQt.QtGui import QIcon
 
-from idg.toolbelt import PlgOptionsManager
+from idg.toolbelt import PlgOptionsManager, PlgLogger
+
 from idg.plugin_globals import PluginGlobals
+
+log = PlgLogger().log
 
 
 class RemotePlatforms:
     def __init__(self, read_projects=True):
         self.plateforms = []
-        with open(PluginGlobals.CONFIG_FILE_PATH) as f:
-            self.stock_idgs = json.load(f)
+
+        try:
+            with open(PluginGlobals.REMOTE_DIR_PATH / PluginGlobals.DEFAULT_CONFIG_FILE_NAME) as f: # Ouvrir le fichier dans remote s'il existe et > à 0 octets
+                self.stock_idgs = json.load(f)
+        except  (json.JSONDecodeError, FileNotFoundError ): # Fichier remote non trouvé
+            with open(PluginGlobals.CONFIG_FILE_PATH) as f:
+                self.stock_idgs = json.load(f)
+
         self.custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(",")
         self.custom_idg.remove("")
-        for k, v in self.stock_idgs.items():
-            self.plateforms.append(
-                Plateform(url=v, idg_id=k, read_project=read_projects)
-            )
+        for e in self.stock_idgs:
+            try :
+                self.plateforms.append(
+                    Plateform(url=e['url'], idg_id=e['name'], read_project=read_projects)
+                )
+            except TypeError:
+                log(f'Error reading default_idj.json, please reload all remote files', log_level=Qgis.Warning, push=False)
+                # Probably use old style default_idg.json structure
 
     def url_all(self):
         return self.url_stock() + self.url_custom()
@@ -59,7 +72,7 @@ class Plateform:
     def qgis_project_filepath(self):
         suffix = os.path.splitext(os.path.basename(self.url))[-1]  # .qgs ou .qgz
         local_file_name = self.idg_id + suffix
-        local_file_path = PluginGlobals.CONFIG_DIR_PATH / local_file_name
+        local_file_path = PluginGlobals.REMOTE_DIR_PATH / self.idg_id / local_file_name
         return local_file_path
 
     def is_custom(self):
@@ -94,7 +107,7 @@ class Plateform:
                 icon_suffix = os.path.splitext(os.path.basename(link.url))[-1]
                 icon_file_name = str(self.idg_id) + icon_suffix
                 return QIcon(
-                    str(PluginGlobals.CONFIG_DIR_PATH / icon_file_name)
+                    str(PluginGlobals.REMOTE_DIR_PATH / self.idg_id / icon_file_name)
                 )
         return None
 
