@@ -5,7 +5,8 @@ Plugin settings.
 """
 
 # standard
-from dataclasses import asdict, dataclass, fields
+from dataclasses import asdict, dataclass, fields, field, MISSING
+from typing import List
 
 # PyQGIS
 from qgis.core import QgsSettings
@@ -30,8 +31,8 @@ class PlgSettingsStructure:
     version: str = __version__
     configs_folder: str = ""
     download_files_at_startup: bool = True
-    custom_idgs: str = ""
-    hidden_idgs: str = ""
+    custom_idgs: List[str] = field(default_factory=lambda:[])
+    hidden_idgs: List[str] = field(default_factory=lambda:[])
     config_file_url: str = (
         "https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/"
         "dev/idg/config/default_idg.json"
@@ -48,7 +49,7 @@ class PlgOptionsManager:
         :rtype: PlgSettingsStructure
         """
         # get dataclass fields definition
-        settings_fields = fields(PlgSettingsStructure)
+        settings_fields = fields(PlgSettingsStructure())
 
         # retrieve settings from QGIS/Qt
         settings = QgsSettings()
@@ -57,9 +58,18 @@ class PlgOptionsManager:
         # map settings values to preferences object
         li_settings_values = []
         for i in settings_fields:
-            li_settings_values.append(
-                settings.value(key=i.name, defaultValue=i.default, type=i.type)
-            )
+            print(i.name)
+            try:
+                li_settings_values.append(
+                    settings.value(key=i.name, defaultValue=i.default, type=i.type)
+                )
+            except TypeError:
+                defaultValue = (
+                    i.default_factory() if i.default is MISSING else i.default
+                )
+                li_settings_values.append(
+                    settings.value(key=i.name, defaultValue=defaultValue)
+                )
 
         # instanciate new settings object
         options = PlgSettingsStructure(*li_settings_values)
@@ -77,7 +87,7 @@ class PlgOptionsManager:
 
         :return: plugin settings value matching key
         """
-        if not hasattr(PlgSettingsStructure, key):
+        if not hasattr(PlgSettingsStructure(), key):
             idg.toolbelt.log_handler.PlgLogger.log(
                 message="Bad settings key. Must be one of: {}".format(
                     ",".join(PlgSettingsStructure._fields)  # A fixer
@@ -114,7 +124,7 @@ class PlgOptionsManager:
         :return: operation status
         :rtype: bool
         """
-        if not hasattr(PlgSettingsStructure, key):
+        if not hasattr(PlgSettingsStructure(), key):
             idg.toolbelt.log_handler.PlgLogger.log(
                 message="Bad settings key. Must be one of: {}".format(
                     ",".join(PlgSettingsStructure._fields)

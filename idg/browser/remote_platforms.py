@@ -22,8 +22,7 @@ class RemotePlatforms:
             with open(PluginGlobals.CONFIG_FILE_PATH) as f:
                 self.stock_idgs = json.load(f)
 
-        self.custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(",")
-        self.custom_idg.remove("")
+        self.custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs
         for e in self.stock_idgs:
             try :
                 self.plateforms.append(
@@ -42,7 +41,7 @@ class RemotePlatforms:
     def url_stock(self):
         out = []
         for k, v in self.stock_idgs.items():
-            if k not in PlgOptionsManager().get_plg_settings().hidden_idgs.split(","):
+            if k not in PlgOptionsManager().get_plg_settings().hidden_idgs:
                 out.append(v)
         print(out)
         return out
@@ -80,7 +79,7 @@ class Plateform:
         pass
 
     def is_hidden(self):
-        if self.idg_id in PlgOptionsManager().get_plg_settings().hidden_idgs.split(","):
+        if self.idg_id in PlgOptionsManager().get_plg_settings().hidden_idgs:
             return True
         return False
 
@@ -94,10 +93,10 @@ class Plateform:
 
     def hide(self):
         settings = PlgOptionsManager().get_plg_settings()
-        hidden_pf = settings.hidden_idgs.split(",")
+        hidden_pf = settings.hidden_idgs
         if self.idg_id not in hidden_pf:
             hidden_pf.append(self.idg_id)
-        settings.hidden_idgs = ",".join(hidden_pf)
+        settings.hidden_idgs = hidden_pf
         PlgOptionsManager().save_from_object(settings)
 
     @property
