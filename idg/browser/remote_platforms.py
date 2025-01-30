@@ -29,7 +29,7 @@ class RemotePlatforms:
                     Plateform(url=e['url'], idg_id=e['name'], read_project=read_projects)
                 )
             except TypeError:
-                log(f'Error reading default_idj.json, please reload all remote files', log_level=Qgis.Warning, push=False)
+                log('Error reading default_idj.json, please reload all remote files', log_level=Qgis.Warning, push=False)
                 # Probably use old style default_idg.json structure
 
     def url_all(self):
