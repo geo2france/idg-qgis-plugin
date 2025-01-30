@@ -120,7 +120,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # load previously saved settings
         self.load_settings()
 
-    def _update_default_idgs_list(self):
+    def _update_stock_idgs_list(self):
         self.checkboxes = []
 
         # Clear content of layout
@@ -172,14 +172,14 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.settings_updated()
 
     def plugin_config_file_reloaded(self):
-        self._update_default_idgs_list()
+        self._update_stock_idgs_list()
 
     def load_settings(self):
         """Load options from QgsSettings into UI form."""
         settings = self.plg_settings.get_plg_settings()
 
         # Default IDG list
-        self._update_default_idgs_list()
+        self._update_stock_idgs_list()
 
         # Custom IDG list
         self.tbl_platforms_list.setRowCount(len(settings.custom_idgs) + 1)
