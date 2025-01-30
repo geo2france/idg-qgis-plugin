@@ -43,7 +43,6 @@ class RemotePlatforms:
         for k, v in self.stock_idgs.items():
             if k not in PlgOptionsManager().get_plg_settings().hidden_idgs:
                 out.append(v)
-        print(out)
         return out
 
 

@@ -155,7 +155,6 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # Default IDG list
         hidden_idgs_arr = []
         for cb in self.checkboxes:
-            print(cb.text(), cb.checkState())
             if cb.checkState() == 0:
                 hidden_idgs_arr.append(cb.text())
                 # Add to hidden PF

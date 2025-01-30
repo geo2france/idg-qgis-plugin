@@ -58,7 +58,6 @@ class PlgOptionsManager:
         # map settings values to preferences object
         li_settings_values = []
         for i in settings_fields:
-            print(i.name)
             try:
                 li_settings_values.append(
                     settings.value(key=i.name, defaultValue=i.default, type=i.type)
