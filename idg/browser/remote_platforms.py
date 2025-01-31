@@ -95,10 +95,12 @@ class Plateform:
 
     def hide(self):
         settings = PlgOptionsManager().get_plg_settings()
-        hidden_pfs = settings.hidden_idgs
-        if self.idg_id not in hidden_pfs:
-            hidden_pfs.append(self.idg_id)
-        settings.hidden_idgs = hidden_pfs
+
+        hidden_igs = settings.hidden_idgs
+        if self.idg_id not in hidden_igs:
+            hidden_igs.append(self.idg_id)
+        settings.hidden_idgs = hidden_igs
+
         PlgOptionsManager().save_from_object(settings)
 
     @property
