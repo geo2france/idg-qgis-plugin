@@ -31,8 +31,8 @@ class PlgSettingsStructure:
     version: str = __version__
     configs_folder: str = ""
     download_files_at_startup: bool = True
-    custom_idgs: List[str] = field(default_factory=lambda:[])
-    hidden_idgs: List[str] = field(default_factory=lambda:[])
+    custom_idgs: List[str] = field(default_factory=lambda: [])
+    hidden_idgs: List[str] = field(default_factory=lambda: ["Géoplateforme"])
     config_file_url: str = (
         "https://raw.githubusercontent.com/geo2france/idg-qgis-plugin/"
         "dev/idg/config/default_idg.json"
@@ -56,24 +56,39 @@ class PlgOptionsManager:
         settings.beginGroup(__title__)
 
         # map settings values to preferences object
-        li_settings_values = []
+        settings_values = {}
         for i in settings_fields:
+            value = None
+
             try:
-                li_settings_values.append(
-                    settings.value(key=i.name, defaultValue=i.default, type=i.type)
-                )
-            except TypeError:
-                defaultValue = (
+                default_value = (
                     i.default_factory() if i.default is MISSING else i.default
                 )
-                li_settings_values.append(
-                    settings.value(key=i.name, defaultValue=defaultValue)
+                value = settings.value(
+                    key=i.name, defaultValue=default_value, type=i.type
                 )
+            except TypeError:
+                value = settings.value(key=i.name, defaultValue=default_value)
+
+                # Fallback to default value
+                # when the settings value does not seem to fit the settings field.
+                # This can happen when the settings data model has been changed between
+                # two versions of the plugin.
+                if value is None:
+                    value = default_value
+                elif isinstance(default_value, List) and not isinstance(value, List):
+                    value = default_value
+
+            settings_values[i.name] = value
 
         # instanciate new settings object
-        options = PlgSettingsStructure(*li_settings_values)
+        options = PlgSettingsStructure(**settings_values)
 
         settings.endGroup()
+
+        # If the plugin version has changed, save the new settings
+        if options.version != __version__:
+            PlgOptionsManager().save_from_object(options)
 
         return options
 
@@ -160,7 +175,10 @@ class PlgOptionsManager:
         settings = QgsSettings()
         settings.beginGroup(__title__)
 
-        for k, v in asdict(plugin_settings_obj).items():
+        new_settings_as_dict = asdict(plugin_settings_obj)
+        new_settings_as_dict["version"] = __version__
+        
+        for k, v in new_settings_as_dict.items():
             cls.set_value_from_key(k, v)
 
         settings.endGroup()
