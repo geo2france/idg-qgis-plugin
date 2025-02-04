@@ -175,7 +175,6 @@ class IdgPlugin:
 
         self.log(self.tr("Reloading all remote files..."), log_level=Qgis.Info, push=True)
 
-
         active_platforms = self._get_active_remote_plateforms()
 
         settings = PlgOptionsManager().get_plg_settings()
@@ -187,8 +186,11 @@ class IdgPlugin:
 
         self.task1 = DownloadDefaultIdgListAsync(url=config_file_url)
         self.task2 = DownloadAllIdgFilesAsync(active_platforms)
+        self.task1.taskTerminated.connect(lambda: self.log(self.tr("Cannot download plateforms index"), log_level=Qgis.Warning, push=True))
+
         self.taskManager.addTask(self.task1)
         self.taskManager.addTask(self.task2)
+
 
         def all_finished():
             self.log(self.tr('All tasks finished'), log_level=Qgis.Success, push=True)

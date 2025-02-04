@@ -2,7 +2,8 @@
 import shutil
 from pathlib import Path
 
-from qgis.core import QgsProject, Qgis, QgsTask, QgsMessageLog
+from PyQt5.QtCore import QUrl, QEventLoop
+from qgis.core import QgsProject, Qgis, QgsTask, QgsMessageLog, QgsFileDownloader
 from qgis.PyQt.QtCore import QThread, pyqtSignal
 from idg.toolbelt import PlgLogger
 from idg.plugin_globals import PluginGlobals
@@ -16,18 +17,43 @@ class DownloadDefaultIdgListAsync(QgsTask):
         self.url = url
         self.setDescription(self.tr("Plugin IDG : Download platforms index"))
         self.log = PlgLogger().log
+        self.downloader = QgsFileDownloader(QUrl(self.url),
+                                            str(PluginGlobals.REMOTE_DIR_PATH / PluginGlobals.DEFAULT_CONFIG_FILE_NAME),
+                                            delayStart=True)
 
     def finished(self, result):
         self.log(self.tr(f'Platforms index download completed'), log_level=Qgis.Info)
 
+    def cancel(self):
+        self.downloader.cancelDownload()
+        super().cancel()
     def run(self):
-        qntwk = NetworkRequestsManager()
-        qntwk.download_file(
-            self.url,
-            str(PluginGlobals.REMOTE_DIR_PATH / PluginGlobals.DEFAULT_CONFIG_FILE_NAME),
-        )
-        self.setProgress(100)
-        return True
+        is_completed: bool = None
+        loop = QEventLoop()
+
+        def on_completed():
+            nonlocal is_completed
+            is_completed = True
+            self.setProgress(100)
+
+        def on_error():
+            nonlocal is_completed
+            is_completed = False
+
+        def on_progress(received, total):
+            try :
+                self.setProgress((received/total)*100)
+            except ZeroDivisionError:
+                pass
+
+        self.downloader.downloadError.connect(on_error)
+        self.downloader.downloadCompleted.connect(on_completed)
+        self.downloader.downloadProgress.connect(on_progress)
+        self.downloader.downloadExited.connect(lambda : loop.quit())
+        self.downloader.startDownload()
+        loop.exec()
+
+        return is_completed
 
 
 class DownloadAllIdgFilesAsync(QgsTask):
