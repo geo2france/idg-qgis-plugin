@@ -1,5 +1,7 @@
 import json
 import os.path
+from pathlib import Path
+from urllib.parse import urlparse
 
 from qgis.core import QgsProject, Qgis
 from qgis.PyQt.QtGui import QIcon
@@ -72,9 +74,9 @@ class Plateform:
         return p
 
     def qgis_project_filepath(self):
-        suffix = os.path.splitext(os.path.basename(self.url))[-1]  # .qgs ou .qgz
-        local_file_name = self.idg_id + suffix
-        local_file_path = PluginGlobals.REMOTE_DIR_PATH / self.idg_id / local_file_name
+        project_file_name = Path(urlparse(self.url).path).name
+        local_file_path = PluginGlobals.REMOTE_DIR_PATH / self.idg_id / project_file_name
+        print(local_file_path)
         return local_file_path
 
     def is_custom(self):

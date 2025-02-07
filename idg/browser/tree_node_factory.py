@@ -7,53 +7,21 @@ from qgis.core import QgsProject, Qgis, QgsTask, QgsMessageLog, QgsFileDownloade
 from qgis.PyQt.QtCore import QThread, pyqtSignal
 from idg.toolbelt import PlgLogger
 from idg.plugin_globals import PluginGlobals
-from idg.browser.network_manager import NetworkRequestsManager
+from idg.browser.network_manager import NetworkRequestsManager, QgsTaskDownloadFile
 
 
-class DownloadDefaultIdgListAsync(QgsTask):
+class DownloadDefaultIdgListAsync(QgsTaskDownloadFile):
 
     def __init__(self, url: str):
-        super(QgsTask, self).__init__()
-        self.url = url
+        super().__init__(url, local_path=PluginGlobals.REMOTE_DIR_PATH / PluginGlobals.DEFAULT_CONFIG_FILE_NAME)
         self.setDescription(self.tr("Plugin IDG : Download platforms index"))
         self.log = PlgLogger().log
-        self.downloader = QgsFileDownloader(QUrl(self.url),
-                                            str(PluginGlobals.REMOTE_DIR_PATH / PluginGlobals.DEFAULT_CONFIG_FILE_NAME),
-                                            delayStart=True)
 
     def finished(self, result):
         self.log(self.tr(f'Platforms index download completed'), log_level=Qgis.Info)
 
-    def cancel(self):
-        self.downloader.cancelDownload()
-        super().cancel()
-    def run(self):
-        is_completed: bool = None
-        loop = QEventLoop()
 
-        def on_completed():
-            nonlocal is_completed
-            is_completed = True
-            self.setProgress(100)
 
-        def on_error():
-            nonlocal is_completed
-            is_completed = False
-
-        def on_progress(received, total):
-            try :
-                self.setProgress((received/total)*100)
-            except ZeroDivisionError:
-                pass
-
-        self.downloader.downloadError.connect(on_error)
-        self.downloader.downloadCompleted.connect(on_completed)
-        self.downloader.downloadProgress.connect(on_progress)
-        self.downloader.downloadExited.connect(lambda : loop.quit())
-        self.downloader.startDownload()
-        loop.exec()
-
-        return is_completed
 
 
 class DownloadAllIdgFilesAsync(QgsTask):
@@ -70,7 +38,17 @@ class DownloadAllIdgFilesAsync(QgsTask):
     def run(self):
         qntwk = NetworkRequestsManager()
         nb_items = len(self.idgs.items())
-        for iteration,(idg_id, url) in enumerate(self.idgs.items(), start=1): # Une subtask serait pertinente ?
+        subtask_list=[]
+        for iteration,(idg_id, url) in enumerate(self.idgs.items(), start=1):
+            # Clean and create dest folder
+            local_file_path = PluginGlobals.REMOTE_DIR_PATH / idg_id
+            print(url)
+            subtask_list.append(QgsTaskDownloadFile(url, str(local_file_path), empty_local_path=False ))
+
+        for t in subtask_list:
+            self.addSubTask(t)
+
+        """for iteration,(idg_id, url) in enumerate(self.idgs.items(), start=1): # Une subtask serait pertinente ?
             if self.isCanceled():
                 return False
             # continue si l'IDG est masquée
@@ -104,5 +82,5 @@ class DownloadAllIdgFilesAsync(QgsTask):
                 self.log(self.tr(f'{idg_id} OK'), log_level=Qgis.Info, push=False)
             self.setProgress((iteration / nb_items) * 100)
 
-        self.setProgress(100)
+        self.setProgress(100)"""
         return True

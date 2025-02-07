@@ -3,9 +3,13 @@
 """
 Main plugin module.
 """
+import os.path
+from pathlib import Path
+from urllib.parse import urlparse
 
+from idg.browser.network_manager import QgsTaskDownloadFile
 # PyQGIS
-from qgis.core import QgsApplication, Qgis, QgsMessageLog
+from qgis.core import QgsApplication, Qgis, QgsMessageLog, QgsTask
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QIcon
@@ -23,7 +27,6 @@ from idg.gui.actions import PluginActions
 from idg.browser.remote_platforms import RemotePlatforms
 from idg.browser.browser import IdgProvider
 from idg.browser.tree_node_factory import (
-    DownloadAllIdgFilesAsync,
     DownloadDefaultIdgListAsync,
 )
 
@@ -185,11 +188,15 @@ class IdgPlugin:
         self.taskManager = QgsApplication.taskManager()
 
         self.task1 = DownloadDefaultIdgListAsync(url=config_file_url)
-        self.task2 = DownloadAllIdgFilesAsync(active_platforms)
         self.task1.taskTerminated.connect(lambda: self.log(self.tr("Cannot download plateforms index"), log_level=Qgis.Warning, push=True))
-
         self.taskManager.addTask(self.task1)
-        self.taskManager.addTask(self.task2)
+
+        for idg_id, url in active_platforms.items():
+            project_file_name = Path(urlparse(url).path).name
+            local_file_path = PluginGlobals.REMOTE_DIR_PATH / idg_id / project_file_name
+            self.taskManager.addTask(
+                QgsTaskDownloadFile(url, local_file_path, empty_local_path=True )
+            )
 
 
         def all_finished():
