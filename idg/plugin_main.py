@@ -24,10 +24,10 @@ from idg.toolbelt import PlgLogger, PlgTranslator
 from idg.toolbelt import PlgOptionsManager
 from idg.plugin_globals import PluginGlobals
 from idg.gui.actions import PluginActions
-from idg.browser.remote_platforms import RemotePlatforms
+from idg.browser.remote_platforms import RemotePlatforms, Plateform
 from idg.browser.browser import IdgProvider
 from idg.browser.tree_node_factory import (
-    DownloadDefaultIdgListAsync,
+    DownloadDefaultIdgListAsync, DownloadIcon,
 )
 
 
@@ -187,16 +187,26 @@ class IdgPlugin:
             end_slot = self.refresh_data_provider
         self.taskManager = QgsApplication.taskManager()
 
-        self.task1 = DownloadDefaultIdgListAsync(url=config_file_url)
+        self.task1 = DownloadDefaultIdgListAsync(url=config_file_url) # Tâche pour télécharger default_idg.json
         self.task1.taskTerminated.connect(lambda: self.log(self.tr("Cannot download plateforms index"), log_level=Qgis.Warning, push=True))
         self.taskManager.addTask(self.task1)
 
-        for idg_id, url in active_platforms.items():
+        for idg_id, url in active_platforms.items(): # Probleme avec plusieurs elements dans la boucle
             project_file_name = Path(urlparse(url).path).name
             local_file_path = PluginGlobals.REMOTE_DIR_PATH / idg_id / project_file_name
+            self.platform = Plateform(url=url, idg_id=idg_id, read_project=False)
+            self.task_dl_project = QgsTaskDownloadFile(url, local_file_path, empty_local_path=True )
+            self.task_dl_project.setDescription(f"DL {idg_id}")
+            self.task_dl_icon = DownloadIcon(self.platform)
+            self.task_dl_icon.setDescription(f"DL {idg_id} icon")
+
+            # Téléchargement du fichier projet <idg>.qgz, PUIS de l'icon
+            self.task_dl_icon.addSubTask(self.task_dl_project, [], QgsTask.ParentDependsOnSubTask)
+
             self.taskManager.addTask(
-                QgsTaskDownloadFile(url, local_file_path, empty_local_path=True )
+                self.task_dl_icon
             )
+
 
 
         def all_finished():

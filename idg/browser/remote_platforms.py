@@ -115,5 +115,11 @@ class Plateform:
                 )
         return None
 
+    @property
+    def icon_url(self): # Quel comportement si le project est None ? (actuellement lève un AttributeError)
+        for link in self.project.metadata().links():
+            if link.name.lower().strip() == "icon":
+                return link.url
+
     def download(self):
         pass
