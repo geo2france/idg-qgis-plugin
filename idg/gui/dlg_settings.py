@@ -120,7 +120,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         # load previously saved settings
         self.load_settings()
 
-    def _update_default_idgs_list(self):
+    def _update_stock_idgs_list(self):
         self.checkboxes = []
 
         # Clear content of layout
@@ -135,7 +135,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
 
         # Set values to checkboxes
         settings = self.plg_settings.get_plg_settings()
-        hidden_idg = settings.hidden_idgs.split(",")
+        hidden_idg = settings.hidden_idgs
         for cb in self.checkboxes:
             if cb.text() in hidden_idg:
                 cb.setChecked(False)
@@ -150,17 +150,15 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
 
         # Misc
         settings.version = __version__
-        settings.custom_idgs = ",".join(tablewidgetToList(self.tbl_platforms_list, 0))
+        settings.custom_idgs = tablewidgetToList(self.tbl_platforms_list, 0)
 
         # Default IDG list
-        hidden__idgs_arr = []
+        hidden_idgs_arr = []
         for cb in self.checkboxes:
-            print(cb.text(), cb.checkState())
             if cb.checkState() == 0:
-                hidden__idgs_arr.append(cb.text())
+                hidden_idgs_arr.append(cb.text())
                 # Add to hidden PF
-        settings.hidden_idgs = ",".join(hidden__idgs_arr)
-
+        settings.hidden_idgs = hidden_idgs_arr
         # Dump new settings into QgsSettings
         self.plg_settings.save_from_object(settings)
 
@@ -174,19 +172,19 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.settings_updated()
 
     def plugin_config_file_reloaded(self):
-        self._update_default_idgs_list()
+        self._update_stock_idgs_list()
 
     def load_settings(self):
         """Load options from QgsSettings into UI form."""
         settings = self.plg_settings.get_plg_settings()
 
         # Default IDG list
-        self._update_default_idgs_list()
+        self._update_stock_idgs_list()
 
         # Custom IDG list
-        self.tbl_platforms_list.setRowCount(len(settings.custom_idgs.split(",")) + 1)
+        self.tbl_platforms_list.setRowCount(len(settings.custom_idgs) + 1)
         listToTablewidget(
-            settings.custom_idgs.split(","), self.tbl_platforms_list, column_index=0
+            settings.custom_idgs, self.tbl_platforms_list, column_index=0
         )
 
         # Version of the plugin used to save the settings
