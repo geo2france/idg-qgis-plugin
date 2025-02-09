@@ -53,8 +53,9 @@ class Plateform:
     def __init__(self, url, idg_id, read_project=True):
         self.url = url
         self.idg_id = idg_id
+        self.project = None
         if read_project:
-            self.project = self.read_project()
+            self.read_project()
 
     def read_project(self):
         p = QgsProject()
@@ -68,6 +69,7 @@ class Plateform:
             is not True
         ):  # Le flag permet d'éviter que les URL des layers soient interrogées, mais le datasource du layer doit être reset avant usage
             return None
+        self.project = p
         return p
 
     def qgis_project_filepath(self):
