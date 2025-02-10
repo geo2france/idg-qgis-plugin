@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 
 from idg.browser.network_manager import QgsTaskDownloadFile
 # PyQGIS
-from qgis.core import QgsApplication, Qgis, QgsMessageLog, QgsTask
+from qgis.core import QgsApplication, Qgis, QgsTask
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QIcon
@@ -27,7 +27,7 @@ from idg.gui.actions import PluginActions
 from idg.browser.remote_platforms import RemotePlatforms, Plateform
 from idg.browser.browser import IdgProvider
 from idg.browser.tree_node_factory import (
-    DownloadDefaultIdgListAsync, DownloadIcon,
+    DownloadDefaultIdgIndex, DownloadIcon,
 )
 
 
@@ -187,11 +187,11 @@ class IdgPlugin:
             end_slot = self.refresh_data_provider
         self.taskManager = QgsApplication.taskManager()
 
-        self.task1 = DownloadDefaultIdgListAsync(url=config_file_url) # Tâche pour télécharger default_idg.json
-        self.task1.taskTerminated.connect(lambda: self.log(self.tr("Cannot download plateforms index"), log_level=Qgis.Warning, push=True))
-        self.taskManager.addTask(self.task1)
+        self.task_dl_index = DownloadDefaultIdgIndex(url=config_file_url) # Tâche pour télécharger default_idg.json
+        self.task_dl_index.taskTerminated.connect(lambda: self.log(self.tr("Cannot download plateforms index"), log_level=Qgis.Warning, push=True))
+        self.taskManager.addTask(self.task_dl_index)
 
-        for idg_id, url in active_platforms.items(): # Probleme avec plusieurs elements dans la boucle
+        for idg_id, url in active_platforms.items():
             project_file_name = Path(urlparse(url).path).name
             local_file_path = PluginGlobals.REMOTE_DIR_PATH / idg_id / project_file_name
             self.platform = Plateform(url=url, idg_id=idg_id, read_project=False)
@@ -232,10 +232,10 @@ class IdgPlugin:
         if not end_slot:
             end_slot = self.refresh_data_provider
 
-        self.task1 = DownloadDefaultIdgListAsync(url=config_file_url)
-        self.task1.finished.connect(end_slot)
+        self.task_dl_index = DownloadDefaultIdgIndex(url=config_file_url)
+        self.task_dl_index.finished.connect(end_slot)
 
-        self.task1.start()
+        self.task_dl_index.start()
 
     def refresh_data_provider(self):
         if __debug__:

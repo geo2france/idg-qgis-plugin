@@ -3,16 +3,14 @@ import shutil
 from pathlib import Path
 from urllib.parse import urlparse
 
-from PyQt5.QtCore import QUrl, QEventLoop
 from idg.browser.remote_platforms import Plateform
-from qgis.core import QgsProject, Qgis, QgsTask, QgsMessageLog, QgsFileDownloader
-from qgis.PyQt.QtCore import QThread, pyqtSignal
+from qgis.core import Qgis
 from idg.toolbelt import PlgLogger
 from idg.plugin_globals import PluginGlobals
 from idg.browser.network_manager import QgsTaskDownloadFile
 
 
-class DownloadDefaultIdgListAsync(QgsTaskDownloadFile):
+class DownloadDefaultIdgIndex(QgsTaskDownloadFile):
 
     def __init__(self, url: str):
         super().__init__(url, local_path=PluginGlobals.REMOTE_DIR_PATH / PluginGlobals.DEFAULT_CONFIG_FILE_NAME)
@@ -25,15 +23,14 @@ class DownloadDefaultIdgListAsync(QgsTaskDownloadFile):
 
 class DownloadIcon(QgsTaskDownloadFile):
     def __init__(self, platform: Plateform):
-        super().__init__('', # The URL is not known at initialization time
-                             local_path=Path())
+        super().__init__('',  # The URL is not known at initialization time
+                         local_path=Path())
         self.platform = platform
 
     def run(self):
-        if self.platform.project is None :
+        if self.platform.project is None:
             self.platform.read_project()
         icon_file_name = Path(urlparse(self.platform.icon_url).path).name
-        super().__init__(self.platform.icon_url, # Reinit superclass with knowed url
-                             local_path=PluginGlobals.REMOTE_DIR_PATH / self.platform.idg_id / icon_file_name)
+        super().__init__(self.platform.icon_url,  # Reinit superclass with knowed url
+                         local_path=PluginGlobals.REMOTE_DIR_PATH / self.platform.idg_id / icon_file_name)
         return super().run()
-
