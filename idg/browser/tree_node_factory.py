@@ -9,7 +9,7 @@ from qgis.core import QgsProject, Qgis, QgsTask, QgsMessageLog, QgsFileDownloade
 from qgis.PyQt.QtCore import QThread, pyqtSignal
 from idg.toolbelt import PlgLogger
 from idg.plugin_globals import PluginGlobals
-from idg.browser.network_manager import NetworkRequestsManager, QgsTaskDownloadFile
+from idg.browser.network_manager import QgsTaskDownloadFile
 
 
 class DownloadDefaultIdgListAsync(QgsTaskDownloadFile):
