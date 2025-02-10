@@ -1,6 +1,6 @@
 import json
-import os.path
 from pathlib import Path
+from typing import Optional
 from urllib.parse import urlparse
 
 from qgis.core import QgsProject, Qgis
@@ -105,21 +105,18 @@ class Plateform:
         PlgOptionsManager().save_from_object(settings)
 
     @property
-    def icon(self):
-        for link in self.project.metadata().links():
-            if link.name.lower().strip() == "icon":
-                icon_suffix = os.path.splitext(os.path.basename(link.url))[-1]
-                icon_file_name = str(self.idg_id) + icon_suffix
-                return QIcon(
-                    str(PluginGlobals.REMOTE_DIR_PATH / self.idg_id / icon_file_name)
-                )
+    def icon(self) -> Optional[QIcon]:
+        if self.icon_url is not None :
+            icon_file_name = Path(urlparse(self.icon_url).path).name
+            return QIcon(str(PluginGlobals.REMOTE_DIR_PATH / self.idg_id / icon_file_name))
         return None
 
     @property
-    def icon_url(self): # Quel comportement si le project est None ? (actuellement lève un AttributeError)
+    def icon_url(self) -> Optional[str]: # Quel comportement si le project est None ? (actuellement lève un AttributeError)
         for link in self.project.metadata().links():
             if link.name.lower().strip() == "icon":
                 return link.url
+        return None
 
     def download(self):
         pass
