@@ -30,21 +30,22 @@ class QgsTaskDownloadFile(QgsTask):
         self.empty_local_path = empty_local_path
         self.url = url
         self.log = PlgLogger().log
-        self.downloader = QgsFileDownloader(QUrl(self.url),
-                                            str(self.local_path),
-                                            delayStart=True)
+
 
     def cancel(self):
-        self.downloader.cancelDownload()
+        self.downloader.cancelDownload() # risque de attributError ?
         super().cancel()
 
     def run(self):
-        is_completed: bool = None
+        self.downloader = QgsFileDownloader(QUrl(self.url),
+                                            str(self.local_path),
+                                            delayStart=True)
+        is_completed: bool = False
 
         if self.empty_local_path:
             shutil.rmtree(self.local_path.parent, ignore_errors=True)
 
-        self.local_path.parent.mkdir(exist_ok=True) #Attention, local_path est un chemin de FICHIER !
+        self.local_path.parent.mkdir(exist_ok=True) # local_path est un chemin de FICHIER !
 
         loop = QEventLoop()
 
@@ -52,10 +53,11 @@ class QgsTaskDownloadFile(QgsTask):
             nonlocal is_completed
             is_completed = True
             self.setProgress(100)
+            self.taskCompleted.emit()
 
         def on_error():
-            nonlocal is_completed
-            is_completed = False
+            self.taskTerminated.emit()
+
 
         def on_progress(received, total):
             try:
@@ -66,7 +68,7 @@ class QgsTaskDownloadFile(QgsTask):
         self.downloader.downloadError.connect(on_error)
         self.downloader.downloadCompleted.connect(on_completed)
         self.downloader.downloadProgress.connect(on_progress)
-        self.downloader.downloadExited.connect(lambda: loop.quit())
+        self.downloader.downloadExited.connect(loop.quit)
         self.downloader.startDownload()
         loop.exec()
         return is_completed

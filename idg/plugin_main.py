@@ -177,12 +177,9 @@ class IdgPlugin:
         """Download the plugin config file and all the files of the active platforms.
         Hidden platform files are not downloaded."""
 
-
-        # Crash, semble causé le téléchargement de geopaysdebrest de manière incomplète
-
         self.log(self.tr("Reloading all remote files..."), log_level=Qgis.Info, push=True)
 
-        active_platforms = self._get_active_remote_plateforms()
+        active_platforms = self._get_active_remote_plateforms() # A déplacer pour lire le nouveau default_idg.json
 
         settings = PlgOptionsManager().get_plg_settings()
         config_file_url = settings.config_file_url
@@ -204,7 +201,7 @@ class IdgPlugin:
             task_dl_icon.setDescription(f"DL {idg_id} icon")
 
             # Téléchargement du fichier projet <idg>.qgz, PUIS de l'icon
-            task_dl_icon.addSubTask(task_dl_project, [], QgsTask.ParentDependsOnSubTask)
+            task_dl_icon.addSubTask(task_dl_project, [task_dl_index], QgsTask.ParentDependsOnSubTask)
 
             self.taskManager.addTask(
                 task_dl_icon
