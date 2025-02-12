@@ -115,8 +115,8 @@ class RootCollection(QgsDataCollectionItem):
 
 class PlatformCollection(QgsDataCollectionItem):
     def __init__(self, plateform, parent):
-        path = "/IDG/" + plateform.idg_id.lower()
-        QgsDataCollectionItem.__init__(self, parent, plateform.idg_id, path)
+        self.path = "/IDG/" + plateform.idg_id.lower()
+        QgsDataCollectionItem.__init__(self, parent, plateform.idg_id, self.path)
         self.platform = plateform
         self.parent = parent
         self.project = plateform.project or plateform.read_project()
