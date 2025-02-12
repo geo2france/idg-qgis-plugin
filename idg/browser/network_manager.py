@@ -33,8 +33,12 @@ class QgsTaskDownloadFile(QgsTask):
 
 
     def cancel(self):
-        self.downloader.cancelDownload() # risque de attributError ?
-        super().cancel()
+        try :
+            self.downloader.cancelDownload()
+        except AttributeError:
+            pass
+        finally:
+            super().cancel()
 
     def run(self):
         self.downloader = QgsFileDownloader(QUrl(self.url),
