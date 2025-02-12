@@ -115,29 +115,31 @@ class RootCollection(QgsDataCollectionItem):
 
 class PlatformCollection(QgsDataCollectionItem):
     def __init__(self, plateform, parent):
-        if plateform.project is None :
-            plateform.read_project()
-        self.url = plateform.url
-        self.path = "/IDG/" + plateform.idg_id.lower()
+        path = "/IDG/" + plateform.idg_id.lower()
+        QgsDataCollectionItem.__init__(self, parent, plateform.idg_id, path)
+        self.platform = plateform
         self.parent = parent
-        QgsDataCollectionItem.__init__(self, parent, plateform.idg_id, self.path)
-        self.setToolTip(plateform.abstract)
-        self.project = plateform.project
-        self.plateform = plateform
-        self.setName(plateform.title)
-        if self.project is None:
+        self.project = plateform.project or plateform.read_project()
+        if self.project is None : # Missing or unreadable file
+            # Put a warning icon ans exit
+            self.setName(plateform.idg_id)
             self.setIcon(QIcon(QgsApplication.iconPath("mIconWarning.svg")))
+            return
+
+        self.setToolTip(plateform.abstract)
+        self.setName(plateform.title)
+        if plateform.icon is not None:  # Custom icon
+            self.setIcon(plateform.icon)
         else:
-            if plateform.icon is not None:  # Custom icon
-                self.setIcon(plateform.icon)
-            else:
-                self.setIcon(
-                    QIcon(QgsApplication.iconPath("mIconFolderProject.svg"))
-                )  # Default Icon
+            self.setIcon(
+                QIcon(QgsApplication.iconPath("mIconFolderProject.svg"))
+            )  # Default Icon
 
     def createChildren(self):
         # TODO add layer/folder for each platform
         children = []
+        if self.project is None:
+            return children # No project no children
         for element in self.project.layerTreeRoot().children():
             if isinstance(element, QgsLayerTreeLayer):
                 children.append(
@@ -164,14 +166,16 @@ class PlatformCollection(QgsDataCollectionItem):
             self.parent.removeChildItem(self)
 
         actions = []
-        for link in self.project.metadata().links():
-            if link.name.lower() != "icon":
-                actions.append(set_action_url(link))
-        separator = QAction(QIcon(), "", parent)
-        separator.setSeparator(True)
-        actions.append(separator)
+        if self.project is not None : # Custom platform action
+            for link in self.project.metadata().links():
+                if link.name.lower() != "icon":
+                    actions.append(set_action_url(link))
+            separator = QAction(QIcon(), "", parent)
+            separator.setSeparator(True)
+            actions.append(separator)
+
         hide_action = QAction(self.tr("Hide"), parent)
-        hide_action.triggered.connect(lambda: hide_plateform(self.plateform))
+        hide_action.triggered.connect(lambda: hide_plateform(self.platform))
         actions.append(hide_action)
         return actions
 
