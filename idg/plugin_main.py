@@ -3,7 +3,6 @@
 """
 Main plugin module.
 """
-import os.path
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -179,7 +178,6 @@ class IdgPlugin:
 
         self.log(self.tr("Reloading all remote files..."), log_level=Qgis.Info, push=True)
 
-        active_platforms = self._get_active_remote_plateforms() # A déplacer pour lire le nouveau default_idg.json
 
         settings = PlgOptionsManager().get_plg_settings()
         config_file_url = settings.config_file_url
@@ -187,35 +185,40 @@ class IdgPlugin:
         if not end_slot:
             end_slot = self.refresh_data_provider
 
+        def dl_projects():
+            task_dl_index.taskCompleted.disconnect(dl_projects)
+            active_platforms = self._get_active_remote_plateforms()
+            for idg_id, url in active_platforms.items():
+                project_file_name = Path(urlparse(url).path).name
+                local_file_path = PluginGlobals.REMOTE_DIR_PATH / idg_id / project_file_name
+                platform = Plateform(url=url, idg_id=idg_id, read_project=False)
+                task_dl_project = QgsTaskDownloadFile(url, local_file_path, empty_local_path=True)
+                task_dl_project.setDescription(f"DL {idg_id}")
+                task_dl_icon = DownloadIcon(platform)
+                task_dl_icon.setDescription(f"DL {idg_id} icon")
+
+                # Téléchargement du fichier projet <idg>.qgz, PUIS de l'icon
+                task_dl_icon.addSubTask(task_dl_project, [], QgsTask.ParentDependsOnSubTask)
+
+                self.taskManager.addTask(
+                    task_dl_icon
+                )
+            self.taskManager.allTasksFinished.connect(all_finished)
+
         task_dl_index = DownloadDefaultIdgIndex(url=config_file_url) # Tâche pour télécharger default_idg.json
-        task_dl_index.taskTerminated.connect(lambda: self.log(self.tr("Cannot download plateforms index"), log_level=Qgis.Warning, push=True))
+        task_dl_index.taskTerminated.connect(lambda: self.log(self.tr("Cannot download platforms index"),
+                                                              log_level=Qgis.Warning, push=True))
+
+        task_dl_index.taskCompleted.connect(dl_projects) # Dl project after index download
         self.taskManager.addTask(task_dl_index)
-
-        for idg_id, url in active_platforms.items():
-            project_file_name = Path(urlparse(url).path).name
-            local_file_path = PluginGlobals.REMOTE_DIR_PATH / idg_id / project_file_name
-            platform = Plateform(url=url, idg_id=idg_id, read_project=False)
-            task_dl_project = QgsTaskDownloadFile(url, local_file_path, empty_local_path=True )
-            task_dl_project.setDescription(f"DL {idg_id}")
-            task_dl_icon = DownloadIcon(platform)
-            task_dl_icon.setDescription(f"DL {idg_id} icon")
-
-            # Téléchargement du fichier projet <idg>.qgz, PUIS de l'icon
-            task_dl_icon.addSubTask(task_dl_project, [task_dl_index], QgsTask.ParentDependsOnSubTask)
-
-            self.taskManager.addTask(
-                task_dl_icon
-            )
-
 
 
         def all_finished():
-            self.log(self.tr('All tasks finished'), log_level=Qgis.Success, push=True)
+            #self.log(self.tr('All tasks finished'), log_level=Qgis.Success, push=True)
             self.refresh_data_provider()
             self.taskManager.allTasksFinished.disconnect(all_finished)
 
 
-        self.taskManager.allTasksFinished.connect(all_finished)
 
 
     def download_tree_config_file_slot(self, file_url=None, end_slot=None):
