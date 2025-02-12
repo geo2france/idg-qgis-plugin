@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.2] - 2025-02-03
+
+### Changed
+
+- Désactivation du projet Géoplateforme à la première utilisation du plugin (en attente d'une refonte de ce projet pour améliorer son temps de chargement et sa lisibilité)
+- Mise à jour de la lecture des settings pour mieux prendre en compte leurs changements de modèle de données
+- Enregistrement des settings à leur lecture si détection d'une différence de version
+- Mise à jour du numéro de version du plugin QGIS à l'enregistrement des settings
+- Renommage de certaines fonctions et variables
+
+## [0.3.1] - 2025-01-31
+
+### Changed
+
+- Amélioration des performances en ne chargeant pas inutilement les plateformes non utilisées
+
 ## [0.3.0] - 2025-01-17
 
 ### Changed

@@ -24,29 +24,31 @@ class RemotePlatforms:
             with open(PluginGlobals.CONFIG_FILE_PATH) as f:
                 self.stock_idgs = json.load(f)
 
-        self.custom_idg = PlgOptionsManager().get_plg_settings().custom_idgs.split(",")
-        self.custom_idg.remove("")
+        self.custom_idgs = PlgOptionsManager().get_plg_settings().custom_idgs
         for e in self.stock_idgs:
             try :
                 self.plateforms.append(
                     Plateform(url=e['url'], idg_id=e['name'], read_project=read_projects)
                 )
             except TypeError:
-                log(f'Error reading default_idj.json, please reload all remote files', log_level=Qgis.Warning, push=False)
+                log('Error reading default_idj.json, please reload all remote files', log_level=Qgis.Warning, push=False)
                 # Probably use old style default_idg.json structure
 
-    def url_all(self):
-        return self.url_stock() + self.url_custom()
+    def get_url_all(self):
+        """Get the URLs of all stock platforms and non-hidden custom platforms)."""
+        return self.get_url_stock() + self.get_url_custom()
 
-    def url_custom(self):
-        return self.custom_idg
+    def get_url_custom(self):
+        """Get all the custom platforms URLs."""
+        return self.custom_idgs
 
-    def url_stock(self):
-        out = []
+    def get_url_stock(self):
+        """Get the URLs of the non-hidden custom platforms."""
+        stock_urls = []
         for k, v in self.stock_idgs.items():
-            if k not in PlgOptionsManager().get_plg_settings().hidden_idgs.split(","):
-                out.append(v)
-        return out
+            if k not in PlgOptionsManager().get_plg_settings().hidden_idgs:
+                stock_urls.append(v)
+        return stock_urls
 
 
 class Plateform:
@@ -83,7 +85,7 @@ class Plateform:
         pass
 
     def is_hidden(self):
-        if self.idg_id in PlgOptionsManager().get_plg_settings().hidden_idgs.split(","):
+        if self.idg_id in PlgOptionsManager().get_plg_settings().hidden_idgs:
             return True
         return False
 
@@ -97,10 +99,12 @@ class Plateform:
 
     def hide(self):
         settings = PlgOptionsManager().get_plg_settings()
-        hidden_pf = settings.hidden_idgs.split(",")
-        if self.idg_id not in hidden_pf:
-            hidden_pf.append(self.idg_id)
-        settings.hidden_idgs = ",".join(hidden_pf)
+
+        hidden_igs = settings.hidden_idgs
+        if self.idg_id not in hidden_igs:
+            hidden_igs.append(self.idg_id)
+        settings.hidden_idgs = hidden_igs
+
         PlgOptionsManager().save_from_object(settings)
 
     @property
