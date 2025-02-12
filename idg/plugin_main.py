@@ -192,9 +192,8 @@ class IdgPlugin:
                 local_file_path = PluginGlobals.REMOTE_DIR_PATH / idg_id / project_file_name
                 platform = Plateform(url=url, idg_id=idg_id, read_project=False)
                 task_dl_project = QgsTaskDownloadFile(url, local_file_path, empty_local_path=True)
-                task_dl_project.setDescription(f"DL {idg_id}")
                 task_dl_icon = DownloadIcon(platform)
-                task_dl_icon.setDescription(f"DL {idg_id} icon")
+                task_dl_icon.setDescription(f"Downloading {idg_id}")
 
                 # Téléchargement du fichier projet <idg>.qgz, PUIS de l'icon
                 task_dl_icon.addSubTask(task_dl_project, [], QgsTask.ParentDependsOnSubTask)
