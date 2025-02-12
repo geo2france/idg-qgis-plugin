@@ -1,39 +1,34 @@
-import logging
 import shutil
 from pathlib import Path
+from typing import Optional
 
 from qgis.core import QgsFileDownloader, QgsTask
 from qgis.PyQt.QtCore import QEventLoop, QUrl
-
-from idg.toolbelt.log_handler import PlgLogger
-
-logger = logging.getLogger(__name__)
 
 
 class QgsTaskDownloadFile(QgsTask):
     """
     QgsTask for file downloading.
     """
-    def __init__(self, url: str = None, local_path: Path = None, empty_local_path:bool = False ):
+    def __init__(self, url: str = None, local_file: Path = None, empty_local_path: bool = False):
         """
         Parameters
         ----------
         url : str
             The url of the remote file
-        local_path : Path
-            The local path (including filename !)
+        local_file : Path
+            The local file path
         empty_local_path : bool, optional
             Empty the local folder before download
         """
-        super(QgsTask, self).__init__()
-        self.local_path = local_path
+        super().__init__()
+        self.local_file = local_file
         self.empty_local_path = empty_local_path
         self.url = url
-        self.log = PlgLogger().log
-
+        self.downloader: Optional[QgsFileDownloader] = None
 
     def cancel(self):
-        try :
+        try:
             self.downloader.cancelDownload()
         except AttributeError:
             pass
@@ -41,16 +36,16 @@ class QgsTaskDownloadFile(QgsTask):
             super().cancel()
 
     def run(self):
-        self.local_path = Path(self.local_path) # Raise error if None ✔️
+        self.local_file = Path(self.local_file)  # Raise error if None ✔️
         self.downloader = QgsFileDownloader(QUrl(self.url),
-                                            str(self.local_path),
+                                            str(self.local_file),
                                             delayStart=True)
         is_completed: bool = False
 
         if self.empty_local_path:
-            shutil.rmtree(self.local_path.parent, ignore_errors=True)
+            shutil.rmtree(self.local_file.parent, ignore_errors=True)
 
-        self.local_path.parent.mkdir(exist_ok=True) # local_path est un chemin de FICHIER !
+        self.local_file.parent.mkdir(exist_ok=True)
 
         loop = QEventLoop()
 
@@ -62,7 +57,6 @@ class QgsTaskDownloadFile(QgsTask):
 
         def on_error():
             self.taskTerminated.emit()
-
 
         def on_progress(received, total):
             try:
