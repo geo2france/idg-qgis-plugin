@@ -2,8 +2,11 @@ import shutil
 from pathlib import Path
 from typing import Optional
 
-from qgis.core import QgsFileDownloader, QgsTask
+from idg.toolbelt import PlgLogger
+from qgis.core import Qgis, QgsFileDownloader, QgsTask
 from qgis.PyQt.QtCore import QEventLoop, QUrl
+
+log = PlgLogger().log
 
 
 class QgsTaskDownloadFile(QgsTask):
@@ -27,7 +30,8 @@ class QgsTaskDownloadFile(QgsTask):
         self.url = url
         self.downloader: Optional[QgsFileDownloader] = None
 
-    def cancel(self):
+    def cancel(self) -> None:
+        log(self.tr("Download canceled", log_level=Qgis.Info))
         try:
             self.downloader.cancelDownload()
         except AttributeError:
@@ -35,7 +39,13 @@ class QgsTaskDownloadFile(QgsTask):
         finally:
             super().cancel()
 
-    def run(self):
+    def finished(self, result: bool) -> None:
+        if result :
+            log(self.tr(f"File downloaded : {self.url} -> {self.local_file}"), log_level=Qgis.Success)
+        else :
+            log(self.tr(f"Cannot download file at {self.url}"), log_level=Qgis.Warning)
+
+    def run(self) -> bool:
         self.local_file = Path(self.local_file)  # Raise error if None ✔️
         self.downloader = QgsFileDownloader(QUrl(self.url),
                                             str(self.local_file),

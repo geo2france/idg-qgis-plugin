@@ -12,14 +12,17 @@ from idg.browser.network_manager import QgsTaskDownloadFile
 
 log = PlgLogger().log
 
-class DownloadDefaultIdgIndex(QgsTaskDownloadFile):
 
+class DownloadDefaultIdgIndex(QgsTaskDownloadFile):
     def __init__(self, url: str):
         super().__init__(url, local_file=PluginGlobals.REMOTE_DIR_PATH / PluginGlobals.DEFAULT_CONFIG_FILE_NAME)
         self.setDescription(self.tr("Plugin IDG : Download platforms index"))
 
     def finished(self, result):
-        log(self.tr(f'Platforms index download completed'), log_level=Qgis.Success)
+        if result :
+            log(self.tr("Platforms index download completed"), log_level=Qgis.Success)
+        else :
+            log(self.tr("Cannot download platforms index"), log_level=Qgis.Warning, push=True)
 
 
 class DownloadIcon(QgsTaskDownloadFile):

@@ -176,8 +176,7 @@ class IdgPlugin:
         """Download the plugin config file and all the files of the active platforms.
         Hidden platform files are not downloaded."""
 
-        self.log(self.tr("Reloading all remote files..."), log_level=Qgis.Info, push=True)
-
+        self.log(self.tr("Reloading all remotes files..."), log_level=Qgis.Info)
 
         settings = PlgOptionsManager().get_plg_settings()
         config_file_url = settings.config_file_url
@@ -206,22 +205,20 @@ class IdgPlugin:
             self.taskManager.allTasksFinished.connect(all_finished)
 
         task_dl_index = DownloadDefaultIdgIndex(url=config_file_url) # Tâche pour télécharger default_idg.json
-        task_dl_index.taskTerminated.connect(lambda: self.log(self.tr("Cannot download platforms index"),
-                                                              log_level=Qgis.Warning, push=True))
 
         task_dl_index.taskCompleted.connect(dl_projects) # Dl project after index download
         self.taskManager.addTask(task_dl_index)
 
 
         def all_finished():
-            #self.log(self.tr('All tasks finished'), log_level=Qgis.Success, push=True)
+            self.log(self.tr('All remotes files downloaded'), log_level=Qgis.Info, push=True)
             self.refresh_data_provider()
             self.taskManager.allTasksFinished.disconnect(all_finished)
 
 
 
 
-    def download_tree_config_file_slot(self, file_url=None, end_slot=None):
+    def download_tree_config_file_slot(self, file_url=None, end_slot=None):  # Obselete ?
         """Download the plugin config file.
         Platform files are not downloaded."""
 
@@ -242,11 +239,6 @@ class IdgPlugin:
         self.task_dl_index.start()
 
     def refresh_data_provider(self):
-        if __debug__:
-            self.log(
-                message="DEBUG - refresh_data_provider.",
-                log_level=4,
-            )
-
+        self.log(self.tr("refresh data provider"), log_level=Qgis.Info)
         if self.provider and self.provider.root:
             self.provider.root.refresh()
