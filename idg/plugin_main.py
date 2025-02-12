@@ -210,7 +210,7 @@ class IdgPlugin:
 
 
         def all_finished():
-            self.log(self.tr('All remotes files downloaded'), log_level=Qgis.Info, push=True)
+            self.log(self.tr('All remotes files downloaded'), log_level=Qgis.Info)
             self.refresh_data_provider()
             self.taskManager.allTasksFinished.disconnect(all_finished)
 
