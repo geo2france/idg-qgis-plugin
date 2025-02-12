@@ -14,7 +14,7 @@ class QgsTaskDownloadFile(QgsTask):
     """
     QgsTask for file downloading.
     """
-    def __init__(self, url: str, local_path: Path, empty_local_path:bool = False ):
+    def __init__(self, url: str = None, local_path: Path = None, empty_local_path:bool = False ):
         """
         Parameters
         ----------
@@ -26,7 +26,7 @@ class QgsTaskDownloadFile(QgsTask):
             Empty the local folder before download
         """
         super(QgsTask, self).__init__()
-        self.local_path = Path(local_path) # Ensure var is a Path
+        self.local_path = local_path
         self.empty_local_path = empty_local_path
         self.url = url
         self.log = PlgLogger().log
@@ -41,6 +41,7 @@ class QgsTaskDownloadFile(QgsTask):
             super().cancel()
 
     def run(self):
+        self.local_path = Path(self.local_path) # Raise error if None ✔️
         self.downloader = QgsFileDownloader(QUrl(self.url),
                                             str(self.local_path),
                                             delayStart=True)

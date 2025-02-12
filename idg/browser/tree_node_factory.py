@@ -23,8 +23,7 @@ class DownloadDefaultIdgIndex(QgsTaskDownloadFile):
 
 class DownloadIcon(QgsTaskDownloadFile):
     def __init__(self, platform: Plateform):
-        super().__init__('',  # The URL is not known at initialization time
-                         local_path=Path())
+        super().__init__()
         self.platform = platform
 
     def run(self):
@@ -33,6 +32,6 @@ class DownloadIcon(QgsTaskDownloadFile):
         if self.platform.icon_url is None :
             return True # No icon to download
         icon_file_name = Path(urlparse(self.platform.icon_url).path).name
-        super().__init__(self.platform.icon_url,  # Reinit superclass with knowed url
-                         local_path=PluginGlobals.REMOTE_DIR_PATH / self.platform.idg_id / icon_file_name)
+        self.url = self.platform.icon_url
+        self.local_path = PluginGlobals.REMOTE_DIR_PATH / self.platform.idg_id / icon_file_name
         return super().run()
