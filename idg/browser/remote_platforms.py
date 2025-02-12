@@ -77,7 +77,6 @@ class Plateform:
     def qgis_project_filepath(self):
         project_file_name = Path(urlparse(self.url).path).name
         local_file_path = PluginGlobals.REMOTE_DIR_PATH / self.idg_id / project_file_name
-        print(local_file_path)
         return local_file_path
 
     def is_custom(self):
