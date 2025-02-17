@@ -3,9 +3,12 @@
 """
 Main plugin module.
 """
+from pathlib import Path
+from urllib.parse import urlparse
 
+from idg.browser.network_manager import QgsTaskDownloadFile
 # PyQGIS
-from qgis.core import QgsApplication, Qgis, QgsMessageLog
+from qgis.core import QgsApplication, Qgis, QgsTask
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QIcon
@@ -20,17 +23,17 @@ from idg.toolbelt import PlgLogger, PlgTranslator
 from idg.toolbelt import PlgOptionsManager
 from idg.plugin_globals import PluginGlobals
 from idg.gui.actions import PluginActions
-from idg.browser.remote_platforms import RemotePlatforms
+from idg.browser.remote_platforms import RemotePlatforms, Plateform
 from idg.browser.browser import IdgProvider
 from idg.browser.tree_node_factory import (
-    DownloadAllIdgFilesAsync,
-    DownloadDefaultIdgListAsync,
+    DownloadDefaultIdgIndex, DownloadIcon,
 )
 
 
 # ############################################################################
 # ########## Classes ###############
 # ##################################
+
 
 
 class IdgPlugin:
@@ -54,6 +57,7 @@ class IdgPlugin:
 
         self.registry = QgsApplication.instance().dataItemProviderRegistry()
         self.provider = IdgProvider(self.iface)
+        self.taskManager = QgsApplication.taskManager()
 
         PluginGlobals.REMOTE_DIR_PATH.mkdir(exist_ok=True) # Create remote dir if no exists
         # self.iface.initializationCompleted.connect(self.post_ui_init)
@@ -143,7 +147,6 @@ class IdgPlugin:
 
     def settings_updated_slot(self):
         """Function called when the settings are updated"""
-
         self.download_all_config_files() # Provoque aussi le refresh du browser
 
     def _get_active_remote_plateforms(self):
@@ -173,32 +176,48 @@ class IdgPlugin:
         """Download the plugin config file and all the files of the active platforms.
         Hidden platform files are not downloaded."""
 
-        self.log(self.tr("Reloading all remote files..."), log_level=Qgis.Info, push=True)
-
-
-        active_platforms = self._get_active_remote_plateforms()
+        self.log(self.tr("Reloading all remotes files..."), log_level=Qgis.Info)
 
         settings = PlgOptionsManager().get_plg_settings()
         config_file_url = settings.config_file_url
 
         if not end_slot:
             end_slot = self.refresh_data_provider
-        self.taskManager = QgsApplication.taskManager()
 
-        self.task1 = DownloadDefaultIdgListAsync(url=config_file_url)
-        self.task2 = DownloadAllIdgFilesAsync(active_platforms)
-        self.taskManager.addTask(self.task1)
-        self.taskManager.addTask(self.task2)
+        def dl_projects():
+            task_dl_index.taskCompleted.disconnect(dl_projects)
+            active_platforms = self._get_active_remote_plateforms()
+            for idg_id, url in active_platforms.items():
+                project_file_name = Path(urlparse(url).path).name
+                local_file_path = PluginGlobals.REMOTE_DIR_PATH / idg_id / project_file_name
+                platform = Plateform(url=url, idg_id=idg_id, read_project=False)
+                task_dl_project = QgsTaskDownloadFile(url, local_file_path, empty_local_path=True)
+                task_dl_icon = DownloadIcon(platform)
+                task_dl_icon.setDescription(f"Downloading {idg_id}")
+
+                # Téléchargement du fichier projet <idg>.qgz, PUIS de l'icon
+                task_dl_icon.addSubTask(task_dl_project, [], QgsTask.ParentDependsOnSubTask)
+
+                self.taskManager.addTask(
+                    task_dl_icon
+                )
+            self.taskManager.allTasksFinished.connect(all_finished)
+
+        task_dl_index = DownloadDefaultIdgIndex(url=config_file_url) # Tâche pour télécharger default_idg.json
+
+        task_dl_index.taskCompleted.connect(dl_projects) # Dl project after index download
+        self.taskManager.addTask(task_dl_index)
+
 
         def all_finished():
-            self.log(self.tr('All tasks finished'), log_level=Qgis.Success, push=True)
+            self.log(self.tr('All remotes files downloaded'), log_level=Qgis.Info)
             self.refresh_data_provider()
             self.taskManager.allTasksFinished.disconnect(all_finished)
 
-        self.taskManager.allTasksFinished.connect(all_finished)
 
 
-    def download_tree_config_file_slot(self, file_url=None, end_slot=None):
+
+    def download_tree_config_file_slot(self, file_url=None, end_slot=None):  # Obselete ?
         """Download the plugin config file.
         Platform files are not downloaded."""
 
@@ -213,17 +232,12 @@ class IdgPlugin:
         if not end_slot:
             end_slot = self.refresh_data_provider
 
-        self.task1 = DownloadDefaultIdgListAsync(url=config_file_url)
-        self.task1.finished.connect(end_slot)
+        self.task_dl_index = DownloadDefaultIdgIndex(url=config_file_url)
+        self.task_dl_index.finished.connect(end_slot)
 
-        self.task1.start()
+        self.task_dl_index.start()
 
     def refresh_data_provider(self):
-        if __debug__:
-            self.log(
-                message="DEBUG - refresh_data_provider.",
-                log_level=4,
-            )
-
+        self.log(self.tr("refresh data provider"), log_level=Qgis.Info)
         if self.provider and self.provider.root:
             self.provider.root.refresh()
