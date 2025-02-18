@@ -24,8 +24,9 @@ qgisMinimumVersion=3.28
 qgisMaximumVersion=3.99
 
 # versioning
-version=0.3.2
-changelog= 0.3.2 - Désactivation du projet Géoplateforme à la première utilisation du plugin ; meilleure gestion des changements de settings
+version=0.3.3
+changelog= 0.3.3 - Amélioration des performances : téléchargement des fichiers distants en parallèle
+           0.3.2 - Désactivation du projet Géoplateforme à la première utilisation du plugin ; meilleure gestion des changements de settings
            0.3.1 - Amélioration des performances
            0.3.0 - Ajout de GeoPaysdeBrest ; meilleure intégration à QGIS ; amélioration des performances ; réorganisation de l'arborescence de dépôt et de la structure du fichier de configuration
            0.2.5 - Ajout d'une option pour télécharger ou non les fichiers des plateformes au lancement ; amélioration de la mise en page de la fenêtre des paramètres
