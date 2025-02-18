@@ -1,5 +1,7 @@
 import json
-import os.path
+from pathlib import Path
+from typing import Optional
+from urllib.parse import urlparse
 
 from qgis.core import QgsProject, Qgis
 from qgis.PyQt.QtGui import QIcon
@@ -73,9 +75,8 @@ class Plateform:
         return p
 
     def qgis_project_filepath(self):
-        suffix = os.path.splitext(os.path.basename(self.url))[-1]  # .qgs ou .qgz
-        local_file_name = self.idg_id + suffix
-        local_file_path = PluginGlobals.REMOTE_DIR_PATH / self.idg_id / local_file_name
+        project_file_name = Path(urlparse(self.url).path).name
+        local_file_path = PluginGlobals.REMOTE_DIR_PATH / self.idg_id / project_file_name
         return local_file_path
 
     def is_custom(self):
@@ -106,15 +107,21 @@ class Plateform:
         PlgOptionsManager().save_from_object(settings)
 
     @property
-    def icon(self):
-        for link in self.project.metadata().links():
-            if link.name.lower().strip() == "icon":
-                icon_suffix = os.path.splitext(os.path.basename(link.url))[-1]
-                icon_file_name = str(self.idg_id) + icon_suffix
-                return QIcon(
-                    str(PluginGlobals.REMOTE_DIR_PATH / self.idg_id / icon_file_name)
-                )
+    def icon(self) -> Optional[QIcon]:
+        if self.icon_url is not None :
+            icon_file_name = Path(urlparse(self.icon_url).path).name
+            return QIcon(str(PluginGlobals.REMOTE_DIR_PATH / self.idg_id / icon_file_name))
         return None
+
+    @property
+    def icon_url(self) -> Optional[str]:
+        try :
+            for link in self.project.metadata().links():
+                if link.name.lower().strip() == "icon":
+                    return link.url
+            return None
+        except AttributeError:
+            return None
 
     def download(self):
         pass
