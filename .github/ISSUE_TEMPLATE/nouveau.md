@@ -17,4 +17,4 @@ Description des données et de leur source.
 
 **Le projet**
 
-Merci de mettre en pièce jointe le projet au format QGZ.
+Merci de nous transmettre un lien vers le projet au format QGZ.
