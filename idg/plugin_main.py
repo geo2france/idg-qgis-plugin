@@ -74,7 +74,7 @@ class IdgPlugin:
 
         # settings page within the QGIS preferences menu
         self.options_factory = PlgOptionsFactory(
-            self.settings_updated_slot, self.download_tree_config_file_slot
+            self.settings_updated_slot, self.download_all_config_files
         )
         self.iface.registerOptionsWidgetFactory(self.options_factory)
 
@@ -208,34 +208,10 @@ class IdgPlugin:
         task_dl_index.taskCompleted.connect(dl_projects) # Dl project after index download
         self.taskManager.addTask(task_dl_index)
 
-
         def all_finished():
             self.log(self.tr('All remotes files downloaded'), log_level=Qgis.Info)
             self.refresh_data_provider()
             self.taskManager.allTasksFinished.disconnect(all_finished)
-
-
-
-
-    def download_tree_config_file_slot(self, file_url=None, end_slot=None):  # Obselete ?
-        """Download the plugin config file.
-        Platform files are not downloaded."""
-
-        self.log(
-            message="DEBUG - prepare thread for downloading plugin config file...",
-            log_level=4,
-        )
-
-        settings = PlgOptionsManager().get_plg_settings()
-        config_file_url = file_url or settings.config_file_url
-
-        if not end_slot:
-            end_slot = self.refresh_data_provider
-
-        self.task_dl_index = DownloadDefaultIdgIndex(url=config_file_url)
-        self.task_dl_index.finished.connect(end_slot)
-
-        self.task_dl_index.start()
 
     def refresh_data_provider(self):
         self.log(self.tr("refresh data provider"), log_level=Qgis.Info)
