@@ -198,8 +198,6 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
         self.plg_settings.save_from_object(default_settings)
         self.load_settings()
 
-        # Call download function
-        self.download_tree_config_file(end_slot=self.plugin_config_file_reloaded)
 
 
 
