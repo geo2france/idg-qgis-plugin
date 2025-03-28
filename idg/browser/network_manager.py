@@ -31,10 +31,10 @@ class QgsTaskDownloadFile(QgsTask):
         self.downloader: Optional[QgsFileDownloader] = None
 
     def cancel(self) -> None:
-        log(self.tr("Download canceled", log_level=Qgis.Info))
+        log(self.tr("Download canceled"), log_level=Qgis.Info)
         try:
             self.downloader.cancelDownload()
-        except AttributeError:
+        except (AttributeError, RuntimeError):
             pass
         finally:
             super().cancel()
